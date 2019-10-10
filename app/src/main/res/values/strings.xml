@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">DistanceDays</string>
+
+    <!-- 页面名称 -->
+    <string name="main_navigation_home">首页</string>
+    <string name="main_navigation_im">选房清单</string>
+    <string name="main_navigation_interest">看房日程</string>
+    <string name="main_navigation_user">我的</string>
 </resources>

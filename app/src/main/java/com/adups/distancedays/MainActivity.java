@@ -1,14 +1,24 @@
 package com.adups.distancedays;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.adups.distancedays.base.ToolBarActivity;
 
-import android.os.Bundle;
+/**
+ * 首页
+ *
+ * Created by Chang.Xiao on 2019/10/11.
+ *
+ * @version 1.0
+ */
+public class MainActivity extends ToolBarActivity {
 
-public class MainActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int getContentViewId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initPresenter() {
+
     }
 }

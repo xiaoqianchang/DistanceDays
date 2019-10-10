@@ -3,4 +3,18 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <!-- 头部文字颜色 -->
+    <color name="background_color">#ffffffff</color>
+    <color name="head_text">#0e5986</color>
+    <color name="main_head_title">#ffffff</color>
+    <color name="main_head_title_shadow_color">#ffffffff</color>
+    <color name="company_name_color">#959595</color>
+    <color name="title_base_button_text_color">#ffffff</color>
+    <color name="list_view_bg">#efefef</color>
+    <color name="main_footer_bg">#f5f5f5</color>
+
+    <!-- 底栏字体颜色 -->
+    <color name="footer_text_color_normal">#343434</color>
+    <color name="footer_text_color_selected">#FF601C</color>
 </resources>
