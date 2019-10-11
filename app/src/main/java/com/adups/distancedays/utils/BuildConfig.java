@@ -2,7 +2,7 @@ package com.adups.distancedays.utils;
 
 /**
  * 构建配置
- * 
+ * <p>
  * Created by Chang.Xiao on 2019/10/11.
  *
  * @version 1.0

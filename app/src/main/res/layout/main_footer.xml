@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/layout_footer"
-              android:layout_width="match_parent"
-              android:layout_height="50dp"
-              android:background="@color/main_footer_bg"
-              android:gravity="center_vertical"
-              android:orientation="horizontal">
+    android:id="@+id/layout_footer"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/main_footer_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
-	<RadioGroup
-		android:id="@+id/group"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent"
-		android:orientation="horizontal">
+    <RadioGroup
+        android:id="@+id/rg_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="3dp"
+        android:clipChildren="false"
+        android:orientation="horizontal">
 
-	<RadioButton
-			android:id="@+id/foot_bar_home"
-			style="@style/main_footbar_radio"
-			android:text="@string/main_navigation_home"
-			android:drawableTop="@drawable/widget_bar_home_bg"
-			android:checked="true"/>
+        <RadioButton
+            android:id="@+id/tab_distance_days"
+            style="@style/main_tab_style"
+            android:checked="true"
+            android:drawableTop="@drawable/tab_distance_days_selector"
+            android:text="@string/main_tab_distance_days" />
 
-	<RadioButton
-			android:id="@+id/foot_bar_im"
-			style="@style/main_footbar_radio"
-			android:text="@string/main_navigation_im"
-			android:drawableTop="@drawable/widget_bar_im_bg"/>
+        <RadioButton
+            android:id="@+id/tab_history"
+            style="@style/main_tab_style"
+            android:drawableTop="@drawable/tab_history_selector"
+            android:text="@string/main_tab_history" />
 
-	<RadioButton
-			android:id="@+id/foot_bar_interest"
-			style="@style/main_footbar_radio"
-			android:text="@string/main_navigation_interest"
-			android:drawableTop="@drawable/widget_bar_interest_bg"/>
+        <RadioButton
+            android:id="@+id/tab_relax"
+            style="@style/main_tab_style"
+            android:drawableTop="@drawable/tab_relax_selector"
+            android:text="@string/main_tab_relax" />
 
-	<RadioButton
-			android:id="@+id/main_footbar_user"
-			style="@style/main_footbar_radio"
-			android:text="@string/main_navigation_user"
-			android:drawableTop="@drawable/widget_bar_user_bg"/>
-
-	</RadioGroup>
+        <RadioButton
+            android:id="@+id/tab_setting"
+            style="@style/main_tab_style"
+            android:drawableTop="@drawable/tab_setting_selector"
+            android:text="@string/main_tab_setting" />
+    </RadioGroup>
 </LinearLayout>

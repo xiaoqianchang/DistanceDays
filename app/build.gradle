@@ -38,6 +38,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
@@ -45,18 +46,8 @@ dependencies {
     // EventBus 事件总线
     implementation 'org.greenrobot:eventbus:3.1.1'
 
-    // ButterKnife(8.8.1及之前为编译时注解，8.8.1之后(9.0.0-rc1及之后)为运行时注解)
-    // 7.0.1 2015/7/1发布 是使用的Bind
-    // 8.0.0 2016/4/26发布 是使用的BindView
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    implementation 'com.jakewharton:butterknife-compiler:8.8.1'
-    // 最新配置
-//    implementation('com.jakewharton:butterknife:10.2.0') {
-//        exclude group: 'com.android.support'
-//    }
-//    annotationProcessor('com.jakewharton:butterknife-compiler:10.2.0') {
-//        exclude group: 'com.android.support'
-//    }
+    implementation "com.jakewharton:butterknife:10.0.0"
+    annotationProcessor "com.jakewharton:butterknife-compiler:10.0.0"
 
     // okhttp
     implementation("com.squareup.okhttp3:okhttp:4.2.0")
@@ -81,6 +72,8 @@ dependencies {
     implementation 'com.orhanobut:logger:1.15'
 
     implementation 'com.google.android.material:material:1.0.0'
+
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 
     //内存分析以及性能分析
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
