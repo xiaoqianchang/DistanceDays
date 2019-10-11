@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.RadioGroup;
 
 import com.adups.distancedays.base.ToolBarActivity;
@@ -62,6 +63,7 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
         recoverStatus(savedInstanceState);
         mTabFragmentManager = new TabFragmentManager(this);
         mRadioGroup.setOnCheckedChangeListener(this);
+        mRadioGroup.setVisibility(View.VISIBLE);
     }
 
     /**

@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".fragment.DistanceDaysFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/main_tab_distance_days" />
+        android:layout_height="0dip"
+        android:layout_weight="1.0"
+        android:background="@color/background_color" />
 
 </FrameLayout>
