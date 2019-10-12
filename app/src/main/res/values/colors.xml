@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#F6F6F6</color>
+    <color name="colorPrimaryDark">#F6F6F6</color>
+    <color name="colorAccent">@color/color_black</color>
 
     <color name="color_white">#FFFFFFFF</color>
+    <color name="color_black">#FF000000</color>
     <!-- 头部文字颜色 -->
     <color name="background_color">#ffffffff</color>
     <color name="head_text">#0e5986</color>

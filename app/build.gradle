@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 28
@@ -15,6 +16,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/java-gen']
         }
     }
 
@@ -74,6 +81,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
 
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+
+    // 数据库
+    implementation 'org.greenrobot:greendao:3.2.2'
 
     //内存分析以及性能分析
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'

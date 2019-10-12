@@ -2,7 +2,6 @@ package com.adups.distancedays;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioGroup;
@@ -14,9 +13,6 @@ import com.adups.distancedays.fragment.RelaxFragment;
 import com.adups.distancedays.fragment.SettingFragment;
 import com.adups.distancedays.manager.TabFragmentManager;
 import com.adups.distancedays.utils.TypeConversionUtil;
-
-import java.util.Arrays;
-import java.util.List;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -64,6 +60,7 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
         mTabFragmentManager = new TabFragmentManager(this);
         mRadioGroup.setOnCheckedChangeListener(this);
         mRadioGroup.setVisibility(View.VISIBLE);
+        setMenuTypes(MENU_TYPE_SWITCH_LAYOUT, MENU_TYPE_ADD_EVENT);
     }
 
     /**
@@ -159,9 +156,7 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
                 centerStr = getString(R.string.app_name);
                 break;
         }
-        if (mCenterTitle != null) {
-            mCenterTitle.setText(centerStr);
-        }
+        setTitle(centerStr);
     }
 
     @Override

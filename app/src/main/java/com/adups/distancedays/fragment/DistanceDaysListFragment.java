@@ -42,7 +42,7 @@ public class DistanceDaysListFragment extends BaseFragment {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        mListView.setAdapter();
+//        mListView.setAdapter();
     }
 
 }
