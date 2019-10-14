@@ -16,7 +16,7 @@ public class EventEntity {
     private Long createDate;
     private Long targetDate;
 
-    @Generated
+    @Generated(hash = 893269617)
     public EventEntity() {
     }
 
@@ -24,7 +24,7 @@ public class EventEntity {
         this.id = id;
     }
 
-    @Generated
+    @Generated(hash = 1293243244)
     public EventEntity(Long id, String eventContent, Long createDate, Long targetDate) {
         this.id = id;
         this.eventContent = eventContent;

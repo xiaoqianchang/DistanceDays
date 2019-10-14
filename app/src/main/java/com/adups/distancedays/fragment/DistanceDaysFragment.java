@@ -5,6 +5,9 @@ import android.os.Bundle;
 import com.adups.distancedays.R;
 import com.adups.distancedays.base.BaseFragment;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 /**
  * 距离日
  * <p>
@@ -28,6 +31,9 @@ public class DistanceDaysFragment extends BaseFragment {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-
+        FragmentManager childFragmentManager = getChildFragmentManager();
+        FragmentTransaction transaction = childFragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, DistanceDaysListFragment.newInstance());
+        transaction.commitAllowingStateLoss();
     }
 }

@@ -6,6 +6,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioGroup;
 
+import com.adups.distancedays.activity.AddEventActivity;
 import com.adups.distancedays.base.ToolBarActivity;
 import com.adups.distancedays.fragment.DistanceDaysFragment;
 import com.adups.distancedays.fragment.HistoryFragment;
@@ -157,6 +158,17 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
                 break;
         }
         setTitle(centerStr);
+    }
+
+    @Override
+    public Runnable getMenuAddEventAction() {
+        return new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, AddEventActivity.class);
+                startActivity(intent);
+            }
+        };
     }
 
     @Override

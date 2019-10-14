@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
+
+            <!-- 事件名 -->
+            <LinearLayout
+                style="@style/style_cell_background"
+                android:layout_height="56dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/ic_event_name" />
+
+                <EditText
+                    android:id="@+id/edt_event_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:singleLine="true"
+                    tools:text="事件名称"
+                    style="@style/PreferenceTitleText"/>
+            </LinearLayout>
+
+            <include layout="@layout/view_line" />
+
+            <!-- 目标日 -->
+            <LinearLayout
+                style="@style/style_cell_background"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="56dp"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_add_target_date" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="@string/ends_date_title"
+                        android:textColor="#FF323232"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="11dp"
+                        android:text="@string/ends_date_hint"
+                        android:textColor="#FF99999B"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="33dp">
+
+                    <TextView
+                        android:id="@+id/tv_target_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        tools:text="2019-09-10 星期二"
+                        android:textColor="#FF3283D2"
+                        android:textSize="16sp"/>
+
+                    <Switch
+                        android:id="@+id/switch_calendar"
+                        style="@style/PreferenceSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:checked="true"
+                        android:showText="true"
+                        android:switchTextAppearance="@style/SwitchTextAppearance"
+                        android:textOff="@string/solar"
+                        android:textOn="@string/lunar"
+                        android:thumb="@drawable/bg_switch_calendar_thumb"
+                        android:thumbTextPadding="8dp"
+                        android:track="@drawable/bg_switch_calendar_track"/>
+                </FrameLayout>
+            </LinearLayout>
+
+            <!-- 置顶 -->
+            <RelativeLayout
+                style="@style/style_cell_background"
+                android:layout_height="56dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@mipmap/ic_add_top"
+                    android:drawablePadding="15dp"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="@string/top"
+                    android:textColor="#FF323232"
+                    android:textSize="16sp" />
+
+                <Switch
+                    android:id="@+id/switch_top"
+                    style="@style/PreferenceSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <!-- 重复 -->
+            <RelativeLayout
+                style="@style/style_cell_background"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/list_min_height">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@mipmap/ic_add_repeat"
+                    android:drawablePadding="15dp"
+                    android:gravity="center_vertical"
+                    android:singleLine="true"
+                    android:text="@string/repeat"
+                    android:textColor="#FF323232"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/spinner_repeat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:spinnerMode="dropdown"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="91dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
+
+                <Button
+                    android:id="@+id/btn_delete"
+                    android:visibility="gone"
+                    style="@style/NegativeButton"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="@string/delete" />
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:theme="@style/AddEventButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="@string/save"
+                    android:textColor="#FFFDFDFF"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

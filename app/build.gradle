@@ -66,6 +66,9 @@ dependencies {
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.1'
 
+    //JSON库
+    api 'com.alibaba:fastjson:1.1.46.sec01'
+
     // gson
     implementation 'com.google.code.gson:gson:2.8.5'
 

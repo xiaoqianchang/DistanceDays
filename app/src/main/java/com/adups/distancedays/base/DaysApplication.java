@@ -19,12 +19,12 @@ public class DaysApplication extends Application {
 
     private static final String TAG = "QuickFrame";
 
-    public static Context applicationContext;
+    public static Context mAppInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        applicationContext = getApplicationContext();
+        mAppInstance = getApplicationContext();
         LeakCanary.install(this);
 
         // Logger Settings
@@ -34,5 +34,9 @@ public class DaysApplication extends Application {
                 .hideThreadInfo()               // default shown
                 .logLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE) // default LogLevel.FULL
                 .methodOffset(2);               // default 0
+    }
+
+    public static final Context getMyApplicationContext() {
+        return mAppInstance;
     }
 }
