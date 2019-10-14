@@ -28,6 +28,9 @@ public class EventDao extends AbstractDao<EventEntity, Long> {
         public final static Property EventContent = new Property(1, String.class, "eventContent", false, "EVENT_CONTENT");
         public final static Property CreateDate = new Property(2, Long.class, "createDate", false, "CREATE_DATE");
         public final static Property TargetDate = new Property(3, Long.class, "targetDate", false, "TARGET_DATE");
+        public final static Property IsLunarCalendar = new Property(4, Boolean.class, "isLunarCalendar", false, "IS_LUNAR_CALENDAR");
+        public final static Property Top = new Property(5, Boolean.class, "top", false, "TOP");
+        public final static Property RepeatType = new Property(6, Integer.class, "repeatType", false, "REPEAT_TYPE");
     }
 
 
@@ -46,7 +49,10 @@ public class EventDao extends AbstractDao<EventEntity, Long> {
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"EVENT_CONTENT\" TEXT," + // 1: eventContent
                 "\"CREATE_DATE\" INTEGER," + // 2: createDate
-                "\"TARGET_DATE\" INTEGER);"); // 3: targetDate
+                "\"TARGET_DATE\" INTEGER," + // 3: targetDate
+                "\"IS_LUNAR_CALENDAR\" INTEGER," + // 4: isLunarCalendar
+                "\"TOP\" INTEGER," + // 5: top
+                "\"REPEAT_TYPE\" INTEGER);"); // 6: repeatType
     }
 
     /** Drops the underlying database table. */
@@ -78,6 +84,21 @@ public class EventDao extends AbstractDao<EventEntity, Long> {
         if (targetDate != null) {
             stmt.bindLong(4, targetDate);
         }
+ 
+        Boolean isLunarCalendar = entity.getIsLunarCalendar();
+        if (isLunarCalendar != null) {
+            stmt.bindLong(5, isLunarCalendar ? 1L: 0L);
+        }
+ 
+        Boolean top = entity.getTop();
+        if (top != null) {
+            stmt.bindLong(6, top ? 1L: 0L);
+        }
+ 
+        Integer repeatType = entity.getRepeatType();
+        if (repeatType != null) {
+            stmt.bindLong(7, repeatType);
+        }
     }
 
     @Override
@@ -103,6 +124,21 @@ public class EventDao extends AbstractDao<EventEntity, Long> {
         if (targetDate != null) {
             stmt.bindLong(4, targetDate);
         }
+ 
+        Boolean isLunarCalendar = entity.getIsLunarCalendar();
+        if (isLunarCalendar != null) {
+            stmt.bindLong(5, isLunarCalendar ? 1L: 0L);
+        }
+ 
+        Boolean top = entity.getTop();
+        if (top != null) {
+            stmt.bindLong(6, top ? 1L: 0L);
+        }
+ 
+        Integer repeatType = entity.getRepeatType();
+        if (repeatType != null) {
+            stmt.bindLong(7, repeatType);
+        }
     }
 
     @Override
@@ -116,7 +152,10 @@ public class EventDao extends AbstractDao<EventEntity, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // eventContent
             cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // createDate
-            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3) // targetDate
+            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3), // targetDate
+            cursor.isNull(offset + 4) ? null : cursor.getShort(offset + 4) != 0, // isLunarCalendar
+            cursor.isNull(offset + 5) ? null : cursor.getShort(offset + 5) != 0, // top
+            cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6) // repeatType
         );
         return entity;
     }
@@ -127,6 +166,9 @@ public class EventDao extends AbstractDao<EventEntity, Long> {
         entity.setEventContent(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setCreateDate(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
         entity.setTargetDate(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
+        entity.setIsLunarCalendar(cursor.isNull(offset + 4) ? null : cursor.getShort(offset + 4) != 0);
+        entity.setTop(cursor.isNull(offset + 5) ? null : cursor.getShort(offset + 5) != 0);
+        entity.setRepeatType(cursor.isNull(offset + 6) ? null : cursor.getInt(offset + 6));
      }
     
     @Override

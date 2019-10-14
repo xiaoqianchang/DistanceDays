@@ -15,6 +15,9 @@ public class EventEntity {
     private String eventContent;
     private Long createDate;
     private Long targetDate;
+    private Boolean isLunarCalendar;
+    private Boolean top;
+    private Integer repeatType;
 
     @Generated(hash = 893269617)
     public EventEntity() {
@@ -24,12 +27,15 @@ public class EventEntity {
         this.id = id;
     }
 
-    @Generated(hash = 1293243244)
-    public EventEntity(Long id, String eventContent, Long createDate, Long targetDate) {
+    @Generated(hash = 618707227)
+    public EventEntity(Long id, String eventContent, Long createDate, Long targetDate, Boolean isLunarCalendar, Boolean top, Integer repeatType) {
         this.id = id;
         this.eventContent = eventContent;
         this.createDate = createDate;
         this.targetDate = targetDate;
+        this.isLunarCalendar = isLunarCalendar;
+        this.top = top;
+        this.repeatType = repeatType;
     }
 
     public Long getId() {
@@ -62,6 +68,30 @@ public class EventEntity {
 
     public void setTargetDate(Long targetDate) {
         this.targetDate = targetDate;
+    }
+
+    public Boolean getIsLunarCalendar() {
+        return isLunarCalendar;
+    }
+
+    public void setIsLunarCalendar(Boolean isLunarCalendar) {
+        this.isLunarCalendar = isLunarCalendar;
+    }
+
+    public Boolean getTop() {
+        return top;
+    }
+
+    public void setTop(Boolean top) {
+        this.top = top;
+    }
+
+    public Integer getRepeatType() {
+        return repeatType;
+    }
+
+    public void setRepeatType(Integer repeatType) {
+        this.repeatType = repeatType;
     }
 
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/date_card_small_day_passed" />
+    <corners
+        android:bottomLeftRadius="0dp"
+        android:bottomRightRadius="@dimen/date_card_small_radius"
+        android:topLeftRadius="0dp"
+        android:topRightRadius="@dimen/date_card_small_radius" />
+</shape>

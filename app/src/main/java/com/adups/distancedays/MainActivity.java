@@ -61,7 +61,6 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
         mTabFragmentManager = new TabFragmentManager(this);
         mRadioGroup.setOnCheckedChangeListener(this);
         mRadioGroup.setVisibility(View.VISIBLE);
-        setMenuTypes(MENU_TYPE_SWITCH_LAYOUT, MENU_TYPE_ADD_EVENT);
     }
 
     /**
@@ -143,21 +142,39 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
         switch (mCurrentTabResId) {
             case TAB_DISTANCE_DAYS:
                 centerStr = getString(R.string.main_tab_distance_days);
+                setMenuTypes(MENU_TYPE_SWITCH_LAYOUT, MENU_TYPE_ADD_EVENT);
                 break;
             case TAB_HISTORY:
                 centerStr = getString(R.string.main_tab_history);
+                clearMenuActionBar();
                 break;
             case TAB_RELAX:
                 centerStr = getString(R.string.main_tab_relax);
+                clearMenuActionBar();
                 break;
             case TAB_SETTING:
                 centerStr = getString(R.string.main_tab_setting);
+                clearMenuActionBar();
                 break;
             default:
                 centerStr = getString(R.string.app_name);
                 break;
         }
         setTitle(centerStr);
+    }
+
+    @Override
+    public Runnable getMenuSwitchLayoutAction() {
+        return new Runnable() {
+            @Override
+            public void run() {
+                // 切换视图
+                if (mCurrentFragment instanceof DistanceDaysFragment) {
+                    DistanceDaysFragment fragment = (DistanceDaysFragment) MainActivity.this.mCurrentFragment;
+                    fragment.switchView(true);
+                }
+            }
+        };
     }
 
     @Override

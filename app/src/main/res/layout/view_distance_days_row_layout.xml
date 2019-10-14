@@ -37,6 +37,7 @@
         android:textSize="36sp" />
 
     <TextView
+        android:id="@+id/tv_day"
         android:layout_width="63dp"
         android:layout_height="match_parent"
         android:background="#FFEB7338"

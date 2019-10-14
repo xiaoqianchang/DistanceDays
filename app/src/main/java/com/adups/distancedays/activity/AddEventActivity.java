@@ -2,6 +2,7 @@ package com.adups.distancedays.activity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,7 +20,9 @@ import com.adups.distancedays.base.ToolBarActivity;
 import com.adups.distancedays.db.DBHelper;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
+import com.adups.distancedays.event.EditEventSuccess;
 import com.adups.distancedays.utils.DateUtils;
+import com.adups.distancedays.utils.EventUtil;
 import com.adups.distancedays.utils.ToastUtil;
 
 import java.lang.ref.WeakReference;
@@ -58,6 +61,7 @@ public class AddEventActivity extends ToolBarActivity {
     private boolean mIsLunarCalendar; // 是否为阴历
     private Calendar mTargetCalendar;
     private EventDao mEventDao;
+    private int mRepeatType; // 事件重复类型
 
     @Override
     protected int getContentViewId() {
@@ -90,6 +94,7 @@ public class AddEventActivity extends ToolBarActivity {
         spinnerRepeat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mRepeatType = position;
                 spinnerRepeat.setPrompt(repeatTypes[position]);
             }
 
@@ -146,7 +151,11 @@ public class AddEventActivity extends ToolBarActivity {
         event.setEventContent(eventName);
         event.setCreateDate(DateUtils.getCurrentTimeMillis());
         event.setTargetDate(mTargetCalendar.getTimeInMillis());
+        event.setIsLunarCalendar(switchCalendar.isChecked());
+        event.setTop(switchTop.isChecked());
+        event.setRepeatType(mRepeatType);
         mEventDao.insert(event);
+        EventUtil.post(new EditEventSuccess());
         finish();
     }
 

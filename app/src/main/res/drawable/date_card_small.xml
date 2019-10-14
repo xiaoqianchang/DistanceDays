@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <solid android:color="@color/back_ground_color" />
+    <corners android:radius="@dimen/date_card_small_radius" />
+</shape>

@@ -94,7 +94,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 在该方法中进行数据初始化，当NetworkError，点击NetworkErrorView,会自动重新执行该方法
      */
-    private void loadData() {
+    protected void loadData() {
     }
 
     /**

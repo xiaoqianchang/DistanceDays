@@ -6,7 +6,7 @@
     tools:context=".fragment.DistanceDaysGridFragment">
 
     <GridView
-        android:id="@+id/date_card_grid"
+        android:id="@+id/gv_card_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="8dp"
@@ -16,7 +16,6 @@
         android:listSelector="@color/color_transparent"
         android:numColumns="2"
         android:scrollbars="none"
-        android:verticalSpacing="0dp"
-        android:visibility="gone" />
+        android:verticalSpacing="0dp" />
 
 </FrameLayout>

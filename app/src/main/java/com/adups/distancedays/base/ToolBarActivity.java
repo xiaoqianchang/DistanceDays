@@ -11,6 +11,7 @@ import com.adups.distancedays.R;
 import com.adups.distancedays.utils.SystemUtils;
 import com.google.android.material.appbar.AppBarLayout;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -108,21 +109,23 @@ public abstract class ToolBarActivity extends BaseActivity {
      */
     public void setMenuTypes(Integer... menuType) {
         this.mMenuTypes = Arrays.asList(menuType);
+        updateMenuActionBar();
+    }
+
+    public void clearMenuActionBar() {
+        this.mMenuTypes = Arrays.asList(MENU_TYPE_BASE);
+        updateMenuActionBar();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        updateMenuActionBar();
     }
 
     public void updateMenuActionBar() {
         invalidateOptionsMenu();
     }
 
-    public Runnable getMenuSearchAction() {
-        return null;
-    }
     public Runnable getMenuSwitchLayoutAction() {
         return null;
     }
