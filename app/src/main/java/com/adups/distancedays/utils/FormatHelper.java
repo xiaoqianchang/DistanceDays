@@ -19,6 +19,7 @@ import java.util.Date;
  * @version 1.0
  */
 public class FormatHelper {
+
     public static String getDateCardTitle(String title, boolean isToday, boolean isOutOfDate, boolean hasEnded, Context context) {
         return getDateCardTitle(title, isToday, isOutOfDate, hasEnded, context, PreferenceManager.getDefaultSharedPreferences(context).getBoolean("preference_key_hide_description", false));
     }
@@ -26,15 +27,15 @@ public class FormatHelper {
     public static String getDateCardTitle(EventModel data, Context context) {
         boolean z = false;
         boolean isHideDescription = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("preference_key_hide_description", false);
-        String title = data.getTitle();
+        String title = data.getEventTitle();
         if (data.getDays() == 0) {
             z = true;
         }
-        return getDateCardTitle(title, z, data.isOutOfDate(), data.isHasEndDate(), context, isHideDescription);
+        return getDateCardTitle(title, z, data.isOutOfTargetDate(), data.isHasEndDate(), context, isHideDescription);
     }
 
     public static String getDateCardTitle(EventModel data, boolean isHideDescription, Context context) {
-        return getDateCardTitle(data.getTitle(), data.getDays() == 0, data.isOutOfDate(), data.isHasEndDate(), context, isHideDescription);
+        return getDateCardTitle(data.getEventTitle(), data.getDays() == 0, data.isOutOfTargetDate(), data.isHasEndDate(), context, isHideDescription);
     }
 
     public static String getDateCardTitle(String title, boolean isToday, boolean isOutOfDate, boolean hasEnded, Context context, boolean isHideDescription) {
@@ -56,11 +57,11 @@ public class FormatHelper {
     public static String getDateCardTitlePartBold(EventModel data, Context context) {
         boolean z = false;
         boolean isHideDescription = PreferenceManager.getDefaultSharedPreferences(context).getBoolean("preference_key_hide_description", false);
-        String title = data.getTitle();
+        String title = data.getEventTitle();
         if (data.getDays() == 0) {
             z = true;
         }
-        return getDateCardTitlePartBold(title, z, data.isOutOfDate(), data.isOutOfDate(), context, isHideDescription);
+        return getDateCardTitlePartBold(title, z, data.isOutOfTargetDate(), data.isOutOfTargetDate(), context, isHideDescription);
     }
 
     public static String getDateCardTitlePartBold(String title, boolean isToday, boolean isOutOfDate, boolean hasEnded, Context context, boolean isHideDescription) {

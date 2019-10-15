@@ -5,7 +5,6 @@ import android.os.Bundle;
 import butterknife.BindView;
 
 import android.text.Html;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,6 +13,7 @@ import com.adups.distancedays.adapter.CommonAdapter;
 import com.adups.distancedays.adapter.ViewHolder;
 import com.adups.distancedays.base.BaseFragment;
 import com.adups.distancedays.db.DBHelper;
+import com.adups.distancedays.db.EntityConverter;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
 import com.adups.distancedays.model.EventModel;
@@ -65,7 +65,8 @@ public class DistanceDaysListFragment extends BaseFragment {
         List<EventEntity> entityList = eventDao.loadAll();
         // 转换数据表模型为界面数据模型
         List<EventModel> eventModels = convertToEventModel(entityList);
-        refreshHeaderView(eventModels);
+        EventModel headerViewEventModel = getHeaderViewEventModel(eventModels);
+        refreshHeaderView(headerViewEventModel);
 
         mListView.setAdapter(new CommonAdapter<EventModel>(getContext(), R.layout.view_distance_days_row_layout, eventModels) {
             @Override
@@ -73,7 +74,7 @@ public class DistanceDaysListFragment extends BaseFragment {
                 holder.setText(R.id.tv_event_content, Html.fromHtml(FormatHelper.getDateCardTitlePartBold(eventModel, this.mContext)).toString());
                 holder.setText(R.id.tv_event_date, String.valueOf(eventModel.getDays()));
 //                holder.c.setText(this.mContext.getResources().getQuantityString(R.plurals.plurals_day_in_card, data.getDays()));
-                if (eventModel.isOutOfDate()) {
+                if (eventModel.isOutOfTargetDate()) {
                     holder.getView(R.id.tv_event_date).setBackground(mContext.getResources().getDrawable(R.drawable.bg_date_card_small_date_passed));
                     holder.getView(R.id.tv_day).setBackground(mContext.getResources().getDrawable(R.drawable.bg_date_card_small_day_passed));
                 } else {
@@ -85,14 +86,34 @@ public class DistanceDaysListFragment extends BaseFragment {
         });
     }
 
-    private void refreshHeaderView(List<EventModel> eventModels) {
+    /**
+     * header 显示规则：
+     * 1. 事件中如果有置顶的就显示置顶数据，
+     * 2. 如果没有就显示列表数据第一条，
+     * 3. 新增置顶数据时，之前的置顶数据改为非置顶即所有数据中只有一条置顶数据
+     *
+     * @param eventModels
+     */
+    private EventModel getHeaderViewEventModel(List<EventModel> eventModels) {
         if (ToolUtil.isEmptyCollects(eventModels))
+            return null;
+        for (EventModel model : eventModels) {
+            if (model.isTop()) {
+                return model;
+            }
+        }
+        return eventModels.get(0);
+    }
+
+    private void refreshHeaderView(EventModel eventModel) {
+        if (eventModel == null) {
             return;
-        EventModel eventModel = eventModels.get(0);
-        tvDateTitle.setText(eventModel.getTitle());
+        }
+        tvDateTitle.setText(eventModel.getEventTitle());
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(eventModel.getDueDate());
-        tvDateSubtitle.setText("目标日：" + DateUtils.getFormatedDate(getContext(), calendar, 2, eventModel.isLunarCalendar()));
+        calendar.setTimeInMillis(eventModel.getTargetTime());
+        String formatDate = DateUtils.getFormatedDate(getContext(), calendar, 2, eventModel.isLunarCalendar());
+        tvDateSubtitle.setText(getString(R.string.string_target_date, formatDate));
         tvDays.setText(String.valueOf(eventModel.getDays()));
     }
 
@@ -102,42 +123,12 @@ public class DistanceDaysListFragment extends BaseFragment {
         }
         List<EventModel> list = new ArrayList<>();
         for (EventEntity entity : entityList) {
-            EventModel eventModel = convertToEventModel(entity);
+            EventModel eventModel = EntityConverter.convertToEventModel(entity);
             if (eventModel != null) {
                 list.add(eventModel);
             }
         }
         return list;
-    }
-
-    private EventModel convertToEventModel(EventEntity model) {
-        if (model == null) {
-            return null;
-        }
-
-        EventModel cardItem = new EventModel();
-        Calendar dueDate = Calendar.getInstance();
-        Calendar todayDate = Calendar.getInstance();
-        dueDate.setTimeInMillis(model.getTargetDate());
-//        dueDate = getRepeatedDueDateNew(dueDate, model.getRepeatType(), model.getInterval(), model.isLunarCalendar());
-        int days = (int) DateUtils.getDateOffset(dueDate, todayDate);
-        cardItem.setOutOfDate(days < 0);
-//        int requestCodeToday = model.getAlarmRequestCodeToday();
-//        int requestCodeYesterday = model.getAlarmRequestCodeYesterDay();
-//        cardItem.setRequestCodeToday(requestCodeToday);
-//        cardItem.setRequestCodeYesterday(requestCodeYesterday);
-        cardItem.setDueDate(model.getTargetDate());
-        cardItem.setDays(Math.abs(days));
-        cardItem.setTitle(model.getEventContent());
-        cardItem.setLunarCalendar(model.getIsLunarCalendar());
-        cardItem.setHasEndDate(false);
-        cardItem.setRepeatType(model.getRepeatType());
-//        int interval = model.getInterval();
-//        if (model.getRepeatType() != 0 && interval == 0) {
-//            interval = 1;
-//        }
-//        cardItem.setRepeatInterval(interval);
-        return cardItem;
     }
 
     public void refreshUi() {

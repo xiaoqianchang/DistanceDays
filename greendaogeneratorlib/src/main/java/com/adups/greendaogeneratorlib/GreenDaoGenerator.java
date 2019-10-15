@@ -37,16 +37,12 @@ public class GreenDaoGenerator {
         entity.setDbName("event");
         entity.setClassNameDao("EventDao");
         entity.addIdProperty(); // 定义一个主键
-        entity.addStringProperty("eventContent");
+        entity.addStringProperty("eventTitle");
         entity.addLongProperty("createDate");
         entity.addLongProperty("targetDate");
         entity.addBooleanProperty("isLunarCalendar"); // 是否为阴历
-        entity.addBooleanProperty("top"); // 是否置顶
+        entity.addBooleanProperty("isTop"); // 是否置顶
         entity.addIntProperty("repeatType"); // 重复类型 0:不重复 1：每周重复 2：每月重复 3：每年重复
-
-        // 可以使用此方法定义实体类的属性名和数据库的列名不同，如下实体类名为 sex，列名为_SEX
-//        entity.addStringProperty("sex").columnName("_sex");
-
         return entity;
     }
 }

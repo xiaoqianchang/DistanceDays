@@ -17,6 +17,7 @@ import com.adups.distancedays.adapter.CommonAdapter;
 import com.adups.distancedays.adapter.ViewHolder;
 import com.adups.distancedays.base.BaseFragment;
 import com.adups.distancedays.db.DBHelper;
+import com.adups.distancedays.db.EntityConverter;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
 import com.adups.distancedays.model.EventModel;
@@ -70,9 +71,9 @@ public class DistanceDaysGridFragment extends BaseFragment {
                 holder.setText(R.id.title, Html.fromHtml(FormatHelper.getDateCardTitlePartBold(eventModel, this.mContext)).toString());
                 holder.setText(R.id.date, String.valueOf(eventModel.getDays()));
                 Calendar instance = Calendar.getInstance();
-                instance.setTimeInMillis(eventModel.getDueDate());
-                holder.setText(R.id.due_date, DateUtils.getFormatedDate(mContext, instance, 2, false));
-                if (eventModel.isOutOfDate()) {
+                instance.setTimeInMillis(eventModel.getTargetTime());
+                holder.setText(R.id.due_date, DateUtils.getFormatedDate(mContext, instance, 2, eventModel.isLunarCalendar()));
+                if (eventModel.isOutOfTargetDate()) {
                     holder.getView(R.id.title).setBackground(mContext.getResources().getDrawable(R.drawable.bg_date_card_small_date_passed));
                 } else {
                     holder.getView(R.id.title).setBackground(mContext.getResources().getDrawable(R.drawable.bg_date_card_small_date));
@@ -88,42 +89,12 @@ public class DistanceDaysGridFragment extends BaseFragment {
         }
         List<EventModel> list = new ArrayList<>();
         for (EventEntity entity : entityList) {
-            EventModel eventModel = convertToEventModel(entity);
+            EventModel eventModel = EntityConverter.convertToEventModel(entity);
             if (eventModel != null) {
                 list.add(eventModel);
             }
         }
         return list;
-    }
-
-    private EventModel convertToEventModel(EventEntity model) {
-        if (model == null) {
-            return null;
-        }
-
-        EventModel cardItem = new EventModel();
-        Calendar dueDate = Calendar.getInstance();
-        Calendar todayDate = Calendar.getInstance();
-        dueDate.setTimeInMillis(model.getTargetDate());
-        //        dueDate = getRepeatedDueDateNew(dueDate, model.getRepeatType(), model.getInterval(), model.isLunarCalendar());
-        int days = (int) DateUtils.getDateOffset(dueDate, todayDate);
-        cardItem.setOutOfDate(days < 0);
-        //        int requestCodeToday = model.getAlarmRequestCodeToday();
-        //        int requestCodeYesterday = model.getAlarmRequestCodeYesterDay();
-        //        cardItem.setRequestCodeToday(requestCodeToday);
-        //        cardItem.setRequestCodeYesterday(requestCodeYesterday);
-        cardItem.setDueDate(model.getTargetDate());
-        cardItem.setDays(Math.abs(days));
-        cardItem.setTitle(model.getEventContent());
-        cardItem.setLunarCalendar(model.getIsLunarCalendar());
-        cardItem.setHasEndDate(false);
-        cardItem.setRepeatType(model.getRepeatType());
-        //        int interval = model.getInterval();
-        //        if (model.getRepeatType() != 0 && interval == 0) {
-        //            interval = 1;
-        //        }
-        //        cardItem.setRepeatInterval(interval);
-        return cardItem;
     }
 
     public void refreshUi() {

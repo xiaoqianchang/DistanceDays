@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <solid android:color="#FF0385E1"/>
+    <size android:width="50dp" android:height="28dp"/>
+    <corners android:radius="3.5dp"/>
+</shape>
+
+<!--
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="true">
         <shape>
@@ -11,9 +20,9 @@
     <item android:state_checked="false">
         <shape>
             <solid android:color="#FFE0E0E0"/>
-            <!--设置大小时，应注意Switch显示时UI内容的高度会以此高度为依据-->
             <size android:width="49dp" android:height="28dp"/>
             <corners android:radius="3.5dp"/>
         </shape>
     </item>
 </selector>
+-->

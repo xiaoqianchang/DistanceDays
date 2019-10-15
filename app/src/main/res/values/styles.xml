@@ -132,6 +132,11 @@
         <item name="colorButtonNormal">#FF0385E1</item>
     </style>
 
+    <!-- DatePickerDialog theme -->
+    <style name="DatePickerDialogTheme" parent="Base.Theme.AppCompat.Light.Dialog.FixedSize">
+    </style>
+
+
 
     <!-- 待删减调整 -->
     <style name="PreferenceButtonTextSummaryText">
@@ -169,7 +174,8 @@
         <item name="android:gravity">clip_horizontal</item>
     </style>
     <style name="SwitchTextAppearance">
-        <item name="android:textColor">@color/bg_switch_calendar_color</item>
+<!--        <item name="android:textColor">@color/bg_switch_calendar_color</item>-->
+        <item name="android:textColor">@color/color_white</item>
         <item name="android:textSize">12sp</item>
     </style>
     <style name="NegativeButton">

@@ -13,6 +13,10 @@
     <string name="action_add_event">AddEvent</string>
     <string name="action_edit_event">EditEvent</string>
 
+    <string name="string_target_date">目标日: %1$s</string>
+    
+    <string name="toast_add_event_failure">保存事件失败</string>
+
 
     <!-- 待删减调整 -->
     <string name="abc_action_bar_home_description">转到主屏幕</string>

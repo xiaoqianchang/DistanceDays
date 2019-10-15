@@ -36,6 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="11dp"
+                    android:maxLength="10"
                     android:singleLine="true"
                     tools:text="事件名称"
                     style="@style/PreferenceTitleText"/>
@@ -98,7 +99,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|center"
-                        android:checked="true"
                         android:showText="true"
                         android:switchTextAppearance="@style/SwitchTextAppearance"
                         android:textOff="@string/solar"

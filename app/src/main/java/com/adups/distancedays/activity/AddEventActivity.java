@@ -24,12 +24,14 @@ import com.adups.distancedays.event.EditEventSuccess;
 import com.adups.distancedays.utils.DateUtils;
 import com.adups.distancedays.utils.EventUtil;
 import com.adups.distancedays.utils.ToastUtil;
+import com.adups.distancedays.utils.ToolUtil;
 
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import androidx.fragment.app.DialogFragment;
 import butterknife.BindView;
@@ -114,7 +116,7 @@ public class AddEventActivity extends ToolBarActivity {
                 datePickerFragment.show(getSupportFragmentManager(), "datePicker");
 
 //                Calendar calendar = Calendar.getInstance();
-//                new DatePickerDialog(mContext,new DatePickerDialog.OnDateSetListener() {
+//                new DatePickerDialog(mContext, DatePickerDialog.THEME_DEVICE_DEFAULT_LIGHT, new DatePickerDialog.OnDateSetListener() {
 //                    @Override
 //                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 //                        calendar.set(year,monthOfYear,dayOfMonth);
@@ -148,15 +150,44 @@ public class AddEventActivity extends ToolBarActivity {
             return;
         }
         EventEntity event = new EventEntity();
-        event.setEventContent(eventName);
+        event.setEventTitle(eventName);
         event.setCreateDate(DateUtils.getCurrentTimeMillis());
         event.setTargetDate(mTargetCalendar.getTimeInMillis());
         event.setIsLunarCalendar(switchCalendar.isChecked());
-        event.setTop(switchTop.isChecked());
+        event.setIsTop(switchTop.isChecked());
         event.setRepeatType(mRepeatType);
-        mEventDao.insert(event);
-        EventUtil.post(new EditEventSuccess());
-        finish();
+        // 如果当前插入事件是置顶，把之前置顶数据改为非置顶
+        if (switchTop.isChecked()) {
+            updateUnTopFromDB();
+        }
+        long id = mEventDao.insert(event);
+        if (id > 0) {
+            EventUtil.post(new EditEventSuccess());
+            finish();
+        } else {
+            ToastUtil.showToast(mContext, R.string.toast_add_event_failure);
+        }
+    }
+
+    /**
+     * 把之前置顶数据改为非置顶
+     *
+     * @return
+     */
+    private boolean updateUnTopFromDB() {
+        try {
+            List<EventEntity> list = mEventDao.queryBuilder().where(EventDao.Properties.IsTop.eq(switchTop.isChecked())).list();
+            if (!ToolUtil.isEmptyCollects(list)) {
+                for (EventEntity entity : list) {
+                    entity.setIsTop(false);
+                    mEventDao.update(entity);
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private void refreshUi() {
@@ -179,7 +210,7 @@ public class AddEventActivity extends ToolBarActivity {
             int year = Integer.parseInt(dateStrArr[0]);
             int month = Integer.parseInt(dateStrArr[1]) - 1;
             int day = Integer.parseInt(dateStrArr[2]);
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            return new DatePickerDialog(getActivity(), R.style.DatePickerDialogTheme, this, year, month, day);
         }
 
         @Override
