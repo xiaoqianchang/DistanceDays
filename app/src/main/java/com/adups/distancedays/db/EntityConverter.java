@@ -28,6 +28,7 @@ public class EntityConverter {
         model.setTop(entity.getIsTop());
         model.setRepeatType(entity.getRepeatType());
 
+        model.setEventId(entity.getId());
         Calendar targetDate = Calendar.getInstance();
         Calendar todayDate = Calendar.getInstance();
         targetDate.setTimeInMillis(entity.getTargetDate());
@@ -38,5 +39,21 @@ public class EntityConverter {
         model.setLunarCalendar(entity.getIsLunarCalendar());
         model.setRepeatType(entity.getRepeatType());
         return model;
+    }
+
+    public static EventEntity convertToEventEntity(EventModel model) {
+        if (model == null) {
+            return null;
+        }
+
+        EventEntity entity = new EventEntity();
+        entity.setId(model.getEventId());
+        entity.setEventTitle(model.getEventTitle());
+        entity.setCreateDate(model.getCreateTime());
+        entity.setTargetDate(model.getTargetTime());
+        entity.setIsLunarCalendar(model.isLunarCalendar());
+        entity.setIsTop(model.isTop());
+        entity.setRepeatType(model.getRepeatType());
+        return entity;
     }
 }

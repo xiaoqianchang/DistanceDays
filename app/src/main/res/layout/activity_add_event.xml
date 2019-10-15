@@ -171,11 +171,14 @@
                 <Button
                     android:id="@+id/btn_delete"
                     android:visibility="gone"
-                    style="@style/NegativeButton"
+                    android:theme="@style/DeleteEventButtonStyle"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    android:text="@string/delete" />
+                    android:layout_marginRight="22dp"
+                    android:text="@string/delete"
+                    android:textColor="#FF858585"
+                    android:textSize="16sp"/>
 
                 <Button
                     android:id="@+id/btn_save"

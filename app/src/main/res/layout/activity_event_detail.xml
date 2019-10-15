@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar_layout" />
+
+    <FrameLayout
+        android:id="@+id/fl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/ic_event_detail_bg"
+        android:padding="@dimen/view_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="28dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="2dp"
+            app:contentPadding="-3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_detail_date_title"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:minHeight="52dp"
+                    android:padding="8dp"
+                    android:textColor="@color/color_white"
+                    android:textSize="20sp"
+                    tools:text="就是今天" />
+
+                <TextView
+                    android:id="@+id/tv_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:minHeight="170dp"
+                    android:textColor="#FF323232"
+                    android:textSize="93sp"
+                    android:textStyle="bold"
+                    tools:text="5" />
+
+                <include layout="@layout/view_line" />
+
+                <TextView
+                    android:id="@+id/tv_due_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:minHeight="52dp"
+                    android:padding="8dp"
+                    android:textColor="#FF565656"
+                    android:textSize="16sp"
+                    tools:text="目标日：2020-01-25 星期六" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="85dp"
+        android:backgroundTint="@color/color_white"
+        app:borderWidth="0dp"
+        app:layout_anchor="@id/fl_container"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@mipmap/ic_share"
+        app:elevation="5dp"
+        app:pressedTranslationZ="10dp"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

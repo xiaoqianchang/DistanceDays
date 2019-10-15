@@ -18,9 +18,12 @@ import android.widget.TextView;
 import com.adups.distancedays.R;
 import com.adups.distancedays.base.ToolBarActivity;
 import com.adups.distancedays.db.DBHelper;
+import com.adups.distancedays.db.EntityConverter;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
 import com.adups.distancedays.event.EditEventSuccess;
+import com.adups.distancedays.model.EventModel;
+import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.DateUtils;
 import com.adups.distancedays.utils.EventUtil;
 import com.adups.distancedays.utils.ToastUtil;
@@ -47,6 +50,9 @@ import butterknife.OnClick;
  */
 public class AddEventActivity extends ToolBarActivity {
 
+    public static final int TYPE_ADD = 1; // 新增事件
+    public static final int TYPE_EDIT = 2; // 编辑事件
+
     @BindView(R.id.edt_event_name)
     EditText edtEventName;
     @BindView(R.id.tv_target_date)
@@ -57,13 +63,17 @@ public class AddEventActivity extends ToolBarActivity {
     Switch switchTop;
     @BindView(R.id.spinner_repeat)
     Spinner spinnerRepeat;
+    @BindView(R.id.btn_delete)
+    Button btnDelete;
     @BindView(R.id.btn_save)
     Button btnSave;
 
+    private int mType = TYPE_ADD; // 默认为新增事件
     private boolean mIsLunarCalendar; // 是否为阴历
     private Calendar mTargetCalendar;
     private EventDao mEventDao;
     private int mRepeatType; // 事件重复类型
+    private EventModel mEditEventModel; // 需要编辑的model
 
     @Override
     protected int getContentViewId() {
@@ -72,7 +82,6 @@ public class AddEventActivity extends ToolBarActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        setTitle("新增事件");
         mEventDao = DBHelper.getInstance(mContext).getDaoSession().getEventDao();
         parseBundle();
         initViews();
@@ -80,15 +89,14 @@ public class AddEventActivity extends ToolBarActivity {
     }
 
     private void parseBundle() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            mType = intent.getIntExtra(BundleConstants.KEY_TYPE, TYPE_ADD);
+            mEditEventModel = (EventModel) intent.getSerializableExtra(BundleConstants.KEY_MODEL);
+        }
     }
 
     private void initViews() {
-//        spinnerRepeat.setDropDownWidth(400); //下拉宽度
-//        spinnerRepeat.setDropDownHorizontalOffset(100); //下拉的横向偏移
-//        spinnerRepeat.setDropDownVerticalOffset(100); //下拉的纵向偏移
-        //mSpinnerSimple.setBackgroundColor(AppUtil.getColor(instance,R.color.wx_bg_gray)); //下拉的背景色
-        //spinner mode ： dropdown or dialog , just edit in layout xml
-        //mSpinnerSimple.setPrompt("Spinner Title"); //弹出框标题，在dialog下有效
         String[] repeatTypes = getResources().getStringArray(R.array.repeat_type);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, repeatTypes);
@@ -107,7 +115,7 @@ public class AddEventActivity extends ToolBarActivity {
         });
     }
 
-    @OnClick({R.id.tv_target_date, R.id.switch_top, R.id.btn_save})
+    @OnClick({R.id.tv_target_date, R.id.btn_delete, R.id.btn_save})
     public void onClick(View view) {
         int vId = view.getId();
         switch (vId) {
@@ -126,7 +134,8 @@ public class AddEventActivity extends ToolBarActivity {
 //                        calendar.get(Calendar.DAY_OF_MONTH)
 //                ).show();
                 break;
-            case R.id.switch_top:
+            case R.id.btn_delete:
+                deleteEvent();
                 break;
             case R.id.btn_save:
                 addEvent();
@@ -134,10 +143,21 @@ public class AddEventActivity extends ToolBarActivity {
         }
     }
 
+    /**
+     * 删除事件
+     */
+    private void deleteEvent() {
+        if (mEditEventModel != null) {
+            mEventDao.delete(EntityConverter.convertToEventEntity(mEditEventModel));
+            EventUtil.post(new EditEventSuccess());
+            finish();
+        }
+    }
+
     @OnCheckedChanged(R.id.switch_calendar)
     public void onSwitchCalendarClick() {
         mIsLunarCalendar = switchCalendar.isChecked();
-        refreshUi();
+        refreshTargetCalendar();
     }
 
     /**
@@ -191,6 +211,33 @@ public class AddEventActivity extends ToolBarActivity {
     }
 
     private void refreshUi() {
+        if (mType == TYPE_EDIT) {
+            // 编辑模式
+            setTitle("编辑事件");
+            if (mEditEventModel != null) {
+                String eventTitle = mEditEventModel.getEventTitle();
+                edtEventName.setText(eventTitle);
+                edtEventName.setSelection(eventTitle.length());
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(mEditEventModel.getTargetTime());
+                tvTargetDate.setText(DateUtils.getFormatedDate(mContext, calendar, 2, mEditEventModel.isLunarCalendar()));
+                switchCalendar.setChecked(mEditEventModel.isLunarCalendar());
+                switchTop.setChecked(mEditEventModel.isTop());
+                String[] repeatArray = getResources().getStringArray(R.array.repeat_type);
+                int repeatType = mEditEventModel.getRepeatType();
+                if (repeatType < repeatArray.length) {
+                    spinnerRepeat.setSelection(repeatType, true);
+                }
+                btnDelete.setVisibility(View.VISIBLE);
+            }
+        } else {
+            // 新增模式
+            setTitle("新增事件");
+            refreshTargetCalendar();
+        }
+    }
+
+    private void refreshTargetCalendar() {
         mTargetCalendar = Calendar.getInstance();
         tvTargetDate.setText(DateUtils.getFormatedDate(mContext, mTargetCalendar, 2, mIsLunarCalendar));
     }

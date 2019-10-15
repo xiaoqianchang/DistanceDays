@@ -1,5 +1,6 @@
 package com.adups.distancedays.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  *
  * @version 1.0
  */
-public class EventModel {
+public class EventModel implements Serializable {
 
     private String eventTitle; // 事件title
     private long createTime; // 创建时间戳
@@ -19,6 +20,7 @@ public class EventModel {
     private int repeatType; // 重复类型
 
     /* 下面为附属属性 */
+    private long eventId; // 事件id
     private Date targetDate; // 到期日
     private int days; // 距离天数
     private boolean isOutOfTargetDate; // 是否超过到期日
@@ -72,6 +74,14 @@ public class EventModel {
 
     public void setRepeatType(int repeatType) {
         this.repeatType = repeatType;
+    }
+
+    public long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(long eventId) {
+        this.eventId = eventId;
     }
 
     public Date getTargetDate() {

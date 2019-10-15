@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="8dp">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#08000000" />
+                    <padding android:bottom="4px" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#09000000" />
+                    <padding android:bottom="2px" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#10000000" />
+                    <padding android:bottom="2px" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#11000000" />
+                    <padding android:bottom="1px" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#12000000" />
+                    <padding android:bottom="1px" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#13000000" />
+                    <padding android:bottom="1px" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="@color/primary_color" />
+            <corners
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp"
+                android:topLeftRadius="@dimen/date_card_small_radius"
+                android:topRightRadius="@dimen/date_card_small_radius" />
+        </shape>
+    </item>
+</layer-list>

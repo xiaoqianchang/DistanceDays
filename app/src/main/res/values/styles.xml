@@ -131,6 +131,9 @@
     <style name="AddEventButtonStyle" parent="ThemeOverlay.AppCompat">
         <item name="colorButtonNormal">#FF0385E1</item>
     </style>
+    <style name="DeleteEventButtonStyle" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">#FFF6F6F6</item>
+    </style>
 
     <!-- DatePickerDialog theme -->
     <style name="DatePickerDialogTheme" parent="Base.Theme.AppCompat.Light.Dialog.FixedSize">
@@ -181,6 +184,13 @@
     <style name="NegativeButton">
 <!--        <item name="android:background">@drawable/bg_negative_button</item>-->
         <item name="android:layout_margin">@dimen/view_margin</item>
+    </style>
+    <style name="DetailDueDateText">
+        <item name="android:textSize">@dimen/font_subhead</item>
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:gravity">left|center_horizontal|clip_horizontal</item>
+        <item name="android:padding">@dimen/date_detail_title_text_margin</item>
+        <item name="android:minHeight">52dp</item>
     </style>
 
 </resources>

@@ -1,14 +1,18 @@
 package com.adups.distancedays.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import butterknife.BindView;
 
 import android.text.Html;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.adups.distancedays.R;
+import com.adups.distancedays.activity.EventDetailActivity;
 import com.adups.distancedays.adapter.CommonAdapter;
 import com.adups.distancedays.adapter.ViewHolder;
 import com.adups.distancedays.base.BaseFragment;
@@ -17,6 +21,7 @@ import com.adups.distancedays.db.EntityConverter;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
 import com.adups.distancedays.model.EventModel;
+import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.DateUtils;
 import com.adups.distancedays.utils.FormatHelper;
 import com.adups.distancedays.utils.ToolUtil;
@@ -43,6 +48,8 @@ public class DistanceDaysListFragment extends BaseFragment {
     @BindView(R.id.lv_list_view)
     ListView mListView;
 
+    private CommonAdapter mAdapter;
+
     public static DistanceDaysListFragment newInstance() {
         Bundle bundle = new Bundle();
         DistanceDaysListFragment fragment = new DistanceDaysListFragment();
@@ -68,7 +75,7 @@ public class DistanceDaysListFragment extends BaseFragment {
         EventModel headerViewEventModel = getHeaderViewEventModel(eventModels);
         refreshHeaderView(headerViewEventModel);
 
-        mListView.setAdapter(new CommonAdapter<EventModel>(getContext(), R.layout.view_distance_days_row_layout, eventModels) {
+        mListView.setAdapter(mAdapter = new CommonAdapter<EventModel>(getContext(), R.layout.view_distance_days_row_layout, eventModels) {
             @Override
             protected void convert(ViewHolder holder, EventModel eventModel) {
                 holder.setText(R.id.tv_event_content, Html.fromHtml(FormatHelper.getDateCardTitlePartBold(eventModel, this.mContext)).toString());
@@ -82,6 +89,17 @@ public class DistanceDaysListFragment extends BaseFragment {
                     holder.getView(R.id.tv_day).setBackground(mContext.getResources().getDrawable(R.drawable.bg_date_card_small_day));
                 }
 
+            }
+        });
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), EventDetailActivity.class);
+                Bundle bundle = new Bundle();
+                EventModel model = (EventModel) mAdapter.getItem(position);
+                bundle.putSerializable(BundleConstants.KEY_MODEL, model);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
