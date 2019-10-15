@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.EventDetailActivity"></activity>
+        <activity android:name=".activity.FeedbackActivity"></activity>
+        <activity android:name=".activity.AboutUsActivity" />
+        <activity android:name=".activity.EventDetailActivity" />
         <activity android:name=".activity.AddEventActivity" />
         <activity android:name=".activity.SplashActivity">
             <intent-filter>

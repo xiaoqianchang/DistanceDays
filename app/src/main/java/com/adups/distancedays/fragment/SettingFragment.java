@@ -1,9 +1,14 @@
 package com.adups.distancedays.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.adups.distancedays.R;
+import com.adups.distancedays.activity.AboutUsActivity;
 import com.adups.distancedays.base.BaseFragment;
+
+import butterknife.OnClick;
 
 /**
  * 设置
@@ -29,6 +34,22 @@ public class SettingFragment extends BaseFragment {
     @Override
     protected void init(Bundle savedInstanceState) {
 
+    }
+
+    @OnClick({R.id.rl_theme, R.id.rl_feedback, R.id.rl_about_us})
+    public void onClick(View view) {
+        int vId = view.getId();
+        Intent intent;
+        switch (vId) {
+            case R.id.rl_theme:
+                break;
+            case R.id.rl_feedback:
+                break;
+            case R.id.rl_about_us:
+                intent = new Intent(getActivity(), AboutUsActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
 }
