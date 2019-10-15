@@ -11,6 +11,7 @@
     <color name="color_divider">#EAEAEA</color>
     <color name="color_border_spliter">@color/color_divider</color>
     <color name="color_list_item">#fff8fafc</color>
+    <color name="color_background">#FFF6F6F6</color>
     <!-- 头部文字颜色 -->
     <color name="background_color">@color/color_white</color>
     <color name="head_text">#0e5986</color>
@@ -19,12 +20,12 @@
     <color name="company_name_color">#959595</color>
     <color name="title_base_button_text_color">#ffffff</color>
     <color name="list_view_bg">#efefef</color>
-    <color name="main_footer_bg">#f5f5f5</color>
+    <color name="main_footer_bg">@color/color_white</color>
     <color name="main_header_bg">#EF3A19</color>
 
     <!-- 底栏字体颜色 -->
-    <color name="footer_text_color_normal">#343434</color>
-    <color name="footer_text_color_selected">#FF601C</color>
+    <color name="footer_text_color_normal">#FF6975A0</color>
+    <color name="footer_text_color_selected">#FF0060D4</color>
 
 
     <!-- 待删减调整 -->

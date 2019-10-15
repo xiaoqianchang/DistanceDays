@@ -1,50 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="61dp"
-    android:layout_marginLeft="23dp"
-    android:layout_marginTop="5dp"
-    android:layout_marginRight="20dp"
-    app:cardBackgroundColor="@color/color_white"
-    app:cardCornerRadius="7dp"
-    app:cardElevation="3dp"
-    app:cardMaxElevation="3dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_event_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        tools:text="星期六还有"
-        android:textColor="#FF323232"
-        android:textSize="24sp" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="13dp"
+        app:cardBackgroundColor="@color/color_white"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="0.5dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="false">
 
-    <TextView
-        android:id="@+id/tv_event_date"
-        android:layout_width="123dp"
-        android:layout_height="match_parent"
-        android:background="#FFFC8E58"
-        android:layout_gravity="right"
-        android:layout_marginRight="63dp"
-        android:gravity="center"
-        tools:text="5"
-        android:textColor="@color/color_white"
-        android:textSize="36sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_date_card_small">
 
-    <TextView
-        android:id="@+id/tv_day"
-        android:layout_width="63dp"
-        android:layout_height="match_parent"
-        android:background="#FFEB7338"
-        android:layout_gravity="right"
-        android:gravity="center"
-        android:text="天"
-        android:textColor="@color/color_white"
-        android:textSize="24sp" />
+            <TextView
+                android:id="@+id/tv_event_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="11dp"
+                android:paddingRight="8dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:ellipsize="end"
+                tools:text="星期六还有"
+                android:textColor="#FF323232"
+                android:textSize="16sp" />
 
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/tv_event_date"
+                android:layout_width="82dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_date_card_small_date"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                tools:text="5"
+                android:textColor="@color/color_white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:autoSizeMaxTextSize="24sp"
+                app:autoSizeMinTextSize="16sp"
+                app:autoSizeStepGranularity="2sp"/>
+
+            <TextView
+                android:id="@+id/tv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_date_card_small_day"
+                android:gravity="center"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="天"
+                android:textColor="@color/color_white"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

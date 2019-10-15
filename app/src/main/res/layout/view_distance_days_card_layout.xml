@@ -7,10 +7,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="@dimen/home_grid_horizontal_spacing"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="@dimen/home_grid_horizontal_spacing"
         app:cardCornerRadius="@dimen/date_card_small_radius"
         app:cardElevation="1dp"
         app:contentPadding="-3dp">

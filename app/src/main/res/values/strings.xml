@@ -2,7 +2,7 @@
     <string name="app_name">DistanceDays</string>
 
     <!-- 页面名称 -->
-    <string name="main_tab_distance_days">倒数日</string>
+    <string name="main_tab_distance_days">距离日</string>
     <string name="main_tab_history">历史上今天</string>
     <string name="main_tab_relax">轻松一刻</string>
     <string name="main_tab_setting">设置</string>

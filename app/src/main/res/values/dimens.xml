@@ -10,7 +10,7 @@
 	<dimen name="nav_bar_height">50dp</dimen>
 
 	<!-- distance days -->
-	<dimen name="distance_days_grid_horizontal_spacing">4dp</dimen>
+	<dimen name="distance_days_grid_horizontal_spacing">7dp</dimen>
 
 
 	<!-- UI统一设置 -->

@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:background="#FFF0F0F0"
     tools:context=".fragment.DistanceDaysGridFragment">
 
     <GridView
@@ -16,6 +18,6 @@
         android:listSelector="@color/color_transparent"
         android:numColumns="2"
         android:scrollbars="none"
-        android:verticalSpacing="0dp" />
+        android:verticalSpacing="6dp" />
 
 </FrameLayout>
