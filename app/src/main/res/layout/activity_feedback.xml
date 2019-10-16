@@ -45,6 +45,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:background="@drawable/bg_feedback_edt_shape"
+        android:singleLine="true"
         android:hint="@string/string_feedback_contact"
         android:textColor="#FF323232"
         android:textSize="14sp"/>

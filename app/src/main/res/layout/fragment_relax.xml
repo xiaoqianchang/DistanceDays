@@ -5,10 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".fragment.RelaxFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.adups.distancedays.view.LocalTemplateWebView
+        android:id="@+id/wv_rich_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/main_tab_relax" />
-
+        android:layout_height="match_parent"/>
 </FrameLayout>

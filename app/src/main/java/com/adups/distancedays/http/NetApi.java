@@ -1,11 +1,17 @@
 package com.adups.distancedays.http;
 
+import com.adups.distancedays.model.BaseModel;
+import com.adups.distancedays.model.HistoryInTodayModel;
+
+import java.util.List;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 /**
@@ -37,7 +43,7 @@ public interface NetApi {
      */
     @FormUrlEncoded
     @POST
-    Call<ResponseBody> processFeedback(
+    Call<BaseModel> processFeedback(
             @Url String url
             , @Field("androidid") String androidid
             , @Field("model") String model
@@ -49,8 +55,29 @@ public interface NetApi {
             , @Field("content") String content);
 
     /**
+     * 历史上的今天api
+     *
+     * 请求方式：get/post
+     *
+     * 请求示例：http://api.juheapi.com/japi/toh?key=您申请的KEY&v=1.0&month=11&day=1
+     *
+     * @param url 接口地址 http://api.juheapi.com/japi/toh/
+     * @param key 在个人中心->我的数据,接口名称上方查看
+     * @param version 版本，当前：1.0
+     * @param month 月份，如：10
+     * @param day 日，如：1
+     * @return
+     */
+    @GET
+    Call<BaseModel<List<HistoryInTodayModel>>> getTodayInHistory(
+            @Url String url
+            , @Query("key") String key
+            , @Query("v") String version
+            , @Query("month") int month
+            , @Query("day") int day);
+
+    /**
      * 每日文章api
-     * doc：https://note.youdao.com/ynoteshare1/index.html?id=2b5c163da9d5eddf9a14a64b35d9ae31&type=note
      *
      * 请求方式：get/post
      *
@@ -66,8 +93,8 @@ public interface NetApi {
     @GET
     Call<ResponseBody> getDailyArticle(
             @Url String url
-            , @Field("key") String key
-            , @Field("v") String version
-            , @Field("month") String month
-            , @Field("day") String day);
+            , @Query("key") String key
+            , @Query("v") String version
+            , @Query("month") int month
+            , @Query("day") int day);
 }

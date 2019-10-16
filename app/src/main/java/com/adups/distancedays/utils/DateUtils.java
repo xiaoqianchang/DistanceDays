@@ -29,6 +29,11 @@ public class DateUtils {
     public static final String TIME_FORMAT = "yyyy-MM-dd";
 
     /**
+     * yyyyMMdd
+     */
+    public static final String TIME_FORMAT1 = "yyyyMMdd";
+
+    /**
      * Returns the current time in milliseconds since January 1, 1970 00:00:00.0 UTC.
      *
      * @return

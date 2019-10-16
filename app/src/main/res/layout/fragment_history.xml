@@ -1,14 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.HistoryFragment">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="7dp"
+        android:background="@drawable/bg_history_date_container_shape"
+        android:layout_gravity="center_horizontal">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_year_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_history_date_shape"
+                android:gravity="center"
+                tools:text="2"
+                android:textColor="@color/color_white"
+                android:textSize="25dp"/>
+
+            <Space
+                android:id="@+id/space1"
+                android:layout_width="4dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_year_first"/>
+
+            <TextView
+                android:id="@+id/tv_year_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_history_date_shape"
+                android:layout_toRightOf="@id/space1"
+                android:gravity="center"
+                tools:text="0"
+                android:textColor="@color/color_white"
+                android:textSize="25dp"/>
+
+            <Space
+                android:id="@+id/space2"
+                android:layout_width="4dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_year_second"/>
+
+            <TextView
+                android:id="@+id/tv_year_third"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_history_date_shape"
+                android:layout_toRightOf="@id/space2"
+                android:gravity="center"
+                tools:text="1"
+                android:textColor="@color/color_white"
+                android:textSize="25dp"/>
+
+            <Space
+                android:id="@+id/space3"
+                android:layout_width="4dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_year_third"/>
+
+            <TextView
+                android:id="@+id/tv_year_fourth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_history_date_shape"
+                android:layout_toRightOf="@id/space3"
+                android:gravity="center"
+                tools:text="9"
+                android:textColor="@color/color_white"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_year_first"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="YEAR"
+                android:textColor="#0075D0"
+                android:textSize="10dp"/>
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_month_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_history_date_shape"
+                android:gravity="center"
+                tools:text="1"
+                android:textColor="@color/color_white"
+                android:textSize="25dp"/>
+
+            <Space
+                android:id="@+id/space5"
+                android:layout_width="4dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_month_first"/>
+
+            <TextView
+                android:id="@+id/tv_month_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_history_date_shape"
+                android:layout_toRightOf="@id/space5"
+                android:gravity="center"
+                tools:text="0"
+                android:textColor="@color/color_white"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_month_first"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="MONTH"
+                android:textColor="#0075D0"
+                android:textSize="10dp"/>
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_day_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_history_date_shape"
+                android:gravity="center"
+                tools:text="1"
+                android:textColor="@color/color_white"
+                android:textSize="25dp"/>
+
+            <Space
+                android:id="@+id/space7"
+                android:layout_width="4dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_day_first"/>
+
+            <TextView
+                android:id="@+id/tv_day_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_history_date_shape"
+                android:layout_toRightOf="@id/space7"
+                android:gravity="center"
+                tools:text="0"
+                android:textColor="@color/color_white"
+                android:textSize="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_day_first"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="DAY"
+                android:textColor="#0075D0"
+                android:textSize="10dp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/main_tab_history" />
+        android:clipToPadding="false"
+        android:divider="@null"
+        android:dividerHeight="10dp"
+        android:listSelector="@color/color_transparent"
+        android:headerDividersEnabled="true"
+        android:scrollbars="none"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
 
-</FrameLayout>
+</LinearLayout>

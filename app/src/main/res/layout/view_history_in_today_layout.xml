@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="美国宇航员尼尔·奥尔登·阿姆斯特朗逝世"
+        android:textColor="#333333"
+        android:textSize="16dp"/>
+
+    <ImageView
+        android:id="@+id/img_pic"
+        android:layout_width="100dp"
+        android:layout_height="133dp"
+        android:layout_below="@id/tv_title"
+        android:layout_marginTop="11dp"/>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_pic"
+        android:layout_alignTop="@id/img_pic"
+        android:layout_marginLeft="20dp"
+        tools:text="2019年10月10日"
+        android:textColor="#717171"
+        android:textSize="13dp"/>
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_pic"
+        android:layout_below="@id/tv_date"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="11dp"
+        tools:text="美国航天局14日宣布，美国海军当天为上月逝世的登月第一人阿姆斯特朗举行海葬，
+        其骨灰被撒入大西洋。美国海军..."
+        android:textColor="#717171"
+        android:textSize="13dp"/>
+</RelativeLayout>

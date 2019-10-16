@@ -12,6 +12,7 @@ import com.adups.distancedays.R;
 import com.adups.distancedays.base.ToolBarActivity;
 import com.adups.distancedays.http.HttpConstant;
 import com.adups.distancedays.http.OkHttpWrapper;
+import com.adups.distancedays.http.ResponseCallBack;
 import com.adups.distancedays.model.BaseModel;
 import com.adups.distancedays.utils.DeviceUtil;
 import com.adups.distancedays.utils.NetUtils;
@@ -43,8 +44,6 @@ public class FeedbackActivity extends ToolBarActivity {
     TextView tvFeedbackWordCount;
     @BindView(R.id.edt_feedback_contact)
     EditText edtFeedbackContact;
-    @BindView(R.id.btn_commit)
-    Button btnCommit;
 
     @Override
     protected int getContentViewId() {
@@ -68,40 +67,35 @@ public class FeedbackActivity extends ToolBarActivity {
         // 调网络请求
         String contactWay = edtFeedbackContact.getText().toString();
         String contactContent = edtFeedbackContent.getText().toString();
-        Call<ResponseBody> call = OkHttpWrapper.getInstance().getNetApiInstance().processFeedback(HttpConstant.URL_FEEDBACK, DeviceUtil.getAndroidId(mContext), DeviceUtil.getModel(), String.valueOf(NetUtils.getNetworkState(mContext)), DeviceUtil.getIMEI(mContext), PackageUtil.getPackageName(mContext), PackageUtil.getVersionName(), contactWay, contactContent);
-        call.enqueue(new Callback<ResponseBody>() {
+        if (TextUtils.isEmpty(contactContent)) {
+            ToastUtil.showToast(mContext, "请输入联系内容！");
+            return;
+        }
+        if (TextUtils.isEmpty(contactWay)) {
+            ToastUtil.showToast(mContext, "请输入联系方式！");
+            return;
+        }
+        Call<BaseModel> call = OkHttpWrapper.getInstance().getNetApiInstance().processFeedback(
+                HttpConstant.URL_FEEDBACK,
+                DeviceUtil.getAndroidId(mContext),
+                DeviceUtil.getModel(),
+                String.valueOf(NetUtils.getNetworkState(mContext)),
+                DeviceUtil.getIMEI(mContext),
+                PackageUtil.getPackageName(mContext),
+                PackageUtil.getVersionName(),
+                contactWay,
+                contactContent);
+        call.enqueue(new ResponseCallBack<BaseModel>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                int code = response.code();
-                try {
-                    String string = response.body().string();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    try {
-                        String string = response.errorBody().string();
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                }
+            public void onSuccess(BaseModel baseModel) {
+                ToastUtil.showToast(mContext, baseModel.getReason());
+                finish();
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onError(int code, String msg) {
+                ToastUtil.showToast(mContext, msg);
             }
         });
-
-//        call.enqueue(new Callback<BaseModel>() {
-//            @Override
-//            public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
-//                BaseModel model = response.body();
-//                ToastUtil.showToast(mContext, model == null ? "反馈成功" : model.getReason());
-//                finish();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<BaseModel> call, Throwable t) {
-//                ToastUtil.showToast(mContext, "反馈失败");
-//            }
-//        });
     }
 }
