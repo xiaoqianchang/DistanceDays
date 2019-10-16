@@ -3,9 +3,8 @@ package com.adups.distancedays.base;
 import android.app.Application;
 import android.content.Context;
 
-import com.adups.distancedays.utils.BuildConfig;
-import com.orhanobut.logger.LogLevel;
-import com.orhanobut.logger.Logger;
+import com.adups.distancedays.BuildConfig;
+import com.adups.distancedays.utils.CommonUtil;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -25,15 +24,8 @@ public class DaysApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mAppInstance = getApplicationContext();
+        CommonUtil.init(this, BuildConfig.DEBUG);
         LeakCanary.install(this);
-
-        // Logger Settings
-        // Note: Use LogLevel.NONE for the release versions.
-        Logger.init(TAG)                       // default PRETTYLOGGER or use just init()
-                .methodCount(2)                 // default 2
-                .hideThreadInfo()               // default shown
-                .logLevel(BuildConfig.DEBUG ? LogLevel.FULL : LogLevel.NONE) // default LogLevel.FULL
-                .methodOffset(2);               // default 0
     }
 
     public static final Context getMyApplicationContext() {

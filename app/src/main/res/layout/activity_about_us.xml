@@ -33,11 +33,16 @@
         android:textColor="#858585"
         android:textSize="15sp"/>
 
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
     <TextView
         android:id="@+id/tv_privacy_policy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="196dp"
+        android:layout_marginBottom="18dp"
         android:text="《隐私政策》"
         android:textColor="#00A0E9"
         android:textSize="12sp" />
@@ -46,7 +51,7 @@
         android:id="@+id/tv_agreement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
+        android:layout_marginBottom="40dp"
         android:text="《用户协议》"
         android:textColor="#00A0E9"
         android:textSize="12sp" />
