@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.adups.distancedays.R;
 import com.adups.distancedays.activity.AboutUsActivity;
+import com.adups.distancedays.activity.FeedbackActivity;
 import com.adups.distancedays.base.BaseFragment;
 
 import butterknife.OnClick;
@@ -44,9 +45,11 @@ public class SettingFragment extends BaseFragment {
             case R.id.rl_theme:
                 break;
             case R.id.rl_feedback:
+                intent = new Intent(getContext(), FeedbackActivity.class);
+                startActivity(intent);
                 break;
             case R.id.rl_about_us:
-                intent = new Intent(getActivity(), AboutUsActivity.class);
+                intent = new Intent(getContext(), AboutUsActivity.class);
                 startActivity(intent);
                 break;
         }

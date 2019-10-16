@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,20 +7,25 @@
     <include layout="@layout/toolbar_layout"/>
 
     <EditText
+        android:id="@+id/edt_feedback_content"
         android:layout_width="match_parent"
         android:layout_height="270dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
+        android:layout_marginTop="13dp"
         android:paddingLeft="18dp"
         android:paddingRight="18dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
-        android:background="@drawable/bg_feeddback_edt_shape"
-        android:hint="亲爱的用户：
- 您好！
- 感谢您对我们团队的支持。如果你在正常使用过程中，遇到了问题，或者对产品有任何建议，都可以在这里写下来发送给我们，我们期待您的反馈。  "/>
+        android:background="@drawable/bg_feedback_edt_shape"
+        android:gravity="start"
+        android:maxLength="300"
+        android:hint="@string/string_feedback_context_hint"
+        android:textColor="#FF323232"
+        android:textSize="14sp"/>
 
     <TextView
+        android:id="@+id/tv_feedback_word_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
@@ -33,6 +36,7 @@
         android:textSize="13sp"/>
 
     <EditText
+        android:id="@+id/edt_feedback_contact"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginLeft="12dp"
@@ -40,8 +44,10 @@
         android:layout_marginTop="7dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:background="@drawable/bg_feeddback_edt_shape"
-        android:hint="请留下您的邮箱或QQ号"/>
+        android:background="@drawable/bg_feedback_edt_shape"
+        android:hint="@string/string_feedback_contact"
+        android:textColor="#FF323232"
+        android:textSize="14sp"/>
 
     <Button
         android:id="@+id/btn_commit"
