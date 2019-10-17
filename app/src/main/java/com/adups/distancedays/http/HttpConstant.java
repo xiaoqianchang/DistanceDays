@@ -17,6 +17,5 @@ public class HttpConstant {
      */
     public static final String DAILY_ARTICLE_KEY = "352262e9f96e41f2b77c738d484c9b42";
 
-    public static final String URL_FEEDBACK = "https://wx1.adgomob.com/c_terminal/"; // 反馈
-    public static final String URL_DAILY_ARTICLE = "http://api.juheapi.com/japi/toh"; // 每日文章
+    public static final String URL_HISTORY_IN_TODAY = "http://api.juheapi.com/japi/toh"; // 历史上的今天
 }

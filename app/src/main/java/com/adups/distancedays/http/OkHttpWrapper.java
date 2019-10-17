@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class OkHttpWrapper {
 
     public static final long DEFAULT_TIMEOUT = 10;
-    public static final String SERVER_URL_INIT_1 = "https://w.duocaijr.com";
+    public static final String SERVER_URL_INIT = "https://wx1.adgomob.com/c_terminal/";
 
     private static OkHttpWrapper mInstance;
     private static Retrofit.Builder builder;
@@ -90,7 +90,7 @@ public class OkHttpWrapper {
      * @return
      */
     public NetApi getNetApiInstance() {
-        return getNetApiInstance(SERVER_URL_INIT_1);
+        return getNetApiInstance(SERVER_URL_INIT);
     }
 
     /**
@@ -123,7 +123,7 @@ public class OkHttpWrapper {
         if (TextUtils.isEmpty(serverUrl)) {
             return false;
         }
-        if ("/".equals(serverUrl.toCharArray()[serverUrl.length() - 1])) {
+        if ("/".equals(String.valueOf(serverUrl.toCharArray()[serverUrl.length() - 1]))) {
             return true;
         }
         return false;

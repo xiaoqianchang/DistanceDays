@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.adups.distancedays.R;
 import com.adups.distancedays.base.ToolBarActivity;
+import com.adups.distancedays.model.RichModel;
 import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.FileUtil;
 import com.adups.distancedays.view.LocalTemplateWebView;
@@ -55,7 +56,7 @@ public class WebViewActivity extends ToolBarActivity {
 
     private void loadData() {
         String richTemplate = FileUtil.readAssetFileData(mContext, filePath);
-        mRichContent.setData(richTemplate);
+        mRichContent.setRichContent(new RichModel(richTemplate));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.adups.distancedays.http;
 
+import com.adups.distancedays.model.ArticleModel;
 import com.adups.distancedays.model.BaseModel;
 import com.adups.distancedays.model.HistoryInTodayModel;
 
@@ -15,7 +16,7 @@ import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 /**
- * $
+ * NetApi
  * <p>
  * Created by Chang.Xiao on 2019/10/16.
  *
@@ -26,11 +27,13 @@ public interface NetApi {
     /**
      * 反馈api
      * doc：https://note.youdao.com/ynoteshare1/index.html?id=2b5c163da9d5eddf9a14a64b35d9ae31&type=note
+
+     * 接口地址 https://wx1.adgomob.com/c_terminal/
+     * path feedback/content
      *
      * 请求方式：post
      * 请求头：application/x-www-form-urlencoded
      *
-     * @param url 接口地址 https://wx1.adgomob.com/c_terminal/
      * @param androidid
      * @param model 机型
      * @param apn 网络场景
@@ -42,10 +45,9 @@ public interface NetApi {
      * @return
      */
     @FormUrlEncoded
-    @POST
+    @POST("feedback/content")
     Call<BaseModel> processFeedback(
-            @Url String url
-            , @Field("androidid") String androidid
+            @Field("androidid") String androidid
             , @Field("model") String model
             , @Field("apn") String apn
             , @Field("imei") String imei
@@ -53,6 +55,21 @@ public interface NetApi {
             , @Field("versionname") String versionname
             , @Field("contactWay") String contactWay
             , @Field("content") String content);
+
+    /**
+     * 每日文章api
+     * doc：https://note.youdao.com/ynoteshare1/index.html?id=2b5c163da9d5eddf9a14a64b35d9ae31&type=note
+     *
+     * 接口地址 https://wx1.adgomob.com/c_terminal/
+     * path /article/queryOne
+     *
+     * 请求方式：post
+     * 请求头：application/x-www-form-urlencoded
+     *
+     * @return
+     */
+    @POST("article/queryOne")
+    Call<BaseModel<ArticleModel>> getDailyArticle();
 
     /**
      * 历史上的今天api
@@ -70,28 +87,6 @@ public interface NetApi {
      */
     @GET
     Call<BaseModel<List<HistoryInTodayModel>>> getTodayInHistory(
-            @Url String url
-            , @Query("key") String key
-            , @Query("v") String version
-            , @Query("month") int month
-            , @Query("day") int day);
-
-    /**
-     * 每日文章api
-     *
-     * 请求方式：get/post
-     *
-     * 请求示例：http://api.juheapi.com/japi/toh?key=您申请的KEY&v=1.0&month=11&day=1
-     *
-     * @param url 接口地址 http://api.juheapi.com/japi/toh/
-     * @param key 在个人中心->我的数据,接口名称上方查看
-     * @param version 版本，当前：1.0
-     * @param month 月份，如：10
-     * @param day 日，如：1
-     * @return
-     */
-    @GET
-    Call<ResponseBody> getDailyArticle(
             @Url String url
             , @Query("key") String key
             , @Query("v") String version

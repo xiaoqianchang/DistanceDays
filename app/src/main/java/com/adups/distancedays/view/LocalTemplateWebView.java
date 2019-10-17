@@ -3,11 +3,14 @@ package com.adups.distancedays.view;
 import android.content.Context;
 import android.os.Build;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.adups.distancedays.model.RichModel;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -87,12 +90,54 @@ public class LocalTemplateWebView extends WebView {
         }
     }
 
+    public void setRichContent(RichModel model) {
+        setRichContent(model, false);
+    }
+
+    /**
+     * 显示富文本内容
+     *
+     * @param model
+     */
+    public void setRichContent(RichModel model, boolean addTemplate) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (model != null) {
+            if (addTemplate) {
+                stringBuilder.append("<!DOCTYPE html>\n" + "<html>\n" + "<head>\n" + "  " +
+                        "  <title>distancedays</title>\n" + "  " +
+                        "  <meta charset=\"utf-8\">\n" + "  " +
+                        "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no\">\n" + "  " +
+                        "  <meta name=\"format-detection\" content=\"telephone=no\">\n" + "  " +
+                        "  <link rel=\"stylesheet\" type=\"text/css\" href=\"file:///android_asset/article/style.css\">\n" +
+                        "</head>\n" + "<body>");
+            }
+            if (!TextUtils.isEmpty(model.getTitle())) {
+                stringBuilder
+                        .append("<div id=\"rich_title\">")
+                        .append(model.getTitle())
+                        .append("</div>");
+            }
+            if (!TextUtils.isEmpty(model.getAuthor())) {
+                stringBuilder
+                        .append("<div id=\"rich_author\">")
+                        .append(model.getTitle())
+                        .append("</div>");
+            }
+            stringBuilder.append(model.getContent());
+            if (addTemplate) {
+                stringBuilder.append("</body>\n" + "</html>");
+            }
+        }
+
+        setData(stringBuilder.toString());
+    }
+
     /**
      * 通过模板显示html内容
      *
      * @param richStr
      */
-    public void setData(String richStr) {
+    private void setData(String richStr) {
         if (Looper.myLooper() == null) {
             return;
         }

@@ -1,0 +1,30 @@
+@charset "UTF-8";
+html {
+  color: #000;
+  background: #fff;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: none;
+  -ms-text-size-adjust: none; }
+  html * {
+    outline: none;
+    -webkit-text-size-adjust: none;
+    -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  font-family: sans-serif;
+}
+
+
+#rich_title {
+        font-size: 26px;
+        color: #323232;
+        text-align: center
+      }
+
+      #rich_author {
+        font-size: 12px;
+        color: #707070;
+        text-align: right;
+        margin-top: 17px;
+        margin-bottom: 10px;
+      }

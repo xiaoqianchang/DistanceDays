@@ -83,7 +83,7 @@ public class HistoryFragment extends BaseFragment {
         Calendar calendar = Calendar.getInstance();
         int month = calendar.get(Calendar.MONTH) + 1;
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        Call<BaseModel<List<HistoryInTodayModel>>> call = OkHttpWrapper.getInstance().getNetApiInstance().getTodayInHistory(HttpConstant.URL_DAILY_ARTICLE, HttpConstant.DAILY_ARTICLE_KEY, PackageUtil.getVersionName(), month, day);
+        Call<BaseModel<List<HistoryInTodayModel>>> call = OkHttpWrapper.getInstance().getNetApiInstance().getTodayInHistory(HttpConstant.URL_HISTORY_IN_TODAY, HttpConstant.DAILY_ARTICLE_KEY, PackageUtil.getVersionName(), month, day);
         call.enqueue(new ResponseCallBack<BaseModel<List<HistoryInTodayModel>>>() {
             @Override
             public void onSuccess(BaseModel<List<HistoryInTodayModel>> listBaseModel) {

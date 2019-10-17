@@ -70,7 +70,7 @@ public abstract class ResponseCallBack<T> implements Callback<T> {
                 onError(HttpConstant.CODE_UNKNOWN, CommonUtil.getApplication().getString(R.string.string_error_network)); // response body is null
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Logger.t(TAG).e(e.getMessage());
             onError(HttpConstant.CODE_UNKNOWN, e.getMessage());
         }
     }

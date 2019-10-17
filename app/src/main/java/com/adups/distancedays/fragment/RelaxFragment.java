@@ -6,12 +6,19 @@ import com.adups.distancedays.R;
 import com.adups.distancedays.base.BaseFragment;
 import com.adups.distancedays.http.HttpConstant;
 import com.adups.distancedays.http.OkHttpWrapper;
+import com.adups.distancedays.http.ResponseCallBack;
+import com.adups.distancedays.model.ArticleModel;
+import com.adups.distancedays.model.BaseModel;
+import com.adups.distancedays.model.RichModel;
+import com.adups.distancedays.utils.FileUtil;
 import com.adups.distancedays.utils.PackageUtil;
+import com.adups.distancedays.utils.ToastUtil;
 import com.adups.distancedays.view.LocalTemplateWebView;
 
 import java.util.Calendar;
 
 import butterknife.BindView;
+import retrofit2.Call;
 
 /**
  * 轻松一刻
@@ -43,9 +50,27 @@ public class RelaxFragment extends BaseFragment {
 
     @Override
     protected void loadData() {
-        Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        OkHttpWrapper.getInstance().getNetApiInstance().getDailyArticle(HttpConstant.URL_DAILY_ARTICLE, HttpConstant.DAILY_ARTICLE_KEY, PackageUtil.getVersionName(), month, day);
+        Call<BaseModel<ArticleModel>> call = OkHttpWrapper.getInstance().getNetApiInstance().getDailyArticle();
+        call.enqueue(new ResponseCallBack<BaseModel<ArticleModel>>() {
+            @Override
+            public void onSuccess(BaseModel<ArticleModel> articleModelBaseModel) {
+                ArticleModel articleModel = articleModelBaseModel.getResult();
+                if (articleModel != null) {
+                    ArticleModel.ArticleInfo articleInfo = articleModel.getArticleInfo();
+                    if (articleInfo != null) {
+                        String title = articleInfo.getTitle();
+                        String author = articleInfo.getArticleAuthor();
+                        String text = articleInfo.getArticleText();
+                        RichModel richModel = new RichModel(title, author, text);
+                        mRichContent.setRichContent(richModel, true);
+                    }
+                }
+            }
+
+            @Override
+            public void onError(int code, String msg) {
+                ToastUtil.showToast(getContext(), msg);
+            }
+        });
     }
 }

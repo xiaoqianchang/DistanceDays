@@ -76,7 +76,6 @@ public class FeedbackActivity extends ToolBarActivity {
             return;
         }
         Call<BaseModel> call = OkHttpWrapper.getInstance().getNetApiInstance().processFeedback(
-                HttpConstant.URL_FEEDBACK,
                 DeviceUtil.getAndroidId(mContext),
                 DeviceUtil.getModel(),
                 String.valueOf(NetUtils.getNetworkState(mContext)),
