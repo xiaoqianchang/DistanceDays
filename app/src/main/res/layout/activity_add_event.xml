@@ -24,6 +24,7 @@
             <LinearLayout
                 style="@style/style_cell_background"
                 android:layout_height="56dp"
+                android:paddingRight="23dp"
                 android:gravity="center_vertical">
 
                 <ImageView
@@ -36,9 +37,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="11dp"
+                    android:background="@drawable/bg_event_input_shape"
                     android:maxLength="10"
                     android:singleLine="true"
-                    tools:text="事件名称"
+                    android:hint="事件名称"
                     style="@style/PreferenceTitleText"/>
             </LinearLayout>
 

@@ -3,6 +3,7 @@ package com.adups.distancedays.fragment;
 
 import android.os.Bundle;
 
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 
@@ -68,7 +69,8 @@ public class DistanceDaysGridFragment extends BaseFragment {
         gvCardGrid.setAdapter(new CommonAdapter<EventModel>(getContext(), R.layout.view_distance_days_card_layout, eventModels) {
             @Override
             protected void convert(ViewHolder holder, EventModel eventModel) {
-                holder.setText(R.id.title, Html.fromHtml(FormatHelper.getDateCardTitlePartBold(eventModel, this.mContext)).toString());
+                String title = HtmlCompat.fromHtml(FormatHelper.getDateCardTitlePartBold(eventModel, this.mContext), HtmlCompat.FROM_HTML_MODE_COMPACT).toString();
+                holder.setText(R.id.title, title);
                 holder.setText(R.id.date, String.valueOf(eventModel.getDays()));
                 Calendar instance = Calendar.getInstance();
                 instance.setTimeInMillis(eventModel.getTargetTime());

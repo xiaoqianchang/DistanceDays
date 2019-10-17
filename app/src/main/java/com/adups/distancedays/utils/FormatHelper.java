@@ -61,7 +61,7 @@ public class FormatHelper {
         if (data.getDays() == 0) {
             z = true;
         }
-        return getDateCardTitlePartBold(title, z, data.isOutOfTargetDate(), data.isOutOfTargetDate(), context, isHideDescription);
+        return getDateCardTitlePartBold(title, z, data.isOutOfTargetDate(), data.isOutOfEndDate(), context, isHideDescription);
     }
 
     public static String getDateCardTitlePartBold(String title, boolean isToday, boolean isOutOfDate, boolean hasEnded, Context context, boolean isHideDescription) {
