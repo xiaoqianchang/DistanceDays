@@ -8,6 +8,8 @@ import java.util.Date;
 /**
  * <b>描述</b>: 日历转换工具类：阴历和阳历日期互换(阴历日期范围19000101~20491229)<br>
  *
+ *     https://blog.csdn.net/Eacter/article/details/42495291
+ *
  * @author liu 2015-1-5
  */
 public class CalendarUtil {

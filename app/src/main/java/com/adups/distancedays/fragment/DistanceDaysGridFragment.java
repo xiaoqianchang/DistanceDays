@@ -1,6 +1,7 @@
 package com.adups.distancedays.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.core.text.HtmlCompat;
@@ -11,9 +12,11 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.adups.distancedays.R;
+import com.adups.distancedays.activity.EventDetailActivity;
 import com.adups.distancedays.adapter.CommonAdapter;
 import com.adups.distancedays.adapter.ViewHolder;
 import com.adups.distancedays.base.BaseFragment;
@@ -22,6 +25,7 @@ import com.adups.distancedays.db.EntityConverter;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
 import com.adups.distancedays.model.EventModel;
+import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.DateUtils;
 import com.adups.distancedays.utils.FormatHelper;
 import com.adups.distancedays.utils.ToolUtil;
@@ -41,6 +45,8 @@ public class DistanceDaysGridFragment extends BaseFragment {
 
     @BindView(R.id.gv_card_grid)
     GridView gvCardGrid;
+
+    private CommonAdapter mAdapter;
 
     public static DistanceDaysGridFragment newInstance() {
         Bundle bundle = new Bundle();
@@ -66,7 +72,7 @@ public class DistanceDaysGridFragment extends BaseFragment {
         // 转换数据表模型为界面数据模型
         List<EventModel> eventModels = convertToEventModel(entityList);
 
-        gvCardGrid.setAdapter(new CommonAdapter<EventModel>(getContext(), R.layout.view_distance_days_card_layout, eventModels) {
+        gvCardGrid.setAdapter(mAdapter = new CommonAdapter<EventModel>(getContext(), R.layout.view_distance_days_card_layout, eventModels) {
             @Override
             protected void convert(ViewHolder holder, EventModel eventModel) {
                 String title = HtmlCompat.fromHtml(FormatHelper.getDateCardTitlePartBold(eventModel, this.mContext), HtmlCompat.FROM_HTML_MODE_COMPACT).toString();
@@ -81,6 +87,17 @@ public class DistanceDaysGridFragment extends BaseFragment {
                     holder.getView(R.id.title).setBackground(mContext.getResources().getDrawable(R.drawable.bg_date_card_small_date));
                 }
 
+            }
+        });
+        gvCardGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getContext(), EventDetailActivity.class);
+                Bundle bundle = new Bundle();
+                EventModel model = (EventModel) mAdapter.getItem(position);
+                bundle.putSerializable(BundleConstants.KEY_MODEL, model);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }

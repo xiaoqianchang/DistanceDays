@@ -84,4 +84,15 @@ public class EventDetailActivity extends ToolBarActivity {
     public void onFloatButtonClick() {
         ToastUtil.showToast(mContext, getString(R.string.toast_function_development));
     }
+
+    /**
+     * 天数点击事件
+     */
+    @OnClick(R.id.tv_day)
+    public void onDaysClick() {
+        if (tvDay == null || mEventModel == null) {
+            return;
+        }
+        tvDay.setText(DateUtils.getFormatDaysText(mEventModel.getDays(), tvDay.getText().toString()));
+    }
 }

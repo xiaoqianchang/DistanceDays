@@ -140,6 +140,45 @@ public class DateUtils {
         return days;
     }
 
+    /**
+     * 天数转换成周、月形式
+     *
+     * 点击，若日期天数 > 7天 且 < 30天，则日期显示换算成xx 周x天，再次点击 ，则显示回原来的日期数值显示，如此循环；
+     * 若日期天数 》=30 天，则日期显示换算成 xx月xx天，再次，则换算成 xx周x天，后续继续点击则显示回原来的日期数值显示，如此循环；
+     * 若日期天数<7天，则不改变显示
+     *
+     * @param days
+     * @return
+     */
+    public static String getFormatDaysText(int days, String currentShow) {
+        StringBuilder builder = new StringBuilder();
+        if (days <= 7) {
+            builder.append(days);
+        } else if (days > 7 && days < 30) {
+            if (currentShow.contains("周")) {
+                builder.append(days);
+            } else {
+                int week = days / 7;
+                int day = days % 7;
+                builder.append(week).append("周").append(day);
+            }
+
+        } else if (days >= 30) {
+            if (currentShow.contains("周")) {
+                builder.append(days);
+            } else if (currentShow.contains("月")) {
+                int week = days / 7;
+                int day = days % 7;
+                builder.append(week).append("周").append(day);
+            } else {
+                int month = days / 30;
+                int day = days % 30;
+                builder.append(month).append("月").append(day);
+            }
+        }
+        return builder.toString();
+    }
+
 
     /*导入*/
     public static String getFormatedDate(Context context, Calendar calendar, boolean isLunarCalendar) {
