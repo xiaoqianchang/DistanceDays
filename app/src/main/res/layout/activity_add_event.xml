@@ -106,8 +106,7 @@
                         android:textOff="@string/solar"
                         android:textOn="@string/lunar"
                         android:thumb="@drawable/bg_switch_calendar_thumb"
-                        android:thumbTextPadding="8dp"
-                        android:track="@drawable/bg_switch_calendar_track"/>
+                        android:thumbTextPadding="8dp"/>
                 </FrameLayout>
             </LinearLayout>
 

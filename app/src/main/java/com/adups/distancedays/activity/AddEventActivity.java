@@ -2,9 +2,18 @@ package com.adups.distancedays.activity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,7 +31,9 @@ import com.adups.distancedays.db.EntityConverter;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
 import com.adups.distancedays.event.EditEventSuccess;
+import com.adups.distancedays.fragment.LunarPickerDialogFragment;
 import com.adups.distancedays.model.EventModel;
+import com.adups.distancedays.utils.BitmapUtils;
 import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.DateUtils;
 import com.adups.distancedays.utils.EventUtil;
@@ -120,19 +131,30 @@ public class AddEventActivity extends ToolBarActivity {
         int vId = view.getId();
         switch (vId) {
             case R.id.tv_target_date:
-                DialogFragment datePickerFragment = new DatePickerFragment(this);
-                datePickerFragment.show(getSupportFragmentManager(), "datePicker");
+                if (switchCalendar.isChecked()) {
+                    LunarPickerDialogFragment dialog2 = LunarPickerDialogFragment.newInstance(mTargetCalendar);
+                    dialog2.setOnConfirmClickListener(new LunarPickerDialogFragment.OnConfirmClickListener() {
+                        public void onConfirmClick(Calendar selectedCalendar) {
+                            mTargetCalendar = (Calendar) selectedCalendar.clone();
+                            tvTargetDate.setText(DateUtils.getFormatedDate(mContext, mTargetCalendar, 2, switchCalendar.isChecked()));
+                        }
+                    });
+                    dialog2.show(getSupportFragmentManager(), "edit");
 
-//                Calendar calendar = Calendar.getInstance();
-//                new DatePickerDialog(mContext, DatePickerDialog.THEME_DEVICE_DEFAULT_LIGHT, new DatePickerDialog.OnDateSetListener() {
-//                    @Override
-//                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-//                        calendar.set(year,monthOfYear,dayOfMonth);
-//                    }
-//                }, calendar.get(Calendar.YEAR),
-//                        calendar.get(Calendar.MONTH),
-//                        calendar.get(Calendar.DAY_OF_MONTH)
-//                ).show();
+                } else {
+                    DialogFragment datePickerFragment = new DatePickerFragment(this);
+                    datePickerFragment.show(getSupportFragmentManager(), "datePicker");
+                    //                Calendar calendar = Calendar.getInstance();
+                    //                new DatePickerDialog(mContext, DatePickerDialog.THEME_DEVICE_DEFAULT_LIGHT, new DatePickerDialog.OnDateSetListener() {
+                    //                    @Override
+                    //                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    //                        calendar.set(year,monthOfYear,dayOfMonth);
+                    //                    }
+                    //                }, calendar.get(Calendar.YEAR),
+                    //                        calendar.get(Calendar.MONTH),
+                    //                        calendar.get(Calendar.DAY_OF_MONTH)
+                    //                ).show();
+                }
                 break;
             case R.id.btn_delete:
                 deleteEvent();
@@ -233,15 +255,36 @@ public class AddEventActivity extends ToolBarActivity {
         } else {
             // 新增模式
             setTitle("新增事件");
+            mTargetCalendar = Calendar.getInstance();
             refreshTargetCalendar();
         }
+        // 绘制日历切换按钮的背景文字
+        this.switchCalendar.post(new Runnable() {
+            public void run() {
+                Bitmap trackBitmap = BitmapUtils.getBitmap(mContext, R.drawable.bg_switch_calendar_track);
+                int width = trackBitmap.getWidth();
+                int height = trackBitmap.getHeight();
+                Canvas canvas = new Canvas(trackBitmap);
+                Paint paint = new Paint();
+                paint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
+                paint.setColor(Color.parseColor("#FF565656"));
+                paint.setAntiAlias(true);
+                canvas.drawText(getString(R.string.solar), (float) (width / 8), (float) ((height * 7) / 10), paint);
+                canvas.drawText(getString(R.string.lunar), (float) ((width * 5) / 9), (float) ((height * 7) / 10), paint);
+                canvas.save();
+                switchCalendar.setTrackDrawable(new BitmapDrawable(getResources(), trackBitmap));
+            }
+        });
+
     }
 
     private void refreshTargetCalendar() {
-        mTargetCalendar = Calendar.getInstance();
         tvTargetDate.setText(DateUtils.getFormatedDate(mContext, mTargetCalendar, 2, mIsLunarCalendar));
     }
 
+    /**
+     * 公历dialog
+     */
     public static class DatePickerFragment extends DialogFragment implements
             DatePickerDialog.OnDateSetListener {
 

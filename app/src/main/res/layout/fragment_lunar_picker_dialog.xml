@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center"
+        android:text="@string/select_due_date" />
+
+    <include layout="@layout/view_line" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/spacing_large"
+        android:layout_marginRight="@dimen/spacing_large"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/view_padding">
+
+        <NumberPicker
+            android:id="@+id/lunar_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_padding" />
+
+        <NumberPicker
+            android:id="@+id/lunar_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_padding" />
+
+        <NumberPicker
+            android:id="@+id/lunar_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/view_padding" />
+    </LinearLayout>
+
+    <include layout="@layout/view_line" />
+
+    <Button
+        android:id="@+id/confirm_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_preference_item"
+        android:text="@string/confirm"
+        android:textColor="@color/primary_text" />
+</LinearLayout>
