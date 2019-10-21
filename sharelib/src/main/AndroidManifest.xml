@@ -24,7 +24,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
 
-        <data android:scheme="tencent1106985345"/>
+        <data android:scheme="${qqappid}"/>
       </intent-filter>
     </activity>
 

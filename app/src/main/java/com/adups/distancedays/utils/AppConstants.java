@@ -9,5 +9,4 @@ package com.adups.distancedays.utils;
  */
 public class AppConstants {
 
-    public static final String WX_APP_ID = "wxdf0aa683176ef5a5";
 }

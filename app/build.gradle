@@ -10,7 +10,7 @@ def getManifestPlaceholders(channelName, flavors) {
 
     def tHolders = [
             PACKAGE_NAME           : packageName,
-            qqappid                : qqAppId
+            qqappid                : qqAppId,
     ]
     return tHolders
 }
@@ -109,22 +109,16 @@ android {
              * 安卓apk包命名规则
              apk安装包中必须包含以下信息，以下划线连接
              1.产品名称，必须是英文字母，不能出现中文。
-             2.productFlavors号：light2345表示玩赚星球，xqunion表示星球头条
-             3.定制包的渠道号，官方包没有此项，定制包有此项
+             2.productFlavors号：distancedays表示距离日（渠道号）
+             3.外部版本号
              4.内部版本号
-             5.外部版本号
-             6.打包日期
+             5.打包日期
 
              官方包示例：
              DistanceDays_distancedays_4.1.3_40103_20190314_1011.apk
              */
 
-            def suffix
-            if (rootProject.ext.config.IS_PATCH) {
-                suffix = ".patch"
-            } else {
-                suffix = ".apk"
-            }
+            def suffix = ".apk"
 
             outputFileName = "DistanceDays_" +
                     "${productFlavor}_" +
@@ -136,6 +130,7 @@ android {
     }
     flavorDimensions "versionCode"
     productFlavors {
+        // 多渠道配置
         distancedays {
             addManifestPlaceholders(getManifestPlaceholders(CHANNEL, "distancedays"))
             applicationId rootProject.ext.android.applicationId
@@ -215,6 +210,8 @@ dependencies {
 
     // 数据库
     implementation 'org.greenrobot:greendao:3.2.2'
+
+    implementation project(":sharelib")
 
     //内存分析以及性能分析
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'

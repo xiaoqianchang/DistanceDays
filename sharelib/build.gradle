@@ -22,13 +22,6 @@ android {
             }
         }
     }
-
-//    repositories {
-//        flatDir {
-//            dirs project(':base_service').file('libs')
-//        }
-//    }
-
 }
 
 dependencies {
@@ -43,5 +36,4 @@ dependencies {
     implementation  'com.umeng.umsdk:share-core:6.9.4'
     implementation  'com.umeng.umsdk:share-qq:6.9.4'
     implementation  'com.umeng.umsdk:share-wx:6.9.4'
-//    implementation project(':base_service')
 }

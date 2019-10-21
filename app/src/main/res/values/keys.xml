@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <!--分享模块-->
+    <string name="share_weixin_id">wxf4985871e9c2f209</string>
+    <string name="share_weixin_secrete">bf1aaaee0b3f8cfe83c17f586c444c88</string>
+    <string name="share_qq_id">1106985345</string>
+    <string name="share_qq_secrete">Z1wqw8vETaHTDwN9</string>
+</resources>

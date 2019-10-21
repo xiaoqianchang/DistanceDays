@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.adups.distancedays.R;
 import com.adups.distancedays.model.BaseShareModel;
+import com.adups.distancedays.utils.CommonUtil;
 import com.adups.distancedays.view.CommonProgressDialog;
 
 import java.lang.ref.WeakReference;
@@ -89,4 +90,28 @@ public class ShareManager {
     }
 
     CommonProgressDialog progressDialog;
+
+    /**
+     * 初始化分享sdk
+     */
+    public static void init() {
+        String weixinId = CommonUtil.getApplication().getString(R.string.share_weixin_id);
+        String weixinSecrete = CommonUtil.getApplication().getString(R.string.share_weixin_secrete);
+        String qqId = CommonUtil.getApplication().getString(R.string.share_qq_id);
+        String qqSecrete = CommonUtil.getApplication().getString(R.string.share_qq_secrete);
+
+        com.planet.light2345.sharelib.ShareManager.initShare(CommonUtil.getApplication(), weixinId, weixinSecrete, qqId, qqSecrete);
+    }
+
+
+    /**
+     * 分享方式 云控类型
+     */
+    public static final int SHARE_TYPE_IMG = 1;//分享图片
+    private static final int SHARE_TYPE_TXT = 2;//分享文字
+    private static final int SHARE_TYPE_PASTE = 4;//分享粘贴文字
+
+    public void share(BaseShareModel model, ShareToType type) {
+
+    }
 }
