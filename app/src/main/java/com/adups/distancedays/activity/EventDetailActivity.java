@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.adups.distancedays.R;
 import com.adups.distancedays.base.ToolBarActivity;
+import com.adups.distancedays.fragment.ShareDialogFragment;
 import com.adups.distancedays.model.EventModel;
 import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.DateUtils;
@@ -81,8 +82,9 @@ public class EventDetailActivity extends ToolBarActivity {
     }
 
     @OnClick(R.id.fab_button)
-    public void onFloatButtonClick() {
-        ToastUtil.showToast(mContext, getString(R.string.toast_function_development));
+    public void onShareClick() {
+        ShareDialogFragment dialogFragment = ShareDialogFragment.newInstance();
+        dialogFragment.show(getSupportFragmentManager(), ShareDialogFragment.TAG);
     }
 
     /**

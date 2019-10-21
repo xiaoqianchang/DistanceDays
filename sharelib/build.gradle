@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            postprocessing {
+                removeUnusedCode false
+                removeUnusedResources false
+                obfuscate false
+                optimizeCode false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                consumerProguardFiles 'proguard-rules.pro'
+            }
+        }
+    }
+
+//    repositories {
+//        flatDir {
+//            dirs project(':base_service').file('libs')
+//        }
+//    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    def dependencies = rootProject.ext.dependencies
+//    implementation dependencies.v7
+    //友盟分享
+    api 'com.umeng.umsdk:common:2.0.0'
+    implementation 'com.umeng.sdk:utdid:1.1.5.3'
+    implementation  'com.umeng.umsdk:share-core:6.9.4'
+    implementation  'com.umeng.umsdk:share-board:6.9.4'
+    implementation  'com.umeng.umsdk:share-core:6.9.4'
+    implementation  'com.umeng.umsdk:share-qq:6.9.4'
+    implementation  'com.umeng.umsdk:share-wx:6.9.4'
+//    implementation project(':base_service')
+}

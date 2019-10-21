@@ -1,0 +1,46 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.planet.light2345.sharelib">
+
+  <application
+    android:supportsRtl="true">
+    <!--分享 START -->
+    <!-- 微信 分享 -->
+    <activity
+      android:configChanges="keyboardHidden|orientation|screenSize"
+      android:exported="true"
+      android:name="com.planet.light2345.wxapi.WXEntryActivity"
+      android:screenOrientation="portrait"
+      android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+    <!-- QQ 分享 -->
+    <activity
+      android:launchMode="singleTask"
+      android:name="com.tencent.tauth.AuthActivity"
+      android:noHistory="true">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+
+        <data android:scheme="tencent1106985345"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:configChanges="orientation|keyboardHidden"
+      android:name="com.tencent.connect.common.AssistActivity"
+      android:screenOrientation="portrait"
+      android:theme="@android:style/Theme.Translucent.NoTitleBar"
+      tools:replace="android:screenOrientation"/>
+    <!--分享 END -->
+
+    <activity
+      android:name="com.planet.light2345.sharelib.channel.qq.QQChannelActivity"
+      android:theme="@style/ShareActivityTheme"/>
+    <activity
+      android:name="com.planet.light2345.sharelib.channel.wx.WXChannelActivity"
+      android:theme="@style/ShareActivityTheme"/>
+  </application>
+</manifest>

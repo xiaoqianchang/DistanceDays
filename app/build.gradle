@@ -1,22 +1,147 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 
+def getManifestPlaceholders(channelName, flavors) {
+    def packageName = rootProject.ext.android.applicationId
+    def qqAppId = rootProject.ext.config.QQ_APP_ID
+
+    println " qqAppId is " + qqAppId
+    println " flavors is " + flavors
+
+    def tHolders = [
+            PACKAGE_NAME           : packageName,
+            qqappid                : qqAppId
+    ]
+    return tHolders
+}
+
+def getManifestPlaceholdersForBuildType(BuildType) {
+    def enableLargeHeap = 'false'
+    if ('release' == BuildType) {
+        enableLargeHeap = 'true'
+    }
+    println "buildType=" + BuildType + ", enableLargeHeap=" + enableLargeHeap
+    def tHolders = [
+            ENABLE_LARGE_HEAP: enableLargeHeap,
+    ]
+    return tHolders
+}
+
+def releaseTime() {
+    return new Date().format("yyyyMMdd_HHmm")
+}
+
 android {
-    compileSdkVersion 28
-    buildToolsVersion "29.0.2"
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
-        applicationId "com.adups.distancedays"
-        minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release {
+            try {
+                File signFile = rootProject.file('sign.properties')
+                Properties p = new Properties()
+                p.load(new FileInputStream(signFile))
+
+                storeFile file("${project.rootDir}/distancedays.jks")
+                storePassword p.storePassword
+                keyAlias p.keyAlias
+                keyPassword p.keyPassword
+            } catch (ex) {
+                throw new Exception("You should define KEYSTORE_PASSWORD and " +
+                        "KEY_PASSWORD in sign.properties.")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            buildConfigField("String", "releaseTime", "\"" + releaseTime() + "\"")
+            buildConfigField("String", "UMENG_CHANNEL", "\"" + CHANNEL + "\"")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            minifyEnabled MINIFY_ENABLED.toBoolean()
+            shrinkResources true
+            zipAlignEnabled true
+            addManifestPlaceholders(getManifestPlaceholdersForBuildType('release'))
+        }
+        debug {
+            buildConfigField("String", "releaseTime", "\"" + releaseTime() + "\"")
+            buildConfigField("String", "UMENG_CHANNEL", "\"" + CHANNEL + "\"")
+            minifyEnabled false
+            debuggable true
+            versionNameSuffix 'dev'
+            // 多渠道打包必须要写这句话，否则多渠道打debug包时，签名不生效
+            signingConfig null
+            addManifestPlaceholders(getManifestPlaceholdersForBuildType('debug'))
+        }
+
+        forTest.initWith(release)
+        forTest {
+            versionNameSuffix 'test'
+            matchingFallbacks = ['release']
+            addManifestPlaceholders(getManifestPlaceholdersForBuildType('forTest'))
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def showVersionName = variant.productFlavors[0].versionName
+            if (showVersionName == null) {
+                showVersionName = defaultConfig.versionName
+            }
+            def showVersionCode = variant.productFlavors[0].versionCode
+            if (showVersionCode == null) {
+                showVersionCode = defaultConfig.versionCode
+            }
+            def productFlavor = variant.productFlavors[0].name
+            if (productFlavor == null) {
+                productFlavor = "distancedays"
+            }
+            /**
+             * 安卓apk包命名规则
+             apk安装包中必须包含以下信息，以下划线连接
+             1.产品名称，必须是英文字母，不能出现中文。
+             2.productFlavors号：light2345表示玩赚星球，xqunion表示星球头条
+             3.定制包的渠道号，官方包没有此项，定制包有此项
+             4.内部版本号
+             5.外部版本号
+             6.打包日期
+
+             官方包示例：
+             DistanceDays_distancedays_4.1.3_40103_20190314_1011.apk
+             */
+
+            def suffix
+            if (rootProject.ext.config.IS_PATCH) {
+                suffix = ".patch"
+            } else {
+                suffix = ".apk"
+            }
+
+            outputFileName = "DistanceDays_" +
+                    "${productFlavor}_" +
+                    "${showVersionName}_" +
+                    "${showVersionCode}_" +
+                    "${releaseTime()}" +
+                    suffix
+        }
+    }
+    flavorDimensions "versionCode"
+    productFlavors {
+        distancedays {
+            addManifestPlaceholders(getManifestPlaceholders(CHANNEL, "distancedays"))
+            applicationId rootProject.ext.android.applicationId
+            versionName rootProject.ext.android.versionName
+            versionCode rootProject.ext.android.versionCode
+            signingConfig signingConfigs.release
         }
     }
 
