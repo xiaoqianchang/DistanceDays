@@ -33,7 +33,7 @@ ext {
     android = [
             versionCode      : VERSION_CODE.toInteger(),
             versionName      : VERSION_NAME,
-            applicationId    : 'com.adups.distancedays',
+            applicationId    : 'com.color.distancedays',
             minSdkVersion    : 16,
             targetSdkVersion : 28,
             compileSdkVersion: 28,

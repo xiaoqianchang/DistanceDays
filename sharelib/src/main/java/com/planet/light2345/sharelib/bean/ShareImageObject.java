@@ -10,10 +10,16 @@ import android.os.Parcel;
 public class ShareImageObject extends ShareObject{
 
   public String imageLocalPath; //图片下载在本地的路径
+  public byte[] bitmap;
 
   public ShareImageObject(int shareType, int sharePlatform, String imageLocalPath) {
     super(shareType, sharePlatform);
     this.imageLocalPath = imageLocalPath;
+  }
+
+  public ShareImageObject(int shareType, int sharePlatform, byte[] bitmap) {
+    super(shareType, sharePlatform);
+    this.bitmap = bitmap;
   }
 
 
@@ -26,11 +32,15 @@ public class ShareImageObject extends ShareObject{
   public void writeToParcel(Parcel dest, int flags) {
     super.writeToParcel(dest, flags);
     dest.writeString(this.imageLocalPath);
+    dest.writeByteArray(this.bitmap);
   }
 
   protected ShareImageObject(Parcel in) {
     super(in);
     this.imageLocalPath = in.readString();
+    byte[] byteArray = in.createByteArray();
+    in.unmarshall(byteArray, 0, byteArray.length);
+    this.bitmap = byteArray;
   }
 
   public static final Creator<ShareImageObject> CREATOR = new Creator<ShareImageObject>() {

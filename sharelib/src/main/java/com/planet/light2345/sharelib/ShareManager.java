@@ -37,11 +37,11 @@ public class ShareManager {
   /**
    * 初始化分享sdk
    */
-  public static void initShare(Application application, String weixinId, String weixinSecret, String qqId, String qqSecret) {
+  public static void initShare(Application application, String umengAppkey, String weixinId, String weixinSecret, String qqId, String qqSecret) {
 
     if (!UMConfigure.getInitStatus()) {
       UMConfigure.init(application
-          , null, null, UMConfigure.DEVICE_TYPE_PHONE, "");
+          , umengAppkey, null, UMConfigure.DEVICE_TYPE_PHONE, "");
     }
 
     // 配置三方平台的appkey

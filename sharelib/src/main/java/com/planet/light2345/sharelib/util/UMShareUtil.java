@@ -3,6 +3,7 @@ package com.planet.light2345.sharelib.util;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import com.planet.light2345.sharelib.bean.ShareImageObject;
 import com.planet.light2345.sharelib.bean.ShareObject;
@@ -96,13 +97,24 @@ public class UMShareUtil {
       case ShareType.TYPE_IMAGE:
         if (shareObject instanceof ShareImageObject) {
           ShareImageObject shareImageObject = (ShareImageObject) shareObject;
-          File file = new File(shareImageObject.imageLocalPath);
-          UMImage image = new UMImage(context, file);
-          Bitmap bitmap = BitmapUtil.compressImage(BitmapUtil.decodeImageFromFile(file.getPath()));
-          if (bitmap == null) {
-            image.setThumb(new UMImage(context, file));
+          UMImage image;
+          if (!TextUtils.isEmpty(shareImageObject.imageLocalPath)) {
+            File file = new File(shareImageObject.imageLocalPath);
+            image = new UMImage(context, file);
+            Bitmap bitmap = BitmapUtil.compressImage(BitmapUtil.decodeImageFromFile(file.getPath()));
+            if (bitmap == null) {
+              image.setThumb(new UMImage(context, file));
+            } else {
+              image.setThumb(new UMImage(context, bitmap));
+            }
           } else {
-            image.setThumb(new UMImage(context, bitmap));
+            image = new UMImage(context, shareImageObject.bitmap);
+            Bitmap bitmap = BitmapUtil.compressImage(BitmapFactory.decodeByteArray(shareImageObject.bitmap, 0, shareImageObject.bitmap.length));
+            if (bitmap == null) {
+              image.setThumb(new UMImage(context, shareImageObject.bitmap));
+            } else {
+              image.setThumb(new UMImage(context, bitmap));
+            }
           }
           image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
           //压缩格式设置

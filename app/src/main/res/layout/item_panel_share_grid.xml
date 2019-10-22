@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:gravity="center_horizontal"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical">
 
     <ImageView

@@ -2,15 +2,17 @@ package com.adups.distancedays.fragment;
 
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.adups.distancedays.R;
 import com.adups.distancedays.adapter.CommonAdapter;
 import com.adups.distancedays.base.BaseDialogFragment;
-import com.adups.distancedays.manager.ShareManager;
-import com.adups.distancedays.model.BaseShareModel;
+import com.adups.distancedays.manager.ShareLibManager;
+import com.adups.distancedays.model.EventModel;
+import com.adups.distancedays.model.ShareModel;
+import com.adups.distancedays.utils.BundleConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,16 +34,36 @@ public class ShareDialogFragment extends BaseDialogFragment {
     GridView mGridView;
 
     private ShareDialogAdapter mAdapter;
-    private BaseShareModel mShareModel;
+    private String title;
+    private String day;
+    private String dueDate;
 
-    public static ShareDialogFragment newInstance() {
+    public static ShareDialogFragment newInstance(EventModel eventModel) {
         ShareDialogFragment dialogFragment = new ShareDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BundleConstants.KEY_MODEL, eventModel);
+        dialogFragment.setArguments(bundle);
+        return dialogFragment;
+    }
+
+    public static ShareDialogFragment newInstance(String title, String day, String dueDate) {
+        ShareDialogFragment dialogFragment = new ShareDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(BundleConstants.KEY_TITLE, title);
+        bundle.putString(BundleConstants.KEY_DAY, day);
+        bundle.putString(BundleConstants.KEY_DUE_DATE, dueDate);
+        dialogFragment.setArguments(bundle);
         return dialogFragment;
     }
 
     @Override
     protected void getExtraArguments() {
-
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            title = bundle.getString(BundleConstants.KEY_TITLE);
+            day = bundle.getString(BundleConstants.KEY_DAY);
+            dueDate = bundle.getString(BundleConstants.KEY_DUE_DATE);
+        }
     }
 
     @Override
@@ -51,34 +73,40 @@ public class ShareDialogFragment extends BaseDialogFragment {
 
     @Override
     protected void initPresenter() {
+    }
 
+    private ShareModel buildData(int shareType) {
+        ShareModel shareModel = new ShareModel();
+        shareModel.setShareType(shareType);
+        if (shareType == ShareLibManager.TYPE_SHARE_TXT) { // text 目前为测试数据
+            shareModel.setTitle("测试 title");
+            shareModel.setContent("测试 content");
+            shareModel.setContentUrl("https://www.baidu.com/");
+            return shareModel;
+        }
+        if (shareType == ShareLibManager.TYPE_SHARE_IMG) {
+            shareModel.setEventTitle(title);
+            shareModel.setDay(day);
+            shareModel.setDueDate(dueDate);
+        }
+        return shareModel;
     }
 
     @Override
     public void bindView(View view) {
-        List<ShareManager.ShareToType> shareModelList = getShareModelList();
+        List<ShareLibManager.ShareToType> shareModelList = getShareModelList();
         mAdapter = new ShareDialogAdapter(mContext, R.layout.item_panel_share_grid, shareModelList);
         mGridView.setAdapter(mAdapter);
-        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new ShareDialogAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                shareTo(mAdapter.getItem(position), mShareModel);
+            public void onItemClick(View view, ShareLibManager.ShareToType t, int position) {
+                shareTo(mAdapter.getItem(position), buildData(ShareLibManager.TYPE_SHARE_IMG));
             }
         });
     }
 
-    private void shareTo(ShareManager.ShareToType shareToType, BaseShareModel mShareModel) {
-        switch (shareToType){
-//            case TO_WEIXIN_FRIEND:
-//                ShareManager.getInstance(mActRef.get()).shareToWX(shareModel,shareToType);
-//                break;
-//            case TO_WEIXIN_GROUP:
-//                ShareManager.getInstance(mActRef.get()).shareToWX(shareModel,shareToType);
-//                break;
-//            case TO_QQ:
-//                ShareManager.getInstance(mActRef.get()).shareToSinaWeibo(shareModel);
-//                break;
-        }
+    private void shareTo(ShareLibManager.ShareToType shareToType, ShareModel shareModel) {
+        ShareLibManager.getInstance().share(getActivity(), shareToType, shareModel);
     }
 
     /**
@@ -86,27 +114,46 @@ public class ShareDialogFragment extends BaseDialogFragment {
      *
      * @return
      */
-    private List<ShareManager.ShareToType> getShareModelList() {
-        List<ShareManager.ShareToType> shareModels = new ArrayList<>();
-        shareModels.add(ShareManager.ShareToType.TO_WEIXIN_FRIEND);
-        shareModels.add(ShareManager.ShareToType.TO_WEIXIN_GROUP);
-        shareModels.add(ShareManager.ShareToType.TO_QQ);
+    private List<ShareLibManager.ShareToType> getShareModelList() {
+        List<ShareLibManager.ShareToType> shareModels = new ArrayList<>();
+        shareModels.add(ShareLibManager.ShareToType.TO_WEIXIN_FRIEND);
+        shareModels.add(ShareLibManager.ShareToType.TO_WEIXIN_GROUP);
+        shareModels.add(ShareLibManager.ShareToType.TO_QQ);
         return shareModels;
     }
 
     /**
      * 分享框adapter
      */
-    public static class ShareDialogAdapter extends CommonAdapter<ShareManager.ShareToType> {
+    public static class ShareDialogAdapter extends CommonAdapter<ShareLibManager.ShareToType> {
 
-        public ShareDialogAdapter(Context context, int layoutId, List<ShareManager.ShareToType> datas) {
+        private OnItemClickListener onItemClickListener;
+
+        public ShareDialogAdapter(Context context, int layoutId, List<ShareLibManager.ShareToType> datas) {
             super(context, layoutId, datas);
         }
 
         @Override
-        protected void convert(com.adups.distancedays.adapter.ViewHolder holder, ShareManager.ShareToType shareModel) {
+        protected void convert(com.adups.distancedays.adapter.ViewHolder holder, ShareLibManager.ShareToType shareModel) {
             holder.setImageDrawer(R.id.iv_share_icon, mContext.getResources().getDrawable(shareModel.getIconResId()));
             holder.setText(R.id.tv_share_text, mContext.getString(shareModel.getTitleResId()));
+            holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onItemClick(holder.getConvertView(), shareModel, holder.getCurrentPosition());
+                    }
+                }
+            });
+        }
+
+        public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+            this.onItemClickListener = onItemClickListener;
+        }
+
+        public interface OnItemClickListener {
+
+            void onItemClick(View view, ShareLibManager.ShareToType t, int position);
         }
     }
 

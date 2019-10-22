@@ -14,4 +14,6 @@ public class BundleConstants {
     public static final String KEY_TITLE = "title";
     public static final String KEY_URL = "url";
     public static final String KEY_FILE_PATH = "filePath";
+    public static final String KEY_DAY = "day";
+    public static final String KEY_DUE_DATE = "dueDate";
 }

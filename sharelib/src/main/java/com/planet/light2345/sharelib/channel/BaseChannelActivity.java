@@ -3,11 +3,12 @@ package com.planet.light2345.sharelib.channel;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import com.planet.light2345.sharelib.ShareManager;
 import com.planet.light2345.sharelib.bean.ShareObject;
 import com.planet.light2345.sharelib.channel.Controller.ControllerListener;
 import com.planet.light2345.sharelib.listener.ShareListener;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by zhangk on 2018/8/21.

@@ -360,6 +360,10 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+    public int getCurrentPosition() {
+        return mPosition;
+    }
+
     /**
      * 更新position
      *

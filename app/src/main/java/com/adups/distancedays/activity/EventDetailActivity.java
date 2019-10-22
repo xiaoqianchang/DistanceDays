@@ -65,7 +65,7 @@ public class EventDetailActivity extends ToolBarActivity {
         tvDay.setText(String.valueOf(mEventModel.getDays()));
         Calendar instance = Calendar.getInstance();
         instance.setTimeInMillis(mEventModel.getTargetTime());
-        tvDueDate.setText(DateUtils.getFormatedDate(mContext, instance, 2, mEventModel.isLunarCalendar()));
+        tvDueDate.setText(getString(R.string.string_target_date, DateUtils.getFormatedDate(mContext, instance, 2, mEventModel.isLunarCalendar())));
     }
 
     @Override
@@ -83,7 +83,7 @@ public class EventDetailActivity extends ToolBarActivity {
 
     @OnClick(R.id.fab_button)
     public void onShareClick() {
-        ShareDialogFragment dialogFragment = ShareDialogFragment.newInstance();
+        ShareDialogFragment dialogFragment = ShareDialogFragment.newInstance(tvTitle.getText().toString(), tvDay.getText().toString(), tvDueDate.getText().toString());
         dialogFragment.show(getSupportFragmentManager(), ShareDialogFragment.TAG);
     }
 
