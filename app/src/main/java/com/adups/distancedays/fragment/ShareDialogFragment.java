@@ -9,7 +9,7 @@ import android.widget.GridView;
 import com.adups.distancedays.R;
 import com.adups.distancedays.adapter.CommonAdapter;
 import com.adups.distancedays.base.BaseDialogFragment;
-import com.adups.distancedays.manager.ShareLibManager;
+import com.adups.distancedays.manager.AppShareManager;
 import com.adups.distancedays.model.EventModel;
 import com.adups.distancedays.model.ShareModel;
 import com.adups.distancedays.utils.BundleConstants;
@@ -78,13 +78,13 @@ public class ShareDialogFragment extends BaseDialogFragment {
     private ShareModel buildData(int shareType) {
         ShareModel shareModel = new ShareModel();
         shareModel.setShareType(shareType);
-        if (shareType == ShareLibManager.TYPE_SHARE_TXT) { // text 目前为测试数据
+        if (shareType == AppShareManager.TYPE_SHARE_TXT) { // text 目前为测试数据
             shareModel.setTitle("测试 title");
             shareModel.setContent("测试 content");
             shareModel.setContentUrl("https://www.baidu.com/");
             return shareModel;
         }
-        if (shareType == ShareLibManager.TYPE_SHARE_IMG) {
+        if (shareType == AppShareManager.TYPE_SHARE_IMG) {
             shareModel.setEventTitle(title);
             shareModel.setDay(day);
             shareModel.setDueDate(dueDate);
@@ -94,19 +94,19 @@ public class ShareDialogFragment extends BaseDialogFragment {
 
     @Override
     public void bindView(View view) {
-        List<ShareLibManager.ShareToType> shareModelList = getShareModelList();
+        List<AppShareManager.ShareToType> shareModelList = getShareModelList();
         mAdapter = new ShareDialogAdapter(mContext, R.layout.item_panel_share_grid, shareModelList);
         mGridView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new ShareDialogAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, ShareLibManager.ShareToType t, int position) {
-                shareTo(mAdapter.getItem(position), buildData(ShareLibManager.TYPE_SHARE_IMG));
+            public void onItemClick(View view, AppShareManager.ShareToType t, int position) {
+                shareTo(mAdapter.getItem(position), buildData(AppShareManager.TYPE_SHARE_IMG));
             }
         });
     }
 
-    private void shareTo(ShareLibManager.ShareToType shareToType, ShareModel shareModel) {
-        ShareLibManager.getInstance().share(getActivity(), shareToType, shareModel);
+    private void shareTo(AppShareManager.ShareToType shareToType, ShareModel shareModel) {
+        AppShareManager.getInstance().share(getActivity(), shareToType, shareModel);
     }
 
     /**
@@ -114,27 +114,27 @@ public class ShareDialogFragment extends BaseDialogFragment {
      *
      * @return
      */
-    private List<ShareLibManager.ShareToType> getShareModelList() {
-        List<ShareLibManager.ShareToType> shareModels = new ArrayList<>();
-        shareModels.add(ShareLibManager.ShareToType.TO_WEIXIN_FRIEND);
-        shareModels.add(ShareLibManager.ShareToType.TO_WEIXIN_GROUP);
-        shareModels.add(ShareLibManager.ShareToType.TO_QQ);
+    private List<AppShareManager.ShareToType> getShareModelList() {
+        List<AppShareManager.ShareToType> shareModels = new ArrayList<>();
+        shareModels.add(AppShareManager.ShareToType.TO_WEIXIN_FRIEND);
+        shareModels.add(AppShareManager.ShareToType.TO_WEIXIN_GROUP);
+        shareModels.add(AppShareManager.ShareToType.TO_QQ);
         return shareModels;
     }
 
     /**
      * 分享框adapter
      */
-    public static class ShareDialogAdapter extends CommonAdapter<ShareLibManager.ShareToType> {
+    public static class ShareDialogAdapter extends CommonAdapter<AppShareManager.ShareToType> {
 
         private OnItemClickListener onItemClickListener;
 
-        public ShareDialogAdapter(Context context, int layoutId, List<ShareLibManager.ShareToType> datas) {
+        public ShareDialogAdapter(Context context, int layoutId, List<AppShareManager.ShareToType> datas) {
             super(context, layoutId, datas);
         }
 
         @Override
-        protected void convert(com.adups.distancedays.adapter.ViewHolder holder, ShareLibManager.ShareToType shareModel) {
+        protected void convert(com.adups.distancedays.adapter.ViewHolder holder, AppShareManager.ShareToType shareModel) {
             holder.setImageDrawer(R.id.iv_share_icon, mContext.getResources().getDrawable(shareModel.getIconResId()));
             holder.setText(R.id.tv_share_text, mContext.getString(shareModel.getTitleResId()));
             holder.getConvertView().setOnClickListener(new View.OnClickListener() {
@@ -153,7 +153,7 @@ public class ShareDialogFragment extends BaseDialogFragment {
 
         public interface OnItemClickListener {
 
-            void onItemClick(View view, ShareLibManager.ShareToType t, int position);
+            void onItemClick(View view, AppShareManager.ShareToType t, int position);
         }
     }
 

@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 
 import com.adups.distancedays.R;
 import com.adups.distancedays.model.ShareModel;
-import com.adups.distancedays.utils.BitmapUtils;
 import com.adups.distancedays.utils.CommonUtil;
 import com.adups.distancedays.utils.ContextUtils;
 import com.adups.distancedays.utils.ShareImageHelper;
@@ -31,9 +30,9 @@ import androidx.annotation.StringRes;
  *
  * @version 1.0
  */
-public class ShareLibManager {
+public class AppShareManager {
 
-    private static final String TAG = ShareLibManager.class.getSimpleName();
+    private static final String TAG = AppShareManager.class.getSimpleName();
 
     private final static int BASE_INDEX = 0;
     public static int INDEX_WEIXIN_FRIEND = BASE_INDEX;
@@ -81,26 +80,25 @@ public class ShareLibManager {
     public static final int TYPE_SHARE_IMG = 2; // 分享图片
 
     private Activity mContext; // 分享入口上下文；
-    private volatile static ShareLibManager INSTANCE = null;
     private HashMap<ShareToType, ShareModel> shareModelMap = new HashMap<>();
     private ShareToType mCurrentType;
 
-    private ShareLibManager() {
+    private AppShareManager() {
     }
 
-    public static ShareLibManager getInstance() {
+    public static AppShareManager getInstance() {
         return ShareLibManagerHolder.INSTANCE;
     }
 
-    public ShareModel getShareModelByType(ShareLibManager.ShareToType type) {
+    private static final class ShareLibManagerHolder {
+        private static final AppShareManager INSTANCE = new AppShareManager();
+    }
+
+    public ShareModel getShareModelByType(AppShareManager.ShareToType type) {
         if (shareModelMap.containsKey(type)) {
             return shareModelMap.get(type);
         }
         return null;
-    }
-
-    private static final class ShareLibManagerHolder {
-        private static final ShareLibManager INSTANCE = new ShareLibManager();
     }
 
     /**
@@ -159,7 +157,7 @@ public class ShareLibManager {
      * @param bitmap 分享图片类型时配置信息、分享文字时入参为空
      */
     public void umengShareAction(ShareToType type, ShareModel model, Bitmap bitmap) {
-        if (mContext == null) {
+        if (!ContextUtils.checkContext(mContext)) {
             return;
         }
         if (bitmap == null && model == null) {

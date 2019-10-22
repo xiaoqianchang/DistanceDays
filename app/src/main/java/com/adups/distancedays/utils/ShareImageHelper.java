@@ -6,11 +6,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.text.TextUtils;
 
 import com.adups.distancedays.R;
-import com.adups.distancedays.manager.ShareLibManager;
+import com.adups.distancedays.manager.AppShareManager;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -18,7 +16,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import java.io.File;
 
 /**
  * @desc 分享图片处理
@@ -211,8 +208,8 @@ public class ShareImageHelper {
    */
   private static void onSuccess(Context mContext, Bitmap bitmap) {
     if (bitmap != null) {
-      ShareLibManager.getInstance().umengShareAction(
-              ShareLibManager.getInstance().getType(), null, bitmap);
+      AppShareManager.getInstance().umengShareAction(
+              AppShareManager.getInstance().getType(), null, bitmap);
     } else {
       onFail(mContext);
     }
@@ -223,6 +220,6 @@ public class ShareImageHelper {
    */
   private static void onFail(Context context) {
     ToastUtil.showToast(context, R.string.share_error_msg);
-    ShareLibManager.getInstance().dismissLoading();
+    AppShareManager.getInstance().dismissLoading();
   }
 }
