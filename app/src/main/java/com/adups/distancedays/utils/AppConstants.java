@@ -18,7 +18,8 @@ public class AppConstants {
     }
 
     public static class RequestCode {
-        public static final int CODE_LIST_FRAGMENT = 0x100;
-        public static final int CODE_EVENT_DETAIL = 0x101;
+        public static final int CODE_EVENT_DETAIL = 0x100; // 事件详情
+        public static final int CODE_EVENT_EDIT = 0x101; // 编辑事件
+        public static final int CODE_EVENT_ADD = 0x102; // 新增事件
     }
 }

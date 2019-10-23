@@ -239,7 +239,7 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
             @Override
             public void run() {
                 Intent intent = new Intent(MainActivity.this, AddEventActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, AppConstants.RequestCode.CODE_EVENT_ADD);
             }
         };
     }

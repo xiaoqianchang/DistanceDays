@@ -79,7 +79,7 @@ public class EventDetailActivity extends ToolBarActivity {
                 Intent intent = new Intent(mContext, AddEventActivity.class);
                 intent.putExtra(BundleConstants.KEY_TYPE, AddEventActivity.TYPE_EDIT);
                 intent.putExtra(BundleConstants.KEY_MODEL, mEventModel);
-                startActivityForResult(intent, AppConstants.RequestCode.CODE_EVENT_DETAIL);
+                startActivityForResult(intent, AppConstants.RequestCode.CODE_EVENT_EDIT);
             }
         };
     }
@@ -89,12 +89,20 @@ public class EventDetailActivity extends ToolBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case AppConstants.RequestCode.CODE_EVENT_DETAIL:
+                case AppConstants.RequestCode.CODE_EVENT_EDIT:
                     if (null != data) {
-                        String type = data.getStringExtra("type");
-                        if ("delete".equals(type)) {
-                            setResult(RESULT_OK);
-                            finish();
+                        int type = data.getIntExtra(BundleConstants.KEY_TYPE, AddEventActivity.TYPE_EDIT);
+                        switch (type) {
+                            case AddEventActivity.TYPE_EDIT:
+                                mEventModel = (EventModel) data.getSerializableExtra(BundleConstants.KEY_MODEL);
+                                // 刷新界面
+                                refreshUi();
+                                setResult(RESULT_OK, data);
+                                break;
+                            case AddEventActivity.TYPE_DELETE:
+                                setResult(RESULT_OK, data);
+                                finish();
+                                break;
                         }
                     }
                     break;

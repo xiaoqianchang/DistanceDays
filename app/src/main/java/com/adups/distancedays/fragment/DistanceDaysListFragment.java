@@ -104,7 +104,7 @@ public class DistanceDaysListFragment extends BaseFragment {
                 EventModel model = (EventModel) mAdapter.getItem(position);
                 bundle.putSerializable(BundleConstants.KEY_MODEL, model);
                 intent.putExtras(bundle);
-                startActivityForResult(intent, AppConstants.RequestCode.CODE_LIST_FRAGMENT);
+                startActivityForResult(intent, AppConstants.RequestCode.CODE_EVENT_DETAIL);
             }
         });
     }
@@ -114,7 +114,7 @@ public class DistanceDaysListFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case AppConstants.RequestCode.CODE_LIST_FRAGMENT:
+                case AppConstants.RequestCode.CODE_EVENT_DETAIL:
                     refreshUi();
                     break;
             }

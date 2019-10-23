@@ -1,18 +1,17 @@
 package com.adups.distancedays.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.adups.distancedays.R;
 import com.adups.distancedays.base.BaseFragment;
-import com.adups.distancedays.event.EditEventSuccess;
-import com.adups.distancedays.utils.EventUtil;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.adups.distancedays.utils.AppConstants;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * 距离日
@@ -44,23 +43,27 @@ public class DistanceDaysFragment extends BaseFragment {
     @Override
     protected void init(Bundle savedInstanceState) {
         switchView(false);
-        EventUtil.register(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void addEventSuccess(EditEventSuccess event) {
-        // 刷新视图
-        if (mType == TYPE_CARD && mCurrentFragment instanceof DistanceDaysGridFragment) {
-            ((DistanceDaysGridFragment) mCurrentFragment).refreshUi();
-        } else {
-            ((DistanceDaysListFragment) mCurrentFragment).refreshUi();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case AppConstants.RequestCode.CODE_EVENT_ADD:
+                    if (mType == TYPE_CARD && mCurrentFragment instanceof DistanceDaysGridFragment) {
+                        ((DistanceDaysGridFragment) mCurrentFragment).refreshUi();
+                    } else {
+                        ((DistanceDaysListFragment) mCurrentFragment).refreshUi();
+                    }
+                    break;
+            }
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        EventUtil.unregister(this);
     }
 
     public void switchView(boolean isSwitch) {

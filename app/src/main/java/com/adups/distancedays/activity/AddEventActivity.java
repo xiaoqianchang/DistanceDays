@@ -2,15 +2,12 @@ package com.adups.distancedays.activity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -30,13 +27,11 @@ import com.adups.distancedays.db.DBHelper;
 import com.adups.distancedays.db.EntityConverter;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
-import com.adups.distancedays.event.EditEventSuccess;
 import com.adups.distancedays.fragment.LunarPickerDialogFragment;
 import com.adups.distancedays.model.EventModel;
 import com.adups.distancedays.utils.BitmapUtils;
 import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.DateUtils;
-import com.adups.distancedays.utils.EventUtil;
 import com.adups.distancedays.utils.ToastUtil;
 import com.adups.distancedays.utils.ToolUtil;
 
@@ -63,6 +58,7 @@ public class AddEventActivity extends ToolBarActivity {
 
     public static final int TYPE_ADD = 1; // 新增事件
     public static final int TYPE_EDIT = 2; // 编辑事件
+    public static final int TYPE_DELETE = 3; // 删除事件
 
     @BindView(R.id.edt_event_name)
     EditText edtEventName;
@@ -126,56 +122,31 @@ public class AddEventActivity extends ToolBarActivity {
         });
     }
 
-    @OnClick({R.id.tv_target_date, R.id.btn_delete, R.id.btn_save})
-    public void onClick(View view) {
-        int vId = view.getId();
-        switch (vId) {
-            case R.id.tv_target_date:
-                if (switchCalendar.isChecked()) {
-                    LunarPickerDialogFragment dialog2 = LunarPickerDialogFragment.newInstance(mTargetCalendar);
-                    dialog2.setOnConfirmClickListener(new LunarPickerDialogFragment.OnConfirmClickListener() {
-                        public void onConfirmClick(Calendar selectedCalendar) {
-                            mTargetCalendar = (Calendar) selectedCalendar.clone();
-                            tvTargetDate.setText(DateUtils.getFormatedDate(mContext, mTargetCalendar, 2, switchCalendar.isChecked()));
-                        }
-                    });
-                    dialog2.show(getSupportFragmentManager(), "edit");
-
-                } else {
-                    DialogFragment datePickerFragment = new DatePickerFragment(this);
-                    datePickerFragment.show(getSupportFragmentManager(), "datePicker");
-                    //                Calendar calendar = Calendar.getInstance();
-                    //                new DatePickerDialog(mContext, DatePickerDialog.THEME_DEVICE_DEFAULT_LIGHT, new DatePickerDialog.OnDateSetListener() {
-                    //                    @Override
-                    //                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    //                        calendar.set(year,monthOfYear,dayOfMonth);
-                    //                    }
-                    //                }, calendar.get(Calendar.YEAR),
-                    //                        calendar.get(Calendar.MONTH),
-                    //                        calendar.get(Calendar.DAY_OF_MONTH)
-                    //                ).show();
+    @OnClick(R.id.tv_target_date)
+    public void onTargetDateClick(View view) {
+        if (switchCalendar.isChecked()) {
+            LunarPickerDialogFragment dialog2 = LunarPickerDialogFragment.newInstance(mTargetCalendar);
+            dialog2.setOnConfirmClickListener(new LunarPickerDialogFragment.OnConfirmClickListener() {
+                public void onConfirmClick(Calendar selectedCalendar) {
+                    mTargetCalendar = (Calendar) selectedCalendar.clone();
+                    tvTargetDate.setText(DateUtils.getFormatedDate(mContext, mTargetCalendar, 2, switchCalendar.isChecked()));
                 }
-                break;
-            case R.id.btn_delete:
-                deleteEvent();
-                break;
-            case R.id.btn_save:
-                addEvent();
-                break;
-        }
-    }
+            });
+            dialog2.show(getSupportFragmentManager(), "edit");
 
-    /**
-     * 删除事件
-     */
-    private void deleteEvent() {
-        if (mEventDao != null && mEditEventModel != null) {
-            mEventDao.delete(EntityConverter.convertToEventEntity(mEditEventModel));
-            EventUtil.post(new EditEventSuccess());
-            Intent intent = new Intent();
-            intent.putExtra("type", "delete");
-            setResult(RESULT_OK);
-            finish();
+        } else {
+            DialogFragment datePickerFragment = new DatePickerFragment(this);
+            datePickerFragment.show(getSupportFragmentManager(), "datePicker");
+            //                Calendar calendar = Calendar.getInstance();
+            //                new DatePickerDialog(mContext, DatePickerDialog.THEME_DEVICE_DEFAULT_LIGHT, new DatePickerDialog.OnDateSetListener() {
+            //                    @Override
+            //                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            //                        calendar.set(year,monthOfYear,dayOfMonth);
+            //                    }
+            //                }, calendar.get(Calendar.YEAR),
+            //                        calendar.get(Calendar.MONTH),
+            //                        calendar.get(Calendar.DAY_OF_MONTH)
+            //                ).show();
         }
     }
 
@@ -188,32 +159,64 @@ public class AddEventActivity extends ToolBarActivity {
     /**
      * 添加事件
      */
-    private void addEvent() {
+    @OnClick(R.id.btn_save)
+    public void onSaveClick() {
         String eventName = edtEventName.getText().toString().trim();
         if (TextUtils.isEmpty(eventName)) {
             ToastUtil.showToast("请输入事件标题");
             return;
         }
-        EventEntity event = new EventEntity();
-        event.setEventTitle(eventName);
-        event.setCreateDate(DateUtils.getCurrentTimeMillis());
-        event.setTargetDate(mTargetCalendar.getTimeInMillis());
-        event.setIsLunarCalendar(switchCalendar.isChecked());
-        event.setIsTop(switchTop.isChecked());
-        event.setRepeatType(mRepeatType);
-        // 如果当前插入事件是置顶，把之前置顶数据改为非置顶
-        if (switchTop.isChecked()) {
-            updateUnTopFromDB();
-        }
-        long id = mEventDao.insert(event);
-        if (id > 0) {
-            EventUtil.post(new EditEventSuccess());
-            Intent intent = new Intent();
-            intent.putExtra("type", "add");
-            setResult(RESULT_OK);
-            finish();
+        if (mType == TYPE_EDIT) {
+            if (null != mEditEventModel) {
+                mEditEventModel.setEventTitle(eventName);
+                mEditEventModel.setTargetTime(mTargetCalendar.getTimeInMillis());
+                mEditEventModel.setLunarCalendar(switchCalendar.isChecked());
+                mEditEventModel.setTop(switchTop.isChecked());
+                mEditEventModel.setRepeatType(mRepeatType);
+                EventEntity eventEntity = EntityConverter.convertToEventEntity(mEditEventModel);
+                mEventDao.update(eventEntity);
+                Intent intent = new Intent();
+                intent.putExtra(BundleConstants.KEY_TYPE, mType);
+                intent.putExtra(BundleConstants.KEY_MODEL, mEditEventModel);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
         } else {
-            ToastUtil.showToast(mContext, R.string.toast_add_event_failure);
+            EventEntity event = new EventEntity();
+            event.setEventTitle(eventName);
+            event.setCreateDate(DateUtils.getCurrentTimeMillis());
+            event.setTargetDate(mTargetCalendar.getTimeInMillis());
+            event.setIsLunarCalendar(switchCalendar.isChecked());
+            event.setIsTop(switchTop.isChecked());
+            event.setRepeatType(mRepeatType);
+            // 如果当前插入事件是置顶，把之前置顶数据改为非置顶
+            if (switchTop.isChecked()) {
+                updateUnTopFromDB();
+            }
+            long id = mEventDao.insert(event);
+            if (id > 0) {
+                Intent intent = new Intent();
+                intent.putExtra(BundleConstants.KEY_TYPE, mType);
+                setResult(RESULT_OK, intent);
+                finish();
+            } else {
+                ToastUtil.showToast(mContext, R.string.toast_add_event_failure);
+            }
+        }
+    }
+
+    /**
+     * 删除事件
+     */
+    @OnClick(R.id.btn_delete)
+    public void onDeleteClick() {
+        if (mEventDao != null && mEditEventModel != null) {
+            mEventDao.delete(EntityConverter.convertToEventEntity(mEditEventModel));
+            Intent intent = new Intent();
+            intent.putExtra(BundleConstants.KEY_TYPE, TYPE_DELETE);
+            intent.putExtra(BundleConstants.KEY_MODEL, mEditEventModel);
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
 
@@ -248,6 +251,7 @@ public class AddEventActivity extends ToolBarActivity {
                 edtEventName.setSelection(eventTitle.length());
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(mEditEventModel.getTargetTime());
+                mTargetCalendar = calendar;
                 tvTargetDate.setText(DateUtils.getFormatedDate(mContext, calendar, 2, mEditEventModel.isLunarCalendar()));
                 switchCalendar.setChecked(mEditEventModel.isLunarCalendar());
                 switchTop.setChecked(mEditEventModel.isTop());
