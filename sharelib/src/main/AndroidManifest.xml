@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  package="com.planet.light2345.sharelib">
+  package="com.color.distancedays.sharelib">
 
   <application
     android:supportsRtl="true">
@@ -9,7 +9,7 @@
     <activity
       android:configChanges="keyboardHidden|orientation|screenSize"
       android:exported="true"
-      android:name="com.planet.light2345.wxapi.WXEntryActivity"
+      android:name="com.color.distancedays.wxapi.WXEntryActivity"
       android:screenOrientation="portrait"
       android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
@@ -37,10 +37,10 @@
     <!--分享 END -->
 
     <activity
-      android:name="com.planet.light2345.sharelib.channel.qq.QQChannelActivity"
+      android:name="com.color.distancedays.sharelib.channel.qq.QQChannelActivity"
       android:theme="@style/ShareActivityTheme"/>
     <activity
-      android:name="com.planet.light2345.sharelib.channel.wx.WXChannelActivity"
+      android:name="com.color.distancedays.sharelib.channel.wx.WXChannelActivity"
       android:theme="@style/ShareActivityTheme"/>
   </application>
 </manifest>

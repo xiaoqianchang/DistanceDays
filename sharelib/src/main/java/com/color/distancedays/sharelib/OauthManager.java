@@ -1,6 +1,6 @@
-package com.planet.light2345.sharelib;
+package com.color.distancedays.sharelib;
 
-import com.planet.light2345.sharelib.listener.OauthListener;
+import com.color.distancedays.sharelib.listener.OauthListener;
 
 /**
  * 微信授权管理类

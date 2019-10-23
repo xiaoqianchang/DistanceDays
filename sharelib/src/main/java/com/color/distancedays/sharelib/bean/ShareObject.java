@@ -1,4 +1,4 @@
-package com.planet.light2345.sharelib.bean;
+package com.color.distancedays.sharelib.bean;
 
 import android.os.Parcel;
 

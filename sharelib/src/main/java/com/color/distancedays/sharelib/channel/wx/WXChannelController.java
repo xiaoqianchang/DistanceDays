@@ -1,17 +1,17 @@
-package com.planet.light2345.sharelib.channel.qq;
+package com.color.distancedays.sharelib.channel.wx;
 
 import android.app.Activity;
 import android.content.Intent;
-import com.planet.light2345.sharelib.bean.ShareObject;
-import com.planet.light2345.sharelib.channel.Controller;
+import com.color.distancedays.sharelib.bean.ShareObject;
+import com.color.distancedays.sharelib.channel.Controller;
 
 /**
  * Created by zhangk on 2018/8/21.
  */
 
-public class QQChannelController extends Controller {
+public class WXChannelController extends Controller {
 
-  public QQChannelController(Activity activity, ShareObject shareObject) {
+  public WXChannelController(Activity activity, ShareObject shareObject) {
     super(activity, shareObject);
   }
 

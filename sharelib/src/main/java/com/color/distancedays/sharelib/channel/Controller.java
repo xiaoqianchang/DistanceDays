@@ -1,9 +1,9 @@
-package com.planet.light2345.sharelib.channel;
+package com.color.distancedays.sharelib.channel;
 
 import android.app.Activity;
-import com.planet.light2345.sharelib.bean.ShareObject;
-import com.planet.light2345.sharelib.constant.ShareConstant.ErrorType;
-import com.planet.light2345.sharelib.util.UMShareUtil;
+import com.color.distancedays.sharelib.bean.ShareObject;
+import com.color.distancedays.sharelib.constant.ShareConstant.ErrorType;
+import com.color.distancedays.sharelib.util.UMShareUtil;
 
 /**
  * Created by zhangk on 2018/8/21.

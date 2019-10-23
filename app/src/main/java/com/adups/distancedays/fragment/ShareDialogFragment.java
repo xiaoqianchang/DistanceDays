@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 分享入口
@@ -101,6 +102,7 @@ public class ShareDialogFragment extends BaseDialogFragment {
             @Override
             public void onItemClick(View view, AppShareManager.ShareToType t, int position) {
                 shareTo(mAdapter.getItem(position), buildData(AppShareManager.TYPE_SHARE_IMG));
+                dismissAllowingStateLoss();
             }
         });
     }
@@ -120,6 +122,11 @@ public class ShareDialogFragment extends BaseDialogFragment {
         shareModels.add(AppShareManager.ShareToType.TO_WEIXIN_GROUP);
         shareModels.add(AppShareManager.ShareToType.TO_QQ);
         return shareModels;
+    }
+
+    @OnClick(R.id.tv_dismiss)
+    public void onDismissClick() {
+        dismissAllowingStateLoss();
     }
 
     /**

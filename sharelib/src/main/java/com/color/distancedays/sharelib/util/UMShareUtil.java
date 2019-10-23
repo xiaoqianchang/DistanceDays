@@ -1,17 +1,17 @@
-package com.planet.light2345.sharelib.util;
+package com.color.distancedays.sharelib.util;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
-import com.planet.light2345.sharelib.bean.ShareImageObject;
-import com.planet.light2345.sharelib.bean.ShareObject;
-import com.planet.light2345.sharelib.bean.ShareTextObject;
-import com.planet.light2345.sharelib.channel.Controller.ControllerListener;
-import com.planet.light2345.sharelib.constant.ShareConstant.ErrorType;
-import com.planet.light2345.sharelib.constant.ShareConstant.SharePlatform;
-import com.planet.light2345.sharelib.constant.ShareConstant.ShareType;
+import com.color.distancedays.sharelib.bean.ShareImageObject;
+import com.color.distancedays.sharelib.bean.ShareObject;
+import com.color.distancedays.sharelib.bean.ShareTextObject;
+import com.color.distancedays.sharelib.channel.Controller.ControllerListener;
+import com.color.distancedays.sharelib.constant.ShareConstant.ErrorType;
+import com.color.distancedays.sharelib.constant.ShareConstant.SharePlatform;
+import com.color.distancedays.sharelib.constant.ShareConstant.ShareType;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;

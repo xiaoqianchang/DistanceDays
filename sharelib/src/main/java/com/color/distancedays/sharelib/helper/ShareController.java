@@ -1,15 +1,15 @@
-package com.planet.light2345.sharelib.helper;
+package com.color.distancedays.sharelib.helper;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
-import com.planet.light2345.sharelib.ShareManager;
-import com.planet.light2345.sharelib.bean.ShareObject;
-import com.planet.light2345.sharelib.channel.BaseChannelActivity;
-import com.planet.light2345.sharelib.channel.qq.QQChannelActivity;
-import com.planet.light2345.sharelib.channel.wx.WXChannelActivity;
-import com.planet.light2345.sharelib.constant.ShareConstant.ErrorType;
-import com.planet.light2345.sharelib.constant.ShareConstant.SharePlatform;
+import com.color.distancedays.sharelib.ShareManager;
+import com.color.distancedays.sharelib.bean.ShareObject;
+import com.color.distancedays.sharelib.channel.BaseChannelActivity;
+import com.color.distancedays.sharelib.channel.qq.QQChannelActivity;
+import com.color.distancedays.sharelib.channel.wx.WXChannelActivity;
+import com.color.distancedays.sharelib.constant.ShareConstant.ErrorType;
+import com.color.distancedays.sharelib.constant.ShareConstant.SharePlatform;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 

@@ -1,11 +1,11 @@
-package com.planet.light2345.sharelib;
+package com.color.distancedays.sharelib;
 
 import android.app.Activity;
 import android.app.Application;
-import com.planet.light2345.sharelib.bean.ShareObject;
-import com.planet.light2345.sharelib.constant.ShareConstant.SharePlatform;
-import com.planet.light2345.sharelib.helper.ShareController;
-import com.planet.light2345.sharelib.listener.ShareListener;
+import com.color.distancedays.sharelib.bean.ShareObject;
+import com.color.distancedays.sharelib.constant.ShareConstant.SharePlatform;
+import com.color.distancedays.sharelib.helper.ShareController;
+import com.color.distancedays.sharelib.listener.ShareListener;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;

@@ -1,4 +1,4 @@
-package com.planet.light2345.sharelib.util;
+package com.color.distancedays.sharelib.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;

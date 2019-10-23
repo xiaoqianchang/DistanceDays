@@ -1,4 +1,4 @@
-package com.planet.light2345.wxapi;
+package com.color.distancedays.wxapi;
 
 import com.umeng.socialize.weixin.view.WXCallbackActivity;
 

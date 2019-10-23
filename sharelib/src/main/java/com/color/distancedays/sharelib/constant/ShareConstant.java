@@ -1,4 +1,4 @@
-package com.planet.light2345.sharelib.constant;
+package com.color.distancedays.sharelib.constant;
 
 
 /**

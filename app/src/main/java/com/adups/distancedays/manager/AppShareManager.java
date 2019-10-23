@@ -11,11 +11,11 @@ import com.adups.distancedays.utils.ShareImageHelper;
 import com.adups.distancedays.utils.ToastUtil;
 import com.adups.distancedays.view.CommonProgressDialog;
 import com.orhanobut.logger.Logger;
-import com.planet.light2345.sharelib.ShareManager;
-import com.planet.light2345.sharelib.bean.ShareImageObject;
-import com.planet.light2345.sharelib.bean.ShareTextObject;
-import com.planet.light2345.sharelib.constant.ShareConstant;
-import com.planet.light2345.sharelib.listener.ShareListener;
+import com.color.distancedays.sharelib.ShareManager;
+import com.color.distancedays.sharelib.bean.ShareImageObject;
+import com.color.distancedays.sharelib.bean.ShareTextObject;
+import com.color.distancedays.sharelib.constant.ShareConstant;
+import com.color.distancedays.sharelib.listener.ShareListener;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;

@@ -1,16 +1,16 @@
-package com.planet.light2345.sharelib.util;
+package com.color.distancedays.sharelib.util;
 
-import static com.planet.light2345.sharelib.listener.OauthListener.ACTION_AUTHORIZE;
-import static com.planet.light2345.sharelib.listener.OauthListener.ACTION_DELETE;
-import static com.planet.light2345.sharelib.listener.OauthListener.ACTION_GET_PROFILE;
+import static com.color.distancedays.sharelib.listener.OauthListener.ACTION_AUTHORIZE;
+import static com.color.distancedays.sharelib.listener.OauthListener.ACTION_DELETE;
+import static com.color.distancedays.sharelib.listener.OauthListener.ACTION_GET_PROFILE;
 
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import com.planet.light2345.sharelib.constant.ShareConstant.ErrorType;
-import com.planet.light2345.sharelib.constant.ShareConstant.SharePlatform;
-import com.planet.light2345.sharelib.listener.OauthListener;
+import com.color.distancedays.sharelib.constant.ShareConstant.ErrorType;
+import com.color.distancedays.sharelib.constant.ShareConstant.SharePlatform;
+import com.color.distancedays.sharelib.listener.OauthListener;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareConfig;

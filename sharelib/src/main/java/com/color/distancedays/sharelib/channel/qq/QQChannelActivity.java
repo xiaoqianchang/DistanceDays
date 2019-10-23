@@ -1,7 +1,7 @@
-package com.planet.light2345.sharelib.channel.qq;
+package com.color.distancedays.sharelib.channel.qq;
 
 import android.content.Intent;
-import com.planet.light2345.sharelib.channel.BaseChannelActivity;
+import com.color.distancedays.sharelib.channel.BaseChannelActivity;
 
 /**
  * Created by zhangk on 2018/8/21.
