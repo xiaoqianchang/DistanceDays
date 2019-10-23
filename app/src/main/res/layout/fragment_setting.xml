@@ -2,24 +2,24 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_background">
+    android:background="@color/color_white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            layout="@layout/view_line"
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+            android:layout_height="16dp"/>
 
         <!-- 主题 -->
         <RelativeLayout
             android:id="@+id/rl_theme"
             android:visibility="gone"
-            style="@style/style_cell_background">
+            style="@style/style_cell_background"
+            android:paddingLeft="23dp"
+            android:paddingRight="21dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,18 +56,22 @@
                 android:text="经典"
                 android:textColor="#909090"
                 android:textSize="14sp" />
-        </RelativeLayout>
 
-        <include
-            layout="@layout/view_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="17dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentBottom="true"
+                android:background="#ECECEC"/>
+        </RelativeLayout>
 
         <!-- 意见反馈 -->
         <RelativeLayout
             android:id="@+id/rl_feedback"
-            style="@style/style_cell_background">
+            style="@style/style_cell_background"
+            android:paddingLeft="23dp"
+            android:paddingRight="21dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -89,18 +93,22 @@
                 android:contentDescription="@string/app_name"
                 android:focusable="false"
                 android:src="@mipmap/ic_right_arrow" />
-        </RelativeLayout>
 
-        <include
-            layout="@layout/view_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="17dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentBottom="true"
+                android:background="#ECECEC"/>
+        </RelativeLayout>
 
         <!-- 关于我们 -->
         <RelativeLayout
             android:id="@+id/rl_about_us"
-            style="@style/style_cell_background">
+            style="@style/style_cell_background"
+            android:paddingLeft="23dp"
+            android:paddingRight="21dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,12 +131,6 @@
                 android:focusable="false"
                 android:src="@mipmap/ic_right_arrow" />
         </RelativeLayout>
-
-        <include
-            layout="@layout/view_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical" />
     </LinearLayout>
 
 </ScrollView>

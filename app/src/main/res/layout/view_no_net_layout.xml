@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/no_net_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:contentDescription="@string/string_network_error"
+        android:duplicateParentState="true"
+        android:src="@mipmap/ic_no_net" />
+
+    <TextView
+        android:id="@+id/tv_no_net_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:textColor="#A9A9A9"
+        android:textSize="12sp"
+        android:text="网络连接失败，请检查网络~" />
+
+    <TextView
+        android:id="@+id/btn_no_net"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/bg_preload_btn_selector"
+        android:text="重新加载"
+        android:textColor="#666666"
+        android:textSize="13sp"
+        android:visibility="gone" />
+
+</LinearLayout>

@@ -47,6 +47,7 @@ public class EventDetailActivity extends ToolBarActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        setTitle(getString(R.string.title_detail));
         parseBundle();
         refreshUi();
         setMenuTypes(MENU_TYPE_EDIT_EVENT);
@@ -63,6 +64,11 @@ public class EventDetailActivity extends ToolBarActivity {
     private void refreshUi() {
         if (mEventModel == null) {
             return;
+        }
+        if (mEventModel.isOutOfTargetDate()) {
+            tvTitle.setBackgroundResource(R.drawable.bg_detail_date_title_orange);
+        } else {
+            tvTitle.setBackgroundResource(R.drawable.bg_detail_date_title_blue);
         }
         tvTitle.setText(Html.fromHtml(FormatHelper.getDateCardTitlePartBold(mEventModel, this.mContext)).toString());
         tvDay.setText(DateUtils.getFormatDaysText(mEventModel.getDays(), String.valueOf(mEventModel.getDays())));

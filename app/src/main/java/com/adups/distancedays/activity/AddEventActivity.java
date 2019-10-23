@@ -113,6 +113,7 @@ public class AddEventActivity extends ToolBarActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mRepeatType = position;
                 spinnerRepeat.setPrompt(repeatTypes[position]);
+                ((TextView) spinnerRepeat.getSelectedView()).setTextColor(Color.parseColor("#3283D2"));
             }
 
             @Override

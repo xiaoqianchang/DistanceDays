@@ -189,6 +189,7 @@
         android:id="@+id/lv_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="16dp"
         android:clipToPadding="false"
         android:divider="@null"
         android:dividerHeight="10dp"

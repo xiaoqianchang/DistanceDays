@@ -17,12 +17,14 @@ import com.adups.distancedays.R;
 import com.adups.distancedays.adapter.CommonAdapter;
 import com.adups.distancedays.adapter.ViewHolder;
 import com.adups.distancedays.base.BaseFragment;
+import com.adups.distancedays.base.BaseStatusFragment;
 import com.adups.distancedays.http.HttpConstant;
 import com.adups.distancedays.http.OkHttpWrapper;
 import com.adups.distancedays.http.ResponseCallBack;
 import com.adups.distancedays.model.BaseModel;
 import com.adups.distancedays.model.HistoryInTodayModel;
 import com.adups.distancedays.utils.DateUtils;
+import com.adups.distancedays.utils.GlideUtil;
 import com.adups.distancedays.utils.PackageUtil;
 import com.adups.distancedays.utils.ToastUtil;
 import com.bumptech.glide.Glide;
@@ -37,7 +39,7 @@ import java.util.List;
  *
  * @version 1.0
  */
-public class HistoryFragment extends BaseFragment {
+public class HistoryFragment extends BaseStatusFragment {
 
     @BindView(R.id.tv_year_first)
     TextView tvYearFirst;
@@ -93,7 +95,9 @@ public class HistoryFragment extends BaseFragment {
 
             @Override
             public void onError(int code, String msg) {
-                ToastUtil.showToast(getContext(), msg);
+                if (canUpdateUi()) {
+                    onPageLoadingCompleted(LoadCompleteType.NETWOEKERROR);
+                }
             }
         });
     }
@@ -117,7 +121,7 @@ public class HistoryFragment extends BaseFragment {
             protected void convert(ViewHolder holder, HistoryInTodayModel historyInTodayModel) {
                 holder.setText(R.id.tv_title, historyInTodayModel.getTitle());
                 ImageView imgPic = holder.getView(R.id.img_pic);
-                Glide.with(HistoryFragment.this).load(historyInTodayModel.getPic()).into(imgPic);
+                GlideUtil.loadImage(HistoryFragment.this, historyInTodayModel.getPic(), imgPic);
                 int year = historyInTodayModel.getYear();
                 int month = historyInTodayModel.getMonth();
                 int day = historyInTodayModel.getDay();

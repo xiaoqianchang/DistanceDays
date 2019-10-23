@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.adups.distancedays.R;
 import com.adups.distancedays.base.BaseFragment;
+import com.adups.distancedays.base.BaseStatusFragment;
 import com.adups.distancedays.http.HttpConstant;
 import com.adups.distancedays.http.OkHttpWrapper;
 import com.adups.distancedays.http.ResponseCallBack;
@@ -27,7 +28,7 @@ import retrofit2.Call;
  *
  * @version 1.0
  */
-public class RelaxFragment extends BaseFragment {
+public class RelaxFragment extends BaseStatusFragment {
 
     @BindView(R.id.wv_rich_content)
     LocalTemplateWebView mRichContent;
@@ -69,7 +70,9 @@ public class RelaxFragment extends BaseFragment {
 
             @Override
             public void onError(int code, String msg) {
-                ToastUtil.showToast(getContext(), msg);
+                if (canUpdateUi()) {
+                    onPageLoadingCompleted(LoadCompleteType.NETWOEKERROR);
+                }
             }
         });
     }
