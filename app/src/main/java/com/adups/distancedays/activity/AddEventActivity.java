@@ -169,9 +169,12 @@ public class AddEventActivity extends ToolBarActivity {
      * 删除事件
      */
     private void deleteEvent() {
-        if (mEditEventModel != null) {
+        if (mEventDao != null && mEditEventModel != null) {
             mEventDao.delete(EntityConverter.convertToEventEntity(mEditEventModel));
             EventUtil.post(new EditEventSuccess());
+            Intent intent = new Intent();
+            intent.putExtra("type", "delete");
+            setResult(RESULT_OK);
             finish();
         }
     }
@@ -205,6 +208,9 @@ public class AddEventActivity extends ToolBarActivity {
         long id = mEventDao.insert(event);
         if (id > 0) {
             EventUtil.post(new EditEventSuccess());
+            Intent intent = new Intent();
+            intent.putExtra("type", "add");
+            setResult(RESULT_OK);
             finish();
         } else {
             ToastUtil.showToast(mContext, R.string.toast_add_event_failure);

@@ -9,13 +9,16 @@ import com.adups.distancedays.R;
 import com.adups.distancedays.base.ToolBarActivity;
 import com.adups.distancedays.fragment.ShareDialogFragment;
 import com.adups.distancedays.model.EventModel;
+import com.adups.distancedays.utils.AppConstants;
 import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.DateUtils;
 import com.adups.distancedays.utils.FormatHelper;
 import com.adups.distancedays.utils.ToastUtil;
+import com.adups.distancedays.view.ScalableTextView;
 
 import java.util.Calendar;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -31,7 +34,7 @@ public class EventDetailActivity extends ToolBarActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_day)
-    TextView tvDay;
+    ScalableTextView tvDay;
     @BindView(R.id.tv_due_date)
     TextView tvDueDate;
 
@@ -62,7 +65,7 @@ public class EventDetailActivity extends ToolBarActivity {
             return;
         }
         tvTitle.setText(Html.fromHtml(FormatHelper.getDateCardTitlePartBold(mEventModel, this.mContext)).toString());
-        tvDay.setText(String.valueOf(mEventModel.getDays()));
+        tvDay.setText(DateUtils.getFormatDaysText(mEventModel.getDays(), String.valueOf(mEventModel.getDays())));
         Calendar instance = Calendar.getInstance();
         instance.setTimeInMillis(mEventModel.getTargetTime());
         tvDueDate.setText(getString(R.string.string_target_date, DateUtils.getFormatedDate(mContext, instance, 2, mEventModel.isLunarCalendar())));
@@ -76,9 +79,27 @@ public class EventDetailActivity extends ToolBarActivity {
                 Intent intent = new Intent(mContext, AddEventActivity.class);
                 intent.putExtra(BundleConstants.KEY_TYPE, AddEventActivity.TYPE_EDIT);
                 intent.putExtra(BundleConstants.KEY_MODEL, mEventModel);
-                startActivity(intent);
+                startActivityForResult(intent, AppConstants.RequestCode.CODE_EVENT_DETAIL);
             }
         };
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case AppConstants.RequestCode.CODE_EVENT_DETAIL:
+                    if (null != data) {
+                        String type = data.getStringExtra("type");
+                        if ("delete".equals(type)) {
+                            setResult(RESULT_OK);
+                            finish();
+                        }
+                    }
+                    break;
+            }
+        }
     }
 
     @OnClick(R.id.fab_button)

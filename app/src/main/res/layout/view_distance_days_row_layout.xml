@@ -7,13 +7,14 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="41dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="13dp"
         app:cardBackgroundColor="@color/color_white"
         app:cardCornerRadius="5dp"
         app:cardElevation="0.5dp"
         app:cardMaxElevation="3dp"
+        app:contentPadding="0dp"
         app:cardPreventCornerOverlap="false">
 
         <LinearLayout

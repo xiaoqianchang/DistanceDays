@@ -12,7 +12,6 @@ import com.adups.distancedays.R;
 import com.adups.distancedays.base.ToolBarActivity;
 import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.PackageUtil;
-import com.adups.distancedays.utils.ToastUtil;
 
 /**
  * 关于我们

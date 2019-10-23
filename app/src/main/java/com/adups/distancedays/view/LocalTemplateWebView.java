@@ -120,7 +120,7 @@ public class LocalTemplateWebView extends WebView {
             if (!TextUtils.isEmpty(model.getAuthor())) {
                 stringBuilder
                         .append("<div id=\"rich_author\">")
-                        .append(model.getTitle())
+                        .append(model.getAuthor())
                         .append("</div>");
             }
             stringBuilder.append(model.getContent());

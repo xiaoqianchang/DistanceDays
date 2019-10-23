@@ -46,7 +46,7 @@
                     android:textSize="20sp"
                     tools:text="就是今天" />
 
-                <TextView
+                <com.adups.distancedays.view.ScalableTextView
                     android:id="@+id/tv_day"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="24dp"
         android:layout_marginBottom="85dp"
-        android:backgroundTint="@color/color_white"
+        android:backgroundTint="#FFE98452"
         app:borderWidth="0dp"
         app:layout_anchor="@id/fl_container"
         app:layout_anchorGravity="bottom|end"

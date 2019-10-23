@@ -18,6 +18,7 @@
         <!-- 主题 -->
         <RelativeLayout
             android:id="@+id/rl_theme"
+            android:visibility="gone"
             style="@style/style_cell_background">
 
             <TextView

@@ -28,8 +28,7 @@
                 android:maxLines="2"
                 tools:text="周末还有"
                 android:textColor="@color/color_white"
-                android:textSize="24sp"
-                android:textStyle="bold"/>
+                android:textSize="24sp"/>
 
             <TextView
                 android:id="@+id/tv_date_subtitle"
@@ -59,16 +58,12 @@
                 android:textSize="67sp"
                 android:textStyle="bold"/>
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="9dp"
                 android:layout_gravity="center_vertical|right"
-                android:background="@drawable/bg_days_shape"
-                android:gravity="center"
-                android:text="Days"
-                android:textColor="@color/color_white"
-                android:textSize="12sp" />
+                android:src="@mipmap/ic_days"/>
         </FrameLayout>
     </LinearLayout>
 
@@ -76,7 +71,7 @@
         android:id="@+id/lv_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="14dp"
         android:clipToPadding="false"
         android:divider="@null"
         android:dividerHeight="10dp"

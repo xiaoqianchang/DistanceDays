@@ -22,6 +22,7 @@ import com.adups.distancedays.db.EntityConverter;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
 import com.adups.distancedays.model.EventModel;
+import com.adups.distancedays.utils.AppConstants;
 import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.DateUtils;
 import com.adups.distancedays.utils.FormatHelper;
@@ -30,6 +31,8 @@ import com.adups.distancedays.utils.ToolUtil;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * 列表状态的倒数日
@@ -101,9 +104,21 @@ public class DistanceDaysListFragment extends BaseFragment {
                 EventModel model = (EventModel) mAdapter.getItem(position);
                 bundle.putSerializable(BundleConstants.KEY_MODEL, model);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent, AppConstants.RequestCode.CODE_LIST_FRAGMENT);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case AppConstants.RequestCode.CODE_LIST_FRAGMENT:
+                    refreshUi();
+                    break;
+            }
+        }
     }
 
     /**

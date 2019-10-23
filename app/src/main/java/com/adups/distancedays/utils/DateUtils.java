@@ -176,9 +176,23 @@ public class DateUtils {
                 builder.append(month).append("月").append(day);
             }
         }
+        builder.append("天");
         return builder.toString();
     }
 
+    /**
+     * 获取最近周末（星期六）的日期
+     *
+     * 老外把上周周日定为一周的开始。
+     *
+     * @return
+     */
+    public static Calendar getRecentlyWeekend() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + 5);
+        return calendar;
+    }
 
     /*导入*/
     public static String getFormatedDate(Context context, Calendar calendar, boolean isLunarCalendar) {
