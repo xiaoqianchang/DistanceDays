@@ -142,6 +142,9 @@ public class DistanceDaysListFragment extends BaseFragment {
 
     private void refreshHeaderView(EventModel eventModel) {
         if (eventModel == null) {
+            tvDateTitle.setText("");
+            tvDateSubtitle.setText("");
+            tvDays.setText("");
             return;
         }
         tvDateTitle.setText(eventModel.getEventTitle());

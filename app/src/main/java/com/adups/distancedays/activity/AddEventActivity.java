@@ -9,7 +9,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
@@ -46,6 +48,7 @@ import androidx.fragment.app.DialogFragment;
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 /**
  * 添加事件
@@ -121,6 +124,30 @@ public class AddEventActivity extends ToolBarActivity {
 
             }
         });
+
+        edtEventName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (null == s) {
+                    return;
+                }
+                String string = s.toString();
+                if (!TextUtils.isEmpty(string) && string.length() > 15) {
+                    ToastUtil.showToast(mContext, "事件名称不超过15个字符");
+                }
+
+            }
+        });
     }
 
     @OnClick(R.id.tv_target_date)
@@ -164,7 +191,7 @@ public class AddEventActivity extends ToolBarActivity {
     public void onSaveClick() {
         String eventName = edtEventName.getText().toString().trim();
         if (TextUtils.isEmpty(eventName)) {
-            ToastUtil.showToast("请输入事件标题");
+            ToastUtil.showToast("事件名称不能为空");
             return;
         }
         if (mType == TYPE_EDIT) {
@@ -175,6 +202,10 @@ public class AddEventActivity extends ToolBarActivity {
                 mEditEventModel.setTop(switchTop.isChecked());
                 mEditEventModel.setRepeatType(mRepeatType);
                 EventEntity eventEntity = EntityConverter.convertToEventEntity(mEditEventModel);
+                // 如果当前插入事件是置顶，把之前置顶数据改为非置顶
+                if (switchTop.isChecked()) {
+                    updateUnTopFromDB();
+                }
                 mEventDao.update(eventEntity);
                 Intent intent = new Intent();
                 intent.putExtra(BundleConstants.KEY_TYPE, mType);

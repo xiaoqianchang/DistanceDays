@@ -53,6 +53,7 @@
                 android:id="@+id/due_date"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
+                android:background="#F6F6F6"
                 android:gravity="center"
                 android:maxLines="2"
                 android:textColor="@color/secondary_text"

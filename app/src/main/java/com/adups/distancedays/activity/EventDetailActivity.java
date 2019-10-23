@@ -39,6 +39,7 @@ public class EventDetailActivity extends ToolBarActivity {
     TextView tvDueDate;
 
     private EventModel mEventModel;
+    private boolean isLunarCalendar;
 
     @Override
     protected int getContentViewId() {
@@ -72,9 +73,17 @@ public class EventDetailActivity extends ToolBarActivity {
         }
         tvTitle.setText(Html.fromHtml(FormatHelper.getDateCardTitlePartBold(mEventModel, this.mContext)).toString());
         tvDay.setText(DateUtils.getFormatDaysText(mEventModel.getDays(), String.valueOf(mEventModel.getDays())));
+        refreshDueDate(mEventModel.isLunarCalendar());
+    }
+
+    private void refreshDueDate(boolean isLunarCalendar) {
+        if (mEventModel == null) {
+            return;
+        }
+        this.isLunarCalendar = isLunarCalendar;
         Calendar instance = Calendar.getInstance();
         instance.setTimeInMillis(mEventModel.getTargetTime());
-        tvDueDate.setText(getString(R.string.string_target_date, DateUtils.getFormatedDate(mContext, instance, 2, mEventModel.isLunarCalendar())));
+        tvDueDate.setText(getString(R.string.string_target_date, DateUtils.getFormatedDate(mContext, instance, 2, isLunarCalendar)));
     }
 
     @Override
@@ -131,5 +140,10 @@ public class EventDetailActivity extends ToolBarActivity {
             return;
         }
         tvDay.setText(DateUtils.getFormatDaysText(mEventModel.getDays(), tvDay.getText().toString()));
+    }
+
+    @OnClick(R.id.tv_due_date)
+    public void onDueDateClick() {
+        refreshDueDate(!isLunarCalendar);
     }
 }

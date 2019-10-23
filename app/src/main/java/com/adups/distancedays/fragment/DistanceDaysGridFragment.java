@@ -80,7 +80,7 @@ public class DistanceDaysGridFragment extends BaseFragment {
                 holder.setText(R.id.date, String.valueOf(eventModel.getDays()));
                 Calendar instance = Calendar.getInstance();
                 instance.setTimeInMillis(eventModel.getTargetTime());
-                holder.setText(R.id.due_date, DateUtils.getFormatedDate(mContext, instance, 2, eventModel.isLunarCalendar()));
+                holder.setText(R.id.due_date, getString(R.string.string_target_date, DateUtils.getFormatedDate(mContext, instance, 2, eventModel.isLunarCalendar())));
                 if (eventModel.isOutOfTargetDate()) {
                     holder.getView(R.id.title).setBackground(mContext.getResources().getDrawable(R.drawable.bg_date_card_small_date_passed));
                 } else {
