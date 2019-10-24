@@ -14,7 +14,7 @@
     <activity
       android:configChanges="keyboardHidden|orientation|screenSize"
       android:exported="true"
-      android:name="com.color.distancedays.wxapi.WXEntryActivity"
+      android:name="${applicationId}.wxapi.WXEntryActivity"
       android:screenOrientation="portrait"
       android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
