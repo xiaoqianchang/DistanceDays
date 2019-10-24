@@ -10,7 +10,7 @@ def getManifestPlaceholders(channelName, flavors) {
 
     def tHolders = [
             PACKAGE_NAME           : packageName,
-            qqappid                : qqAppId,
+            qqappid                : qqAppId
     ]
     return tHolders
 }

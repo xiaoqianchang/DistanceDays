@@ -41,6 +41,6 @@ ext {
     ]
 
     config = [
-            QQ_APP_ID                 : 'tencent1106985345'
+            QQ_APP_ID                 : 'tencent101810128'
     ]
 }

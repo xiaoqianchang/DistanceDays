@@ -3,10 +3,14 @@
     package="com.adups.distancedays">
 
     <!-- 必须的权限 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 允许程序访问网络连接，可能产生GPRS流量 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 允许程序获取网络信息状态，如当前的网络连接是否有效 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 允许程序获取当前WiFi接入的状态以及WLAN热点的信 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 允许程序访问电话状态 6.0以及后续版本需要动态授权 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 推荐的权限 -->
     <!-- 添加如下权限，以便使用更多的第三方SDK和更精准的统计数据 -->
 <!--    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->

@@ -2,6 +2,11 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.color.distancedays.sharelib">
 
+  <!-- 在非混淆状态下无存储权限,qq可以正常分享图片,但是在混淆状态下无存储权限时在ShareListener.onError 会抛出是否有存储权限异常,官方说明“如果需要使用QQ纯图分享或避免其它平台纯图分享的时候图片不被压缩，可以增加以下权限：” -->
+  <!-- 允许程序读写外部存储,如SD卡上写文件 6.0以及后续版本需要动态授权 -->
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
   <application
     android:supportsRtl="true">
     <!--分享 START -->
