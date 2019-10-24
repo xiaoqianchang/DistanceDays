@@ -36,11 +36,37 @@
 -keep public class * extends android.preference.Preference
 -keep public class com.android.vending.licensing.ILicensingService
 -keep public class * extends android.os.IInterface
--dontwarn java.lang.invoke.*
+-keep public class * extends androidx.fragment.app.Fragment
+-keep public class * extends androidx.fragment.app.DialogFragment
+-dontwarn java.lang.invoke.**
+-ignorewarnings
+-dontoptimize
+-dontpreverify
+
+-keep class android.app.**{*;}
+-keep class androidx.fragment.app.** { *; }
+
+-keep class com.adups.distancedays.activity.** {*;}
+-keep class com.adups.distancedays.adapter.** {*;}
+-keep class com.adups.distancedays.base.** {*;}
+-keep class com.adups.distancedays.db.** {*;}
+-keep class com.adups.distancedays.event.** {*;}
+-keep class com.adups.distancedays.manager.** {*;}
+-keep class com.adups.distancedays.model.** {*;}
+-keep class com.adups.distancedays.utils.** {*;}
+-keep class com.adups.distancedays.view.** {*;}
+-keep class com.color.distancedays.wxapi.** {*;}
+-keep class com.color.distancedays.sharelib.** {*;}
 
 -keepclasseswithmembernames class * { # 保持 native 方法不被混淆
    native <methods>;
 }
+
+# 泛型与反射
+-keepattributes Signature
+-keepattributes EnclosingMethod
+-keepattributes *Annotation*
+-keep class * extends java.lang.annotation.Annotation {*;}
 
 -keep class * implements android.os.Parcelable { #保持Parcelable不被混淆
   public static final android.os.Parcelable$Creator *;
@@ -68,8 +94,6 @@
 -dontwarn android.webkit.WebView
 -dontwarn android.net.http.SslError
 -dontwarn Android.webkit.WebViewClient
-
--keep public class com.adups.distancedays.model.**{*;}
 
 #### start ProGuard configurations for Butter Knife ####
 -keep class butterknife.** { *; }
@@ -163,6 +187,11 @@ public static java.lang.String TABLENAME;
 }
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
 
--keep class com.planet.light2345.event.**{*;}
+-keep class com.adups.distancedays.event.**{*;}
+
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
 #### end ProGuard configurations for event bus ####
 

@@ -7,8 +7,12 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-<!--        <item name="android:textColorPrimary">@android:color/white</item>-->
         <item name="android:actionBarSize">@dimen/nav_bar_height</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+<!--        <item name="android:windowAnimationStyle">@style/Animation.Activity</item>-->
+        <!-- he default text color for enabled buttons and Large Textviews. -->
+<!--        <item name="android:textColorPrimary">@android:color/white</item>-->
+
     </style>
 
     <!-- Before -->
@@ -21,8 +25,10 @@
 
     <style name="AppTheme.Welcome" parent="AppTheme">
         <!--<item name="android:windowBackground">@drawable/splash</item>-->
-<!--        <item name="android:windowbackground">@mipmap/bg_welcome</item>-->
-        <item name="android:windowFullscreen">true</item>
+<!--        <item name="android:windowFullscreen">true</item>-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item> <!-- 会启用activity 开、关自带动画（缩放） -->
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="AppTheme.Main" parent="AppTheme">

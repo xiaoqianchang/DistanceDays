@@ -87,6 +87,7 @@ android {
         forTest {
             versionNameSuffix 'test'
             matchingFallbacks = ['release']
+            debuggable true
             addManifestPlaceholders(getManifestPlaceholdersForBuildType('forTest'))
         }
     }
