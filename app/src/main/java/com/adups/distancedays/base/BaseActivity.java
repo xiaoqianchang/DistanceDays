@@ -1,12 +1,10 @@
 package com.adups.distancedays.base;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
+
+import com.adups.distancedays.utils.StatusBarUtils;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * base$
+ * Activity 顶层基类
  * <p>
  * Created by Chang.Xiao on 2019/10/11.
  *
@@ -25,35 +23,27 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected final String TAG = BaseActivity.class.getSimpleName();
 
     protected Context mContext;
-    private Unbinder bind;
+    private Unbinder mUnBinder;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate");
+        StatusBarUtils.initStatusBar(this, isLightStatusBar());
         setContentView(getContentViewId());
-        bind = ButterKnife.bind(this);
+        mUnBinder = ButterKnife.bind(this);
         mContext = this;
         init(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-        }
     }
 
     protected abstract int getContentViewId();
     protected abstract void init(Bundle savedInstanceState);
 
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
+    /**
+     * 透明状态栏 默认使用深色状态栏字体、反之为浅色状态栏字体
+     */
+    protected boolean isLightStatusBar() {
+        return true;
     }
 
     @Override
@@ -88,11 +78,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
-        if (null != bind) {
-            bind.unbind();
+        try {
+            super.onDestroy();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 最好上报
+        }
+        Log.i(TAG, "onDestroy");
+        StatusBarUtils.destroy(this);
+        if (null != mUnBinder) {
+            mUnBinder.unbind();
         }
         // 取消网络请求
-        Log.i(TAG, "onDestroy");
     }
 }

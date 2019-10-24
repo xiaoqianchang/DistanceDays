@@ -1,0 +1,38 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+//uploadArchives{
+//    repositories {
+//        mavenDeployer {
+//            repository(url: deploy.releases) {
+//                authentication(userName: deploy.username, password: deploy.password)
+//            }
+//            pom.project {
+//                version '1.0.0-release'
+//                artifactId 'statusbar-library'
+//                groupId 'com.light2345'
+//                packaging 'aar'
+//            }
+//        }
+//    }
+//}
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 28
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+}
+
+dependencies {
+    compileOnly 'com.android.support:appcompat-v7:28.0.0'
+}
