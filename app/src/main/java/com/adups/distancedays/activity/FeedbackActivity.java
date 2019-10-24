@@ -87,7 +87,7 @@ public class FeedbackActivity extends ToolBarActivity {
         call.enqueue(new ResponseCallBack<BaseModel>() {
             @Override
             public void onSuccess(BaseModel baseModel) {
-                ToastUtil.showToast(mContext, baseModel.getReason());
+                ToastUtil.showToast(mContext, getString(R.string.toast_feedback_fail));
                 finish();
             }
 

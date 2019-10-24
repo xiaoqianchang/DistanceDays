@@ -51,6 +51,8 @@
     <string name="share_error_no_platform">请先安装%s</string>
     <string name="share_error_no_qq">请先安装QQ</string>
     <string name="share_error_no_wechat">请先安装微信</string>
+    
+    <string name="toast_feedback_fail">提交成功</string>
 
 
     <!-- 待删减调整 -->

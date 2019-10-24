@@ -127,7 +127,13 @@ public class EventDetailActivity extends ToolBarActivity {
 
     @OnClick(R.id.fab_button)
     public void onShareClick() {
-        ShareDialogFragment dialogFragment = ShareDialogFragment.newInstance(tvTitle.getText().toString(), tvDay.getText().toString(), tvDueDate.getText().toString());
+        int bgResId;
+        if (mEventModel.isOutOfTargetDate()) {
+            bgResId = R.mipmap.ic_share_orange_bg;
+        } else {
+            bgResId = R.mipmap.ic_share_blue_bg;
+        }
+        ShareDialogFragment dialogFragment = ShareDialogFragment.newInstance(bgResId, tvTitle.getText().toString(), tvDay.getText().toString(), tvDueDate.getText().toString());
         dialogFragment.show(getSupportFragmentManager(), ShareDialogFragment.TAG);
     }
 

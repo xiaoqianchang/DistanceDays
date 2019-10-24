@@ -17,7 +17,8 @@ public class ShareModel {
     private byte[] thumbData; // 事物图片数据
     private int shareType; // 分享类型，文字/图片
 
-    // 额外扩展属性
+    // 分享合成图额外扩展属性
+    private int bgResId; // 背景图片资源id
     private String eventTitle;
     private String day;
     private String dueDate;
@@ -76,6 +77,14 @@ public class ShareModel {
 
     public void setShareType(int shareType) {
         this.shareType = shareType;
+    }
+
+    public int getBgResId() {
+        return bgResId;
+    }
+
+    public void setBgResId(int bgResId) {
+        this.bgResId = bgResId;
     }
 
     public String getEventTitle() {

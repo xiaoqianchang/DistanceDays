@@ -32,67 +32,16 @@ public class ShareImageHelper {
   public static final double COEFFICIENT_DEFAULT = 1d;//默认缩放系数 1代表不缩放
 
   /**
-   * 邀请分享二维码尺寸：
-   */
-  public static final int SHARE_QRCODE_IMG_SIZE = 420;
-  public static final int SHARE_QRCODE_TOP = 1128;//二维码高度
-  public static final int SHARE_CODE_TOP = 1590;//邀请码显示高度
-  public static final int SHARE_LOGO_SIZE = 120;//邀请LOGO默认大小
-  public static final int SHARE_CODE_TEXT_SIZE = 33;//邀请码字体大小
-  public static final int SHOW_CODE_TEXT_COLOR = Color.WHITE;//邀请码颜色。
-
-  /**
-   * 邀请召回分享相关尺寸
-   */
-  public static final int SHARE_REMIND_PORTRAIT_SIZE = 86;//分享召回头像尺寸
-  public static final int SHARE_REMIND_PORTRAIT_TOP = 321;//分享召回头像距图像顶部尺寸
-  public static final int SHARE_REMIND_TEXT_SIZE = 46;//分享召回顶部字体大小
-  public static final int SHARE_REMIND_TEXT_COLOR = Color.parseColor("#666666");//分享召回顶部字体颜色
-  public static final int SHARE_REMIND_TEXT_TOP = 380;//分享召回顶部字体距图像顶部尺寸
-  public static final int SHARE_REMIND_COIN_SIZE = 160;//分享召回金额字体大小
-  public static final int SHARE_REMIND_COIN_UNIT_SIZE = 66;//分享召回金额单位字体大小
-  public static final int SHARE_REMIND_COIN_TOP = 680;//分享召回金额字体距图像顶部尺寸
-  public static final int SHARE_REMIND_COIN_UNIT_TOP = 764;//分享召回金额单位距图像顶部尺寸
-  public static final int SHARE_REMIND_COIN_TEXT_COLOR = Color.parseColor("#ff0000");//分享召回金额字体颜色。
-
-  /**
-   * 晒收入分享二维码尺寸：
-   */
-  public static final int SHARE_INCOME_QRCODE_IMG_SIZE = 246;//二维码尺寸
-  public static final int SHARE_INCOME_QRCODE_IMG_SCALE_SIZE = 260;//生成二维码尺寸
-  public static final int SHARE_INCOME_QRCODE_TOP = 1599;//二维码顶边距
-  public static final int SHARE_INCOME_QRCODE_LEFT = 162;//二维码左边距
-  public static final int SHARE_INCOME_QRCODE_BG_SIZE = 300;//二维码底图大小
-  public static final int SHARE_INCOME_QRCODE_BG_TOP = 1572;//二维码背景图顶边距
-  public static final int SHARE_INCOME_QRCODE_BG_LEFT = 135;//二维码背景图左边距
-  public static final int SHARE_INCOME_CODE_TEXT_TOP = 742;//金额顶边距
-  public static final int SHARE_INCOME_CODE_TEXT_SIZE = 200;//金额字体大小
-  public static final int SHARE_INCOME_CODE_UNIT_TOP = 832;//金额顶边距
-  public static final int SHARE_INCOME_LOGO_SIZE = 64;//晒收入LOGO默认大小
-  public static final int SHARE_INCOME_CODE_TEXT_UNIT_SIZE = 100;//金额字体大小
-  public static final int SHOW_INCOME_CODE_TEXT_COLOR = Color.parseColor("#e44231");//金额字体颜色。
-
-  /**
-   * 图片合成失败的原因
-   */
-  public static final String DEV_SHARE_IMAGE_ERROR_DATA_INVAILD = "data invaild";
-  public static final String DEV_SHARE_IMAGE_ERROR_BG = "background error";
-  public static final String DEV_SHARE_IMAGE_ERROR_MERGE = "merge error";
-  public static final String DEV_SHARE_IMAGE_ERROR_SAVE = "save error";
-  public static final String DEV_SHARE_IMAGE_ERROR_RENAME = "rename error";
-  public static final String DEV_SHARE_IMAGE_ERROR_QRCODE = "qrcode error";
-
-  /**
    * 合成分享图片
-   *
-   * @param context
+   *  @param context
+   * @param bgResId
    * @param title
    * @param day
    * @param dueDateStr
    */
-  public static void getShareMergeResultImage(Context context, String title, String day, String dueDateStr, OnImageResultListener onImageResultListener) {
+  public static void getShareMergeResultImage(Context context, int bgResId, String title, String day, String dueDateStr, OnImageResultListener onImageResultListener) {
     Observable.create((ObservableEmitter<Bitmap> emitter) -> {
-      Bitmap mergeBitmap = mergeResultBitmap(context, title, day, dueDateStr);
+      Bitmap mergeBitmap = mergeResultBitmap(context, bgResId, title, day, dueDateStr);
 
       Bitmap bitmap = BitmapUtil.qualityCompress(mergeBitmap, 80);
       if (bitmap != null) {
@@ -144,8 +93,8 @@ public class ShareImageHelper {
             });
   }
 
-  private static Bitmap mergeResultBitmap(Context context, String title, String day, String dueDateStr) {
-    Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_share_bg);
+  private static Bitmap mergeResultBitmap(Context context, int bgResId, String title, String day, String dueDateStr) {
+    Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), bgResId);
 
     try {
       int width = bitmap.getWidth();

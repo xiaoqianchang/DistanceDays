@@ -26,10 +26,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/ic_setting_theme"
                 android:drawablePadding="17dp"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="交易账单"
+                android:text="主题"
                 android:textColor="#717171"
                 android:textSize="16sp" />
 
@@ -60,8 +61,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="3dp"
                 android:layout_alignParentBottom="true"
                 android:background="#ECECEC"/>
         </RelativeLayout>
@@ -71,13 +71,14 @@
             android:id="@+id/rl_feedback"
             style="@style/style_cell_background"
             android:paddingLeft="23dp"
-            android:paddingRight="21dp">
+            android:paddingRight="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/ic_setting_feedback"
                 android:drawablePadding="17dp"
                 android:gravity="center_vertical"
                 android:singleLine="true"
@@ -97,8 +98,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="3dp"
                 android:layout_alignParentBottom="true"
                 android:background="#ECECEC"/>
         </RelativeLayout>
@@ -115,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:drawableLeft="@mipmap/ic_setting_about_us"
                 android:drawablePadding="17dp"
                 android:gravity="center_vertical"
                 android:singleLine="true"

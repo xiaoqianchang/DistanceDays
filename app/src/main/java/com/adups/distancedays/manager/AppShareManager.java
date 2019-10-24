@@ -134,7 +134,7 @@ public class AppShareManager {
                 break;
             case TYPE_SHARE_IMG:
 //                showLoading();
-                ShareImageHelper.getShareMergeResultImage(mContext, model.getEventTitle(), model.getDay(), model.getDueDate(), new ShareImageHelper.OnImageResultListener() {
+                ShareImageHelper.getShareMergeResultImage(mContext, model.getBgResId(), model.getEventTitle(), model.getDay(), model.getDueDate(), new ShareImageHelper.OnImageResultListener() {
                     @Override
                     public void onImageReady(Bitmap bitmap) {
                         umengShareAction(type, model, bitmap);

@@ -152,9 +152,9 @@ public class DateUtils {
      */
     public static String getFormatDaysText(int days, String currentShow) {
         StringBuilder builder = new StringBuilder();
-        if (days <= 7) {
+        if (days < 7) {
             builder.append(days);
-        } else if (days > 7 && days < 30) {
+        } else if (days >= 7 && days < 30) {
             if (currentShow.contains("周")) {
                 builder.append(days);
             } else {

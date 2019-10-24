@@ -35,6 +35,7 @@ public class ShareDialogFragment extends BaseDialogFragment {
     GridView mGridView;
 
     private ShareDialogAdapter mAdapter;
+    private int bgResId;
     private String title;
     private String day;
     private String dueDate;
@@ -47,9 +48,10 @@ public class ShareDialogFragment extends BaseDialogFragment {
         return dialogFragment;
     }
 
-    public static ShareDialogFragment newInstance(String title, String day, String dueDate) {
+    public static ShareDialogFragment newInstance(int bgResId, String title, String day, String dueDate) {
         ShareDialogFragment dialogFragment = new ShareDialogFragment();
         Bundle bundle = new Bundle();
+        bundle.putInt(BundleConstants.KEY_RES_ID, bgResId);
         bundle.putString(BundleConstants.KEY_TITLE, title);
         bundle.putString(BundleConstants.KEY_DAY, day);
         bundle.putString(BundleConstants.KEY_DUE_DATE, dueDate);
@@ -61,6 +63,7 @@ public class ShareDialogFragment extends BaseDialogFragment {
     protected void getExtraArguments() {
         Bundle bundle = getArguments();
         if (bundle != null) {
+            bgResId = bundle.getInt(BundleConstants.KEY_RES_ID);
             title = bundle.getString(BundleConstants.KEY_TITLE);
             day = bundle.getString(BundleConstants.KEY_DAY);
             dueDate = bundle.getString(BundleConstants.KEY_DUE_DATE);
@@ -86,6 +89,7 @@ public class ShareDialogFragment extends BaseDialogFragment {
             return shareModel;
         }
         if (shareType == AppShareManager.TYPE_SHARE_IMG) {
+            shareModel.setBgResId(bgResId);
             shareModel.setEventTitle(title);
             shareModel.setDay(day);
             shareModel.setDueDate(dueDate);
