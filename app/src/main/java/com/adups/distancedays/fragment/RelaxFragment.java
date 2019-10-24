@@ -1,6 +1,7 @@
 package com.adups.distancedays.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.adups.distancedays.R;
 import com.adups.distancedays.base.BaseFragment;
@@ -61,6 +62,9 @@ public class RelaxFragment extends BaseStatusFragment {
                     if (articleInfo != null) {
                         String title = articleInfo.getTitle();
                         String author = articleInfo.getArticleAuthor();
+                        if (!TextUtils.isEmpty(author)) {
+                            author = getString(R.string.string_author_prefix, author);
+                        }
                         String text = articleInfo.getArticleText();
                         RichModel richModel = new RichModel(title, author, text);
                         mRichContent.setRichContent(richModel, true);

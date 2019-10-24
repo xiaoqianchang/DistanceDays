@@ -7,6 +7,7 @@ import androidx.core.text.HtmlCompat;
 import butterknife.BindView;
 
 import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -82,7 +83,7 @@ public class DistanceDaysListFragment extends BaseFragment {
         mListView.setAdapter(mAdapter = new CommonAdapter<EventModel>(getContext(), R.layout.view_distance_days_row_layout, eventModels) {
             @Override
             protected void convert(ViewHolder holder, EventModel eventModel) {
-                String title = HtmlCompat.fromHtml(FormatHelper.getDateCardTitlePartBold(eventModel, this.mContext), HtmlCompat.FROM_HTML_MODE_COMPACT).toString();
+                Spanned title = HtmlCompat.fromHtml(FormatHelper.getDateCardTitlePartBold(eventModel, this.mContext), HtmlCompat.FROM_HTML_MODE_COMPACT);
                 holder.setText(R.id.tv_event_content, title);
                 holder.setText(R.id.tv_event_date, String.valueOf(eventModel.getDays()));
 //                holder.c.setText(this.mContext.getResources().getQuantityString(R.plurals.plurals_day_in_card, data.getDays()));

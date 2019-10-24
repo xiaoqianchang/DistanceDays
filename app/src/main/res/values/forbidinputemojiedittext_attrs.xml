@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ForbidInputEmojiEditText">
+        <attr name="maxLength" format="integer"/>
+        <attr name="maxLengthToast" format="string|reference"/>
+    </declare-styleable>
+</resources>

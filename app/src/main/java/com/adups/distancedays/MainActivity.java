@@ -99,10 +99,14 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
             newYearEvent.setTargetDate(calendar.getTimeInMillis());
             newYearEvent.setIsLunarCalendar(false);
             newYearEvent.setIsTop(false);
-            newYearEvent.setRepeatType(2);
+            newYearEvent.setRepeatType(3);
             eventEntities.add(newYearEvent);
 
-            Calendar calendarAlready = LunarCalendar.lunarToSolarCalendar(lunarCalendar.getYear(), 1, 1, lunarCalendar.isLeapMonth());
+//            Calendar calendarAlready = LunarCalendar.lunarToSolarCalendar(lunarCalendar.getYear(), 1, 1, lunarCalendar.isLeapMonth()); // 以阴历正月初一算已过时间
+            Calendar calendarAlready = Calendar.getInstance();
+            calendarAlready.set(Calendar.YEAR, lunarCalendar.getYear());
+            calendarAlready.set(Calendar.MONTH, 0);
+            calendarAlready.set(Calendar.DATE, 1);
             EventEntity yearAlreadyEvent = new EventEntity();
             yearAlreadyEvent.setEventTitle(String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
             yearAlreadyEvent.setCreateDate(DateUtils.getCurrentTimeMillis());

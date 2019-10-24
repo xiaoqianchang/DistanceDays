@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 
 import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.adups.distancedays.db.EntityConverter;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
 import com.adups.distancedays.model.EventModel;
+import com.adups.distancedays.utils.AppConstants;
 import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.DateUtils;
 import com.adups.distancedays.utils.FormatHelper;
@@ -33,6 +35,8 @@ import com.adups.distancedays.utils.ToolUtil;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * 网格状态的倒数日
@@ -75,7 +79,7 @@ public class DistanceDaysGridFragment extends BaseFragment {
         gvCardGrid.setAdapter(mAdapter = new CommonAdapter<EventModel>(getContext(), R.layout.view_distance_days_card_layout, eventModels) {
             @Override
             protected void convert(ViewHolder holder, EventModel eventModel) {
-                String title = HtmlCompat.fromHtml(FormatHelper.getDateCardTitlePartBold(eventModel, this.mContext), HtmlCompat.FROM_HTML_MODE_COMPACT).toString();
+                String title = FormatHelper.getDateCardTitle(eventModel, this.mContext);
                 holder.setText(R.id.title, title);
                 holder.setText(R.id.date, String.valueOf(eventModel.getDays()));
                 Calendar instance = Calendar.getInstance();
@@ -97,9 +101,21 @@ public class DistanceDaysGridFragment extends BaseFragment {
                 EventModel model = (EventModel) mAdapter.getItem(position);
                 bundle.putSerializable(BundleConstants.KEY_MODEL, model);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent, AppConstants.RequestCode.CODE_EVENT_DETAIL);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case AppConstants.RequestCode.CODE_EVENT_DETAIL:
+                    refreshUi();
+                    break;
+            }
+        }
     }
 
     private List<EventModel> convertToEventModel(List<EventEntity> entityList) {

@@ -25,7 +25,7 @@ public class DistanceDaysFragment extends BaseFragment {
     private static final int TYPE_LIST = 1; // 列表视图
     private static final int TYPE_CARD = 2; // 卡片视图
 
-    private int mType = TYPE_LIST;
+    private int mType = TYPE_CARD;
     private Fragment mCurrentFragment;
 
     public static DistanceDaysFragment newInstance() {

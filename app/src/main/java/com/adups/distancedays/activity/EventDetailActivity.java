@@ -71,7 +71,7 @@ public class EventDetailActivity extends ToolBarActivity {
         } else {
             tvTitle.setBackgroundResource(R.drawable.bg_detail_date_title_blue);
         }
-        tvTitle.setText(Html.fromHtml(FormatHelper.getDateCardTitlePartBold(mEventModel, this.mContext)).toString());
+        tvTitle.setText(FormatHelper.getDateCardTitle(mEventModel, this.mContext));
         tvDay.setText(DateUtils.getFormatDaysText(mEventModel.getDays(), String.valueOf(mEventModel.getDays())));
         refreshDueDate(mEventModel.isLunarCalendar());
     }

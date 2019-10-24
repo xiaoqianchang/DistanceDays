@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="android:actionBarSize">@dimen/nav_bar_height</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/color_white</item>
 <!--        <item name="android:windowAnimationStyle">@style/Animation.Activity</item>-->
         <!-- he default text color for enabled buttons and Large Textviews. -->
 <!--        <item name="android:textColorPrimary">@android:color/white</item>-->
@@ -28,6 +28,7 @@
 <!--        <item name="android:windowFullscreen">true</item>-->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item> <!-- 会启用activity 开、关自带动画（缩放） -->
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
 
@@ -92,19 +93,22 @@
 
     <style name="main_tab">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@null</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:background">@drawable/bg_bottom_button_selector</item>
         <item name="android:button">@null</item>
     </style>
 
     <style name="main_tab_style" parent="main_tab">
-        <item name="android:drawablePadding">1.5dp</item>
-        <item name="android:textColor">@drawable/footer_text_color</item>
-        <item name="android:textSize">@dimen/text_size_11</item>
         <item name="android:clickable">true</item>
+        <item name="android:drawablePadding">1.5dp</item>
+        <item name="android:gravity">center_horizontal</item>
         <item name="android:scaleType">center</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:textColor">@drawable/footer_text_color</item>
+        <item name="android:textSize">11sp</item>
     </style>
 
     <style name="main_head_title">

@@ -23,6 +23,9 @@
     <string name="string_feedback_contact">请留下您的邮箱或QQ号</string>
     <string name="string_feedback_word_count">%1$s/300</string>
     <string name="string_error_network">网络不给力</string>
+    <string name="string_author_prefix">作者：%1$s</string>
+    <string name="string_ends_date_hint">(未来日期为倒数，过去日期为正数)</string>
+    <string name="string_top_hint">(首页列表模式下置顶显示)</string>
 
     <string name="toast_add_event_failure">保存事件失败</string>
     <string name="toast_function_development">功能开发中...</string>
@@ -53,6 +56,7 @@
     <string name="share_error_no_wechat">请先安装微信</string>
     
     <string name="toast_feedback_fail">提交成功</string>
+    <string name="toast_event_name_max_length">事件名称不超过15个字符</string>
 
 
     <!-- 待删减调整 -->
@@ -346,7 +350,6 @@
     <string name="cs_user_signup_email_hint">输入邮箱地址</string>
     <string name="cs_user_signup_name_hint">用户ID(8位以上字母和数字)</string>
     <string name="cs_user_signup_pwd_hint">设置密码(6位以上)</string>
-    <string name="ends_date_hint">(未来日期为倒数，过去日期为正数)</string>
     <string name="event">事件</string>
     <string name="every">每</string>
     <string name="inbox_header">我的收件箱</string>
