@@ -9,6 +9,5 @@
         android:id="@+id/guideImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/newer04"/>
+        android:scaleType="centerCrop"/>
 </RelativeLayout>
