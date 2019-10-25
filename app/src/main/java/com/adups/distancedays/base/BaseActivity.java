@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.adups.distancedays.utils.StatisticsUtil;
 import com.adups.distancedays.utils.StatusBarUtils;
 
 import androidx.annotation.Nullable;
@@ -62,12 +63,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "onResume");
+        StatisticsUtil.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.i(TAG, "onPause");
+        StatisticsUtil.onPause(this);
     }
 
     @Override

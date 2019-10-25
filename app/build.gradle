@@ -6,11 +6,13 @@ def getManifestPlaceholders(channelName, flavors) {
     def qqAppId = rootProject.ext.config.QQ_APP_ID
 
     println " qqAppId is " + qqAppId
+    println " channelName is " + channelName
     println " flavors is " + flavors
 
     def tHolders = [
             PACKAGE_NAME           : packageName,
-            qqappid                : qqAppId
+            qqappid                : qqAppId,
+            UMENG_CHANNEL_VALUE    : channelName
     ]
     return tHolders
 }
@@ -213,6 +215,8 @@ dependencies {
     implementation project(":sharelib")
 
     implementation project(":statusbarlibrary")
+
+    implementation  'com.umeng.umsdk:analytics:8.0.0'
 
     //内存分析以及性能分析
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'
