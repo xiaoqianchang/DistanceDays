@@ -68,11 +68,11 @@ public class FeedbackActivity extends ToolBarActivity {
         String contactWay = edtFeedbackContact.getText().toString();
         String contactContent = edtFeedbackContent.getText().toString();
         if (TextUtils.isEmpty(contactContent)) {
-            ToastUtil.showToast(mContext, "请输入联系内容！");
+            ToastUtil.showToast(mContext, "输入意见不能为空");
             return;
         }
         if (TextUtils.isEmpty(contactWay)) {
-            ToastUtil.showToast(mContext, "请输入联系方式！");
+            ToastUtil.showToast(mContext, "联系方式不能为空");
             return;
         }
         Call<BaseModel> call = OkHttpWrapper.getInstance().getNetApiInstance().processFeedback(
