@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- 安卓9.0系统出现 CLEARTEXT communication to XX not permitted by network security policy -->
+    <!-- 由于2018年发布的Android P限制了非加密的流量请求导致出现 not permitted by network security policy -->
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

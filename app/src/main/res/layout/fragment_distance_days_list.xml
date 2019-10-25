@@ -41,18 +41,20 @@
                 android:textSize="13sp" />
         </LinearLayout>
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <TextView
+            <com.adups.distancedays.view.ScalableTextView
                 android:id="@+id/tv_days"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:includeFontPadding="false"
                 android:layout_gravity="center_vertical"
+                android:gravity="center"
                 tools:text="125"
                 android:textColor="@color/color_white"
                 android:textSize="67sp"
@@ -64,7 +66,7 @@
                 android:layout_marginRight="9dp"
                 android:layout_gravity="center_vertical|right"
                 android:src="@mipmap/ic_days"/>
-        </FrameLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <ListView

@@ -48,6 +48,9 @@ public class RelaxFragment extends BaseStatusFragment {
 
     @Override
     protected void init(Bundle savedInstanceState) {
+//        mRichContent.setBackgroundColor(0);
+//        mRichContent.getBackground().setAlpha(0);
+//        mRichContent.setBackgroundResource(R.drawable.bg_article);
     }
 
     @Override

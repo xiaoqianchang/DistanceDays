@@ -70,25 +70,14 @@ public class DistanceDaysListFragment extends BaseFragment {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-    }
-
-    @Override
-    protected void loadData() {
-        EventDao eventDao = DBHelper.getInstance(getContext()).getDaoSession().getEventDao();
-        List<EventEntity> entityList = eventDao.loadAll();
-        // 转换数据表模型为界面数据模型
-        List<EventModel> eventModels = convertToEventModel(entityList);
-        EventModel headerViewEventModel = getHeaderViewEventModel(eventModels);
-        refreshHeaderView(headerViewEventModel);
-
         mListView.addFooterView(View.inflate(getContext(), R.layout.view_distance_days_row_footer, null));
-        mListView.setAdapter(mAdapter = new CommonAdapter<EventModel>(getContext(), R.layout.view_distance_days_row_layout, eventModels) {
+        mListView.setAdapter(mAdapter = new CommonAdapter<EventModel>(getContext(), R.layout.view_distance_days_row_layout, null) {
             @Override
             protected void convert(ViewHolder holder, EventModel eventModel) {
                 Spanned title = HtmlCompat.fromHtml(FormatHelper.getDateCardTitlePartBold(eventModel, this.mContext), HtmlCompat.FROM_HTML_MODE_COMPACT);
                 holder.setText(R.id.tv_event_content, title);
                 holder.setText(R.id.tv_event_date, String.valueOf(eventModel.getDays()));
-//                holder.c.setText(this.mContext.getResources().getQuantityString(R.plurals.plurals_day_in_card, data.getDays()));
+                //                holder.c.setText(this.mContext.getResources().getQuantityString(R.plurals.plurals_day_in_card, data.getDays()));
                 if (eventModel.isOutOfTargetDate()) {
                     holder.getView(R.id.tv_event_date).setBackground(mContext.getResources().getDrawable(R.drawable.bg_date_card_small_date_passed));
                     holder.getView(R.id.tv_day).setBackground(mContext.getResources().getDrawable(R.drawable.bg_date_card_small_day_passed));
@@ -116,6 +105,19 @@ public class DistanceDaysListFragment extends BaseFragment {
                 startActivityForResult(intent, AppConstants.RequestCode.CODE_EVENT_DETAIL);
             }
         });
+    }
+
+    @Override
+    protected void loadData() {
+        EventDao eventDao = DBHelper.getInstance(getContext()).getDaoSession().getEventDao();
+        List<EventEntity> entityList = eventDao.loadAll();
+        // 转换数据表模型为界面数据模型
+        List<EventModel> eventModels = convertToEventModel(entityList);
+        EventModel headerViewEventModel = getHeaderViewEventModel(eventModels);
+        refreshHeaderView(headerViewEventModel);
+        if (mAdapter != null) {
+            mAdapter.setData(eventModels);
+        }
     }
 
     @Override

@@ -24,6 +24,7 @@
     <string name="string_feedback_word_count">%1$s/300</string>
     <string name="string_error_network">网络不给力</string>
     <string name="string_author_prefix">作者：%1$s</string>
+    <string name="string_day">%1$s天</string>
     <string name="string_ends_date_hint">(未来日期为倒数，过去日期为正数)</string>
     <string name="string_top_hint">(首页列表模式下置顶显示)</string>
 

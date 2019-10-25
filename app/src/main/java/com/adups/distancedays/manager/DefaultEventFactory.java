@@ -178,7 +178,7 @@ public class DefaultEventFactory {
         calendar.set(Calendar.DATE, 7);
 
         EventEntity entity = new EventEntity();
-        entity.setEventTitle("情人节");
+        entity.setEventTitle("高考");
         entity.setCreateDate(DateUtils.getCurrentTimeMillis());
         entity.setTargetDate(calendar.getTimeInMillis());
         entity.setIsLunarCalendar(false);

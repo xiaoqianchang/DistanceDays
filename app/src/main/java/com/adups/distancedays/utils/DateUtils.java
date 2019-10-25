@@ -194,6 +194,19 @@ public class DateUtils {
         return calendar;
     }
 
+    /**
+     * 获取目标日期与今天的时间差，可能为负数
+     *
+     * @return
+     */
+    public static int getDateOffset(long targetDateTime) {
+        Calendar targetDate = Calendar.getInstance();
+        Calendar todayDate = Calendar.getInstance();
+        targetDate.setTimeInMillis(targetDateTime);
+        int days = (int) getDateOffset(targetDate, todayDate);
+        return days;
+    }
+
     /*导入*/
     public static String getFormatedDate(Context context, Calendar calendar, boolean isLunarCalendar) {
         return getFormatedDate(context, calendar, 0, isLunarCalendar);

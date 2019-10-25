@@ -51,6 +51,7 @@
 -keep class com.adups.distancedays.base.** {*;}
 -keep class com.adups.distancedays.db.** {*;}
 -keep class com.adups.distancedays.event.** {*;}
+-keep class com.adups.distancedays.http.** {*;}
 -keep class com.adups.distancedays.manager.** {*;}
 -keep class com.adups.distancedays.model.** {*;}
 -keep class com.adups.distancedays.utils.** {*;}
