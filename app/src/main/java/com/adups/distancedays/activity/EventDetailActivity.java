@@ -48,7 +48,6 @@ public class EventDetailActivity extends ToolBarActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        setTitle(getString(R.string.title_detail));
         parseBundle();
         refreshUi();
         setMenuTypes(MENU_TYPE_EDIT_EVENT);

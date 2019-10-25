@@ -52,6 +52,15 @@ public final class MultiViewTypeAdapter extends BaseAdapter {
         return super.getViewTypeCount();
     }
 
+    /**
+     * 异常记录：java.lang.ArrayIndexOutOfBoundsException: length=2; index=2
+     * 在使用ListView时，如果使用了getItemViewType，记得他的值一定要是从0开始计数的。且要覆盖getViewTypeCount方法。
+     * 并且让getViewTypeCount>getItemViewType
+     * eg：https://www.cnblogs.com/dingchenghong/p/4197227.html
+     *
+     * @param position
+     * @return
+     */
     @Override
     public int getItemViewType(int position) {
         ItemModel itemModel = getItem(position);

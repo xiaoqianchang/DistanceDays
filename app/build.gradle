@@ -110,7 +110,7 @@ android {
              * 安卓apk包命名规则
              apk安装包中必须包含以下信息，以下划线连接
              1.产品名称，必须是英文字母，不能出现中文。
-             2.productFlavors号：distancedays表示距离日（渠道号）
+             2.productFlavors号：distancedays表示倒数日（渠道号）
              3.外部版本号
              4.内部版本号
              5.打包日期

@@ -149,6 +149,17 @@
     <style name="DatePickerDialogTheme" parent="Base.Theme.AppCompat.Light.Dialog.FixedSize">
     </style>
 
+    <!-- Default theme Switch -->
+    <style name="DefaultSwitchTheme" parent="Theme.AppCompat.Light">
+        <!-- Active thumb color & Active track color(30% transparency) switch 打开时的拇指按钮的颜色 轨迹颜色默认为30%这个颜色 -->
+        <item name="colorControlActivated">@color/color_theme_blue</item>
+        <!-- Inactive thumb color switch关闭时的拇指按钮的颜色 -->
+        <item name="colorSwitchThumbNormal">@color/colorAccent</item>
+        <!-- Inactive track color(30% transparency) switch关闭时的轨迹的颜色 30%这个颜色 -->
+        <item name="android:colorForeground">@color/colorAccent</item>
+        <!--使用方法： 在布局文件中给需要自定义控件中增加 android:theme="@style/DefaultSwitchTheme" 如果是 SwitchCompat 控件，则是增加 app:theme="@style/DefaultSwitchTheme"-->
+    </style>
+
 
 
     <!-- 待删减调整 -->

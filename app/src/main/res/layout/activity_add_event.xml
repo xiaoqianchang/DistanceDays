@@ -137,6 +137,7 @@
                 <Switch
                     android:id="@+id/switch_top"
                     style="@style/PreferenceSwitch"
+                    android:theme="@style/DefaultSwitchTheme"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

@@ -9,7 +9,7 @@ import android.view.View;
  *
  * @version 1.0
  */
-public interface MultiViewTypeSupport<T> {
+public interface MultiViewTypeSupport<Model> {
 
     /**
      * 返回布局id
@@ -18,5 +18,5 @@ public interface MultiViewTypeSupport<T> {
      */
     int getLayoutId();
 
-    void convert(ViewHolder holder, T t, View convertView, int position);
+    void convert(ViewHolder holder, ItemModel<Model> t, View convertView, int position);
 }

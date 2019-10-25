@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import static android.app.Activity.RESULT_OK;
 
 /**
- * 距离日
+ * 倒数日
  * <p>
  * Created by Chang.Xiao on 2019/10/11.
  *

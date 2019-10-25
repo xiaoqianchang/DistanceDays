@@ -14,6 +14,7 @@
     <color name="color_background">#FFF6F6F6</color>
     <color name="color_common_pressed">#20000000</color>
     <color name="color_common_pressed_white">#99ffffff</color>
+    <color name="color_theme_blue">#FF0385E1</color>
     <!-- 头部文字颜色 -->
     <color name="background_color">@color/color_white</color>
     <color name="head_text">#0e5986</color>

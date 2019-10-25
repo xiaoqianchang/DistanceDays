@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.adups.distancedays.MainActivity;
 import com.adups.distancedays.R;
 import com.adups.distancedays.activity.EventDetailActivity;
 import com.adups.distancedays.adapter.CommonAdapter;
@@ -80,6 +81,7 @@ public class DistanceDaysListFragment extends BaseFragment {
         EventModel headerViewEventModel = getHeaderViewEventModel(eventModels);
         refreshHeaderView(headerViewEventModel);
 
+        mListView.addFooterView(View.inflate(getContext(), R.layout.view_distance_days_row_footer, null));
         mListView.setAdapter(mAdapter = new CommonAdapter<EventModel>(getContext(), R.layout.view_distance_days_row_layout, eventModels) {
             @Override
             protected void convert(ViewHolder holder, EventModel eventModel) {
@@ -100,6 +102,12 @@ public class DistanceDaysListFragment extends BaseFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == mAdapter.getCount()) {
+                    if (getActivity() instanceof MainActivity) {
+                        ((MainActivity) getActivity()).getMenuAddEventAction().run();
+                    }
+                    return;
+                }
                 Intent intent = new Intent(getContext(), EventDetailActivity.class);
                 Bundle bundle = new Bundle();
                 EventModel model = (EventModel) mAdapter.getItem(position);
