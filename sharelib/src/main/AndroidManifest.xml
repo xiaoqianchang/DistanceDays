@@ -15,7 +15,6 @@
       android:configChanges="keyboardHidden|orientation|screenSize"
       android:exported="true"
       android:name="${applicationId}.wxapi.WXEntryActivity"
-      android:screenOrientation="portrait"
       android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
     <!-- QQ 分享 -->

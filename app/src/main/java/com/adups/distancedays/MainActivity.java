@@ -16,6 +16,7 @@ import com.adups.distancedays.manager.DefaultEventFactory;
 import com.adups.distancedays.manager.TabFragmentManager;
 import com.adups.distancedays.utils.AppConstants;
 import com.adups.distancedays.utils.TypeConversionUtil;
+import com.color.distancedays.sharelib.util.SystemUtils;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -58,6 +59,7 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        SystemUtils.fixAndroid26OrientationBug(this);
         DefaultEventFactory.getInstance().initDefaultData(mContext);
         mFragmentManager = getSupportFragmentManager();
         recoverStatus(savedInstanceState);
