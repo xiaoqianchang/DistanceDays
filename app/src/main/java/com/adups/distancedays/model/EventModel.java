@@ -1,9 +1,6 @@
 package com.adups.distancedays.model;
 
-import com.adups.distancedays.utils.DateUtils;
-
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -15,6 +12,15 @@ import java.util.Date;
  */
 public class EventModel implements Serializable {
 
+    /**
+     * 事件重复类型
+     */
+    public static final int TYPE_REPEAT_NONE = 0; // 不重复
+    public static final int TYPE_REPEAT_PER_WEEK = 1; // 每周重复
+    public static final int TYPE_REPEAT_PER_MONTH = 2; // 每月重复
+    public static final int TYPE_REPEAT_PER_YEAR = 3; // 每年重复
+    public static final int TYPE_REPEAT_PER_DAY = 4; // 每天重复
+
     private String eventTitle; // 事件title
     private long createTime; // 创建时间戳
     private long targetTime; // 目标时间戳
@@ -24,7 +30,7 @@ public class EventModel implements Serializable {
 
     /* 下面为附属属性 */ // 注意：附属属性在存在修改可能时不会及时更新，只在converter时更新，使用时动态获取，如days
     private long eventId; // 事件id
-    private Date targetDate; // 到期日
+    private Date targetDate; // 到期日（用于经过重复类型计算后显示的目标日期）
     private int days; // 距离天数
     private boolean isOutOfTargetDate; // 是否超过到期日
     private Date endDate; // 结束日
@@ -95,14 +101,8 @@ public class EventModel implements Serializable {
         this.targetDate = targetDate;
     }
 
-    /**
-     * 获取目标日期与今天的时间差
-     *
-     * @return
-     */
     public int getDays() {
-        int days = DateUtils.getDateOffset(targetTime);
-        return Math.abs(days);
+        return days;
     }
 
     public void setDays(int days) {
@@ -110,8 +110,7 @@ public class EventModel implements Serializable {
     }
 
     public boolean isOutOfTargetDate() {
-        int days = DateUtils.getDateOffset(targetTime);
-        return days < 0;
+        return isOutOfTargetDate;
     }
 
     public void setOutOfTargetDate(boolean outOfTargetDate) {

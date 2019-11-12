@@ -5,6 +5,7 @@ import android.content.Context;
 import com.adups.distancedays.db.DBHelper;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
+import com.adups.distancedays.model.EventModel;
 import com.adups.distancedays.utils.AppConstants;
 import com.adups.distancedays.utils.ContextUtils;
 import com.adups.distancedays.utils.DateUtils;
@@ -79,7 +80,7 @@ public class DefaultEventFactory {
         entity.setTargetDate(DateUtils.getRecentlyWeekend().getTimeInMillis());
         entity.setIsLunarCalendar(false);
         entity.setIsTop(true);
-        entity.setRepeatType(1);
+        entity.setRepeatType(EventModel.TYPE_REPEAT_PER_WEEK);
 
         return entity;
     }
@@ -99,7 +100,7 @@ public class DefaultEventFactory {
         entity.setTargetDate(calendar.getTimeInMillis());
         entity.setIsLunarCalendar(false);
         entity.setIsTop(false);
-        entity.setRepeatType(3);
+        entity.setRepeatType(EventModel.TYPE_REPEAT_PER_YEAR);
 
         return entity;
     }
@@ -123,7 +124,7 @@ public class DefaultEventFactory {
         entity.setTargetDate(calendar.getTimeInMillis());
         entity.setIsLunarCalendar(false);
         entity.setIsTop(false);
-        entity.setRepeatType(3);
+        entity.setRepeatType(EventModel.TYPE_REPEAT_PER_YEAR);
 
         return entity;
     }
@@ -153,7 +154,7 @@ public class DefaultEventFactory {
         entity.setTargetDate(calendar.getTimeInMillis());
         entity.setIsLunarCalendar(false);
         entity.setIsTop(false);
-        entity.setRepeatType(3);
+        entity.setRepeatType(EventModel.TYPE_REPEAT_PER_YEAR);
 
         return entity;
     }
@@ -183,7 +184,7 @@ public class DefaultEventFactory {
         entity.setTargetDate(calendar.getTimeInMillis());
         entity.setIsLunarCalendar(false);
         entity.setIsTop(false);
-        entity.setRepeatType(3);
+        entity.setRepeatType(EventModel.TYPE_REPEAT_PER_YEAR);
 
         return entity;
     }

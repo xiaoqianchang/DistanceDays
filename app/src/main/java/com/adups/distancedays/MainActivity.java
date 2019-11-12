@@ -1,6 +1,7 @@
 package com.adups.distancedays;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.adups.distancedays.fragment.RelaxFragment;
 import com.adups.distancedays.fragment.SettingFragment;
 import com.adups.distancedays.manager.DefaultEventFactory;
 import com.adups.distancedays.manager.TabFragmentManager;
+import com.adups.distancedays.receiver.TimeChangeReceiver;
 import com.adups.distancedays.utils.AppConstants;
 import com.adups.distancedays.utils.TypeConversionUtil;
 import com.color.distancedays.sharelib.util.SystemUtils;
@@ -51,6 +53,7 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
     public Fragment mCurrentFragment; // 当前显示的fragment
     private int mCurrentTabResId = -1; // 当前选中tab的id
     private TabFragmentManager mTabFragmentManager;
+    private TimeChangeReceiver mTimeChangeReceiver;
 
     @Override
     protected int getContentViewId() {
@@ -60,6 +63,7 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
     @Override
     protected void init(Bundle savedInstanceState) {
         SystemUtils.fixAndroid26OrientationBug(this);
+        registerReceiver();
         DefaultEventFactory.getInstance().initDefaultData(mContext);
         mFragmentManager = getSupportFragmentManager();
         recoverStatus(savedInstanceState);
@@ -84,6 +88,31 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
             }
         } else {
             changeFragment(TAB_DISTANCE_DAYS);
+        }
+    }
+
+    /**
+     * 注册系统时间改变广播Receiver
+     */
+    private void registerReceiver() {
+        mTimeChangeReceiver = new TimeChangeReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_TIME_CHANGED);
+        intentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        try {
+            registerReceiver(mTimeChangeReceiver, intentFilter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void unregisterReceiver() {
+        if (mTimeChangeReceiver != null) {
+            try {
+                unregisterReceiver(mTimeChangeReceiver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -216,5 +245,11 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
         if (outState != null && mCurrentFragment != null) {
             outState.putString(KEY_CURRENT_SHOW_FRAGMENT_TAG, mCurrentFragment.getTag());
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver();
     }
 }

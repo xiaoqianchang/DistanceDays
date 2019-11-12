@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="category_name">
-        <item>全部</item>
-        <item>生活</item>
-        <item>工作</item>
-        <item>纪念日</item>
-    </array>
     <array name="day_in_week">
         <item>星期一</item>
         <item>星期二</item>
@@ -14,25 +8,6 @@
         <item>星期五</item>
         <item>星期六</item>
         <item>星期日</item>
-    </array>
-    <array name="default_events">
-        <item>星期六</item>
-        <item>Google 成立</item>
-        <item>New Year</item>
-    </array>
-    <array name="main_page_title">
-        <item>Days Matter · 倒数日</item>
-        <item>历史上的今天</item>
-        <item>日期计算器</item>
-        <item>我的倒数日 · iCity</item>
-        <item>更多</item>
-    </array>
-    <array name="repeat_type">
-        <item>不重复</item>
-        <item>每周重复</item>
-        <item>每月重复</item>
-        <item>每年重复</item>
-<!--        <item>每天重复</item>-->
     </array>
     <array name="alarm_type">
         <item>@string/alarm_type_none</item>
@@ -48,11 +23,11 @@
         <item>周六</item>
         <item>周日</item>
     </array>
-    <array name="repeat_type_short">
+
+    <array name="repeat_type">
         <item>不重复</item>
-        <item>周</item>
-        <item>月</item>
-        <item>年</item>
-        <item>天</item>
+        <item>每周重复</item>
+        <item>每月重复</item>
+        <item>每年重复</item>
     </array>
 </resources>

@@ -81,7 +81,7 @@ public class EventDetailActivity extends ToolBarActivity {
         }
         this.isLunarCalendar = isLunarCalendar;
         Calendar instance = Calendar.getInstance();
-        instance.setTimeInMillis(mEventModel.getTargetTime());
+        instance.setTime(mEventModel.getTargetDate());
         tvDueDate.setText(getString(R.string.string_target_date, DateUtils.getFormatedDate(mContext, instance, 2, isLunarCalendar)));
     }
 

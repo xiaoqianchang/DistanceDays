@@ -1,11 +1,17 @@
 package com.adups.distancedays.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.adups.distancedays.R;
 import com.adups.distancedays.base.BaseFragment;
+import com.adups.distancedays.event.TimeChangeEvent;
 import com.adups.distancedays.utils.AppConstants;
+import com.adups.distancedays.utils.EventUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -27,12 +33,19 @@ public class DistanceDaysFragment extends BaseFragment {
 
     private int mType = TYPE_CARD;
     private Fragment mCurrentFragment;
+    private boolean mDelayRefresh; // 是否在界面可见时刷新界面
 
     public static DistanceDaysFragment newInstance() {
         Bundle bundle = new Bundle();
         DistanceDaysFragment fragment = new DistanceDaysFragment();
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        EventUtil.register(this);
     }
 
     @Override
@@ -46,18 +59,47 @@ public class DistanceDaysFragment extends BaseFragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (mDelayRefresh) {
+            refreshUi();
+            mDelayRefresh = false;
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case AppConstants.RequestCode.CODE_EVENT_ADD:
-                    if (mType == TYPE_CARD && mCurrentFragment instanceof DistanceDaysGridFragment) {
-                        ((DistanceDaysGridFragment) mCurrentFragment).refreshUi();
-                    } else {
-                        ((DistanceDaysListFragment) mCurrentFragment).refreshUi();
-                    }
+                    refreshUi();
                     break;
             }
+        }
+    }
+
+    private void refreshUi() {
+        if (mType == TYPE_CARD && mCurrentFragment instanceof DistanceDaysGridFragment) {
+            ((DistanceDaysGridFragment) mCurrentFragment).refreshUi();
+        } else {
+            ((DistanceDaysListFragment) mCurrentFragment).refreshUi();
+        }
+    }
+
+    /**
+     * 系统时间改变 event
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onTimeChangeEvent(TimeChangeEvent event) {
+        if (!canUpdateUi()) {
+            return;
+        }
+        // 刷新数据
+        if (isVisible() && mVisibleToUser) {
+            refreshUi();
+        } else {
+            mDelayRefresh = true;
         }
     }
 
@@ -83,5 +125,11 @@ public class DistanceDaysFragment extends BaseFragment {
         }
         transaction.replace(R.id.fragment_container, mCurrentFragment);
         transaction.commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventUtil.unregister(this);
     }
 }

@@ -160,7 +160,7 @@ public class DistanceDaysListFragment extends BaseFragment {
         }
         tvDateTitle.setText(eventModel.getEventTitle());
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(eventModel.getTargetTime());
+        calendar.setTime(eventModel.getTargetDate());
         String formatDate = DateUtils.getFormatedDate(getContext(), calendar, 2, eventModel.isLunarCalendar());
         tvDateSubtitle.setText(getString(R.string.string_target_date, formatDate));
         tvDays.setText(String.valueOf(eventModel.getDays()));

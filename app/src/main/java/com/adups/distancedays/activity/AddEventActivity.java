@@ -111,7 +111,7 @@ public class AddEventActivity extends ToolBarActivity {
         spinnerRepeat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mRepeatType = position;
+                mRepeatType = EntityConverter.getRepeatType(position);
                 spinnerRepeat.setPrompt(repeatTypes[position]);
                 ((TextView) spinnerRepeat.getSelectedView()).setTextColor(Color.parseColor("#3283D2"));
             }
@@ -180,6 +180,7 @@ public class AddEventActivity extends ToolBarActivity {
                     updateUnTopFromDB();
                 }
                 mEventDao.update(eventEntity);
+                mEditEventModel = EntityConverter.convertToEventModel(eventEntity);
                 Intent intent = new Intent();
                 intent.putExtra(BundleConstants.KEY_TYPE, mType);
                 intent.putExtra(BundleConstants.KEY_MODEL, mEditEventModel);
