@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="310dp"
+    android:layout_height="187dp">
+
+    <LinearLayout
+        android:id="@+id/widget_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_date_card_small"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_widget_small_title"
+            android:singleLine="true"
+            android:ellipsize="middle"
+            android:gravity="center"
+            android:minHeight="18dp"
+            android:textColor="@color/primary_text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/primary_text"
+            android:textSize="58sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/due_date"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_widget_due_date"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textColor="@color/secondary_text"
+            android:textSize="12sp" />
+    </LinearLayout>
+</FrameLayout>

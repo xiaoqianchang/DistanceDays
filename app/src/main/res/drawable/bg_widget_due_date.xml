@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item>
+        <shape>
+            <solid android:color="#F6F6F6" />
+            <corners
+                android:bottomLeftRadius="@dimen/date_card_small_radius"
+                android:bottomRightRadius="@dimen/date_card_small_radius"
+                android:topLeftRadius="0dp"
+                android:topRightRadius="0dp" />
+        </shape>
+    </item>
+</layer-list>

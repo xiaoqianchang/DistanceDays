@@ -1,12 +1,15 @@
 package com.adups.distancedays.manager;
 
 import android.content.Context;
+import android.content.Intent;
 
+import com.adups.distancedays.appwidget.AppWidgetEventProvider;
 import com.adups.distancedays.db.DBHelper;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
 import com.adups.distancedays.model.EventModel;
 import com.adups.distancedays.utils.AppConstants;
+import com.adups.distancedays.utils.CommonUtil;
 import com.adups.distancedays.utils.ContextUtils;
 import com.adups.distancedays.utils.DateUtils;
 import com.adups.distancedays.utils.LunarCalendar;
@@ -23,6 +26,9 @@ import java.util.Calendar;
  * @version 1.0
  */
 public class DefaultEventFactory {
+
+    // 小部件 provider
+    private AppWidgetEventProvider mProvider;
 
     private DefaultEventFactory() {
     }
@@ -187,5 +193,28 @@ public class DefaultEventFactory {
         entity.setRepeatType(EventModel.TYPE_REPEAT_PER_YEAR);
 
         return entity;
+    }
+
+    /**
+     * 发送数据更新 BroadCast
+     */
+    public void sendDateChangedBroadCast(Context context) {
+        Intent intent = new Intent(AppConstants.Action.ACTION_DATE_CHANGED);
+        getProvider().onReceive(getContext(context), intent);
+
+    }
+
+    private Context getContext(Context context) {
+        if (context == null) {
+            context = CommonUtil.getApplication();
+        }
+        return context.getApplicationContext();
+    }
+
+    private AppWidgetEventProvider getProvider() {
+        if (mProvider == null) {
+            mProvider = new AppWidgetEventProvider();
+        }
+        return mProvider;
     }
 }

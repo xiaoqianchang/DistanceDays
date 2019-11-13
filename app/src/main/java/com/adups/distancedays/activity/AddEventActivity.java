@@ -28,6 +28,7 @@ import com.adups.distancedays.db.EntityConverter;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
 import com.adups.distancedays.fragment.LunarPickerDialogFragment;
+import com.adups.distancedays.manager.DefaultEventFactory;
 import com.adups.distancedays.model.EventModel;
 import com.adups.distancedays.utils.BitmapUtils;
 import com.adups.distancedays.utils.BundleConstants;
@@ -181,6 +182,7 @@ public class AddEventActivity extends ToolBarActivity {
                 }
                 mEventDao.update(eventEntity);
                 mEditEventModel = EntityConverter.convertToEventModel(eventEntity);
+                DefaultEventFactory.getInstance().sendDateChangedBroadCast(mContext);
                 Intent intent = new Intent();
                 intent.putExtra(BundleConstants.KEY_TYPE, mType);
                 intent.putExtra(BundleConstants.KEY_MODEL, mEditEventModel);
@@ -201,6 +203,7 @@ public class AddEventActivity extends ToolBarActivity {
             }
             long id = mEventDao.insert(event);
             if (id > 0) {
+                DefaultEventFactory.getInstance().sendDateChangedBroadCast(mContext);
                 Intent intent = new Intent();
                 intent.putExtra(BundleConstants.KEY_TYPE, mType);
                 setResult(RESULT_OK, intent);
@@ -218,6 +221,7 @@ public class AddEventActivity extends ToolBarActivity {
     public void onDeleteClick() {
         if (mEventDao != null && mEditEventModel != null) {
             mEventDao.delete(EntityConverter.convertToEventEntity(mEditEventModel));
+            DefaultEventFactory.getInstance().sendDateChangedBroadCast(mContext);
             Intent intent = new Intent();
             intent.putExtra(BundleConstants.KEY_TYPE, TYPE_DELETE);
             intent.putExtra(BundleConstants.KEY_MODEL, mEditEventModel);

@@ -97,6 +97,7 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
     private void registerReceiver() {
         mTimeChangeReceiver = new TimeChangeReceiver();
         IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Intent.ACTION_TIME_TICK);
         intentFilter.addAction(Intent.ACTION_TIME_CHANGED);
         intentFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         try {

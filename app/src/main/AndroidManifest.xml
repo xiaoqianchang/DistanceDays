@@ -69,6 +69,22 @@
             android:name=".activity.AddEventActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
+
+        <!-- 桌面小部件appwidget provider -->
+        <receiver
+            android:name=".appwidget.AppWidgetEventProvider"
+            android:exported="true"
+            android:label="@string/appwidget_event_label_4x3">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="com.color.distancedays.action.INIT_UI"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_event"/>
+        </receiver>
     </application>
 
 </manifest>

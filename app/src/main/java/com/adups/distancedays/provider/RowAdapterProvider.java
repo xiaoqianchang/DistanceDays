@@ -50,9 +50,9 @@ public class RowAdapterProvider implements MultiViewTypeSupport<EventModel> {
         instance.setTime(eventModel.getTargetDate());
         holder.setText(R.id.due_date, mContext.getString(R.string.string_target_date, DateUtils.getFormatedDate(mContext, instance, 2, eventModel.isLunarCalendar())));
         if (eventModel.isOutOfTargetDate()) {
-            holder.getView(R.id.title).setBackground(mContext.getResources().getDrawable(R.drawable.bg_date_card_small_date_passed));
+            holder.getView(R.id.title).setBackground(mContext.getResources().getDrawable(R.drawable.bg_widget_small_title_passed));
         } else {
-            holder.getView(R.id.title).setBackground(mContext.getResources().getDrawable(R.drawable.bg_date_card_small_date));
+            holder.getView(R.id.title).setBackground(mContext.getResources().getDrawable(R.drawable.bg_widget_small_title));
         }
     }
 }

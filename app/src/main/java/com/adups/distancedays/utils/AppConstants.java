@@ -9,6 +9,11 @@ package com.adups.distancedays.utils;
  */
 public class AppConstants {
 
+    public static class Action {
+        public static final String ACTION_INIT_UI = "com.color.distancedays.action.INIT_UI";
+        public static final String ACTION_DATE_CHANGED = "com.color.distancedays.action.DATE_CHANGED";
+    }
+
     public static class SP_KEY {
 
         /**

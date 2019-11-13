@@ -207,6 +207,21 @@ public class DateUtils {
         return days;
     }
 
+    /**
+     * 当前时间是否为零晨零点 (包含12、24-hour clock.)
+     *
+     * @return
+     */
+    public static boolean isZeroMorning() {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        if (hour == 0 && minute == 0) {
+            return true;
+        }
+        return false;
+    }
+
     /*导入*/
     public static String getFormatedDate(Context context, Calendar calendar, boolean isLunarCalendar) {
         return getFormatedDate(context, calendar, 0, isLunarCalendar);

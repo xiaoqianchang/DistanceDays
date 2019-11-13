@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.adups.distancedays.event.TimeChangeEvent;
+import com.adups.distancedays.manager.DefaultEventFactory;
+import com.adups.distancedays.utils.DateUtils;
 import com.adups.distancedays.utils.EventUtil;
 
 /**
@@ -27,9 +29,11 @@ public class TimeChangeReceiver extends BroadcastReceiver {
         String action = intent.getAction();
 
         if (TextUtils.equals(action, Intent.ACTION_TIME_CHANGED)
-                || TextUtils.equals(action, Intent.ACTION_TIMEZONE_CHANGED)) {
+                || TextUtils.equals(action, Intent.ACTION_TIMEZONE_CHANGED)
+                || (TextUtils.equals(action, Intent.ACTION_TIME_TICK) && DateUtils.isZeroMorning())) {
             // 系统时间被改变
             EventUtil.post(new TimeChangeEvent());
+            DefaultEventFactory.getInstance().sendDateChangedBroadCast(context);
         }
     }
 }
