@@ -26,6 +26,8 @@ import com.adups.distancedays.model.EventModel;
 import com.adups.distancedays.model.FooterModel;
 import com.adups.distancedays.provider.RowAdapterProvider;
 import com.adups.distancedays.provider.RowFooterAdapterProvider;
+import com.adups.distancedays.statistics.StatisticsEventConstant;
+import com.adups.distancedays.statistics.StatisticsUtil;
 import com.adups.distancedays.utils.AppConstants;
 import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.ToolUtil;
@@ -81,9 +83,11 @@ public class DistanceDaysGridFragment extends BaseFragment {
                 if (item != null && item.getModel() != null) {
                     if (item.getModel() instanceof FooterModel) {
                         if (getActivity() instanceof MainActivity) {
-                            ((MainActivity) getActivity()).getMenuAddEventAction().run();
+                            StatisticsUtil.onEvent(getContext(), StatisticsEventConstant.CARD_ADD_ITEM_CLICK);
+                            ((MainActivity) getActivity()).handleAddEventAction();
                         }
                     } else if (item.getModel() instanceof EventModel) {
+                        StatisticsUtil.onEvent(getContext(), StatisticsEventConstant.CARD_ITEM_CLICK);
                         Intent intent = new Intent(getContext(), EventDetailActivity.class);
                         Bundle bundle = new Bundle();
                         EventModel model = (EventModel) item.getModel();

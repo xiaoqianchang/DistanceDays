@@ -11,7 +11,6 @@ import com.adups.distancedays.R;
 import com.adups.distancedays.utils.SystemUtils;
 import com.google.android.material.appbar.AppBarLayout;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;

@@ -16,6 +16,8 @@ import com.adups.distancedays.fragment.SettingFragment;
 import com.adups.distancedays.manager.DefaultEventFactory;
 import com.adups.distancedays.manager.TabFragmentManager;
 import com.adups.distancedays.receiver.TimeChangeReceiver;
+import com.adups.distancedays.statistics.StatisticsEventConstant;
+import com.adups.distancedays.statistics.StatisticsUtil;
 import com.adups.distancedays.utils.AppConstants;
 import com.adups.distancedays.utils.TypeConversionUtil;
 import com.color.distancedays.sharelib.util.SystemUtils;
@@ -205,6 +207,7 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
             public void run() {
                 // 切换视图
                 if (mCurrentFragment instanceof DistanceDaysFragment) {
+                    StatisticsUtil.onEvent(mContext, StatisticsEventConstant.LIST_CARD_DISPLAY_SWITCH);
                     DistanceDaysFragment fragment = (DistanceDaysFragment) MainActivity.this.mCurrentFragment;
                     fragment.switchView(true);
                 }
@@ -217,10 +220,15 @@ public class MainActivity extends ToolBarActivity implements RadioGroup.OnChecke
         return new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, AddEventActivity.class);
-                startActivityForResult(intent, AppConstants.RequestCode.CODE_EVENT_ADD);
+                StatisticsUtil.onEvent(mContext, StatisticsEventConstant.ADD_COUNTDOWN_DAY);
+                handleAddEventAction();
             }
         };
+    }
+
+    public void handleAddEventAction() {
+        Intent intent = new Intent(MainActivity.this, AddEventActivity.class);
+        startActivityForResult(intent, AppConstants.RequestCode.CODE_EVENT_ADD);
     }
 
     @Override

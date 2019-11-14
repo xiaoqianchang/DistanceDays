@@ -1,4 +1,4 @@
-package com.adups.distancedays.utils;
+package com.adups.distancedays.statistics;
 
 import android.content.Context;
 import android.text.TextUtils;

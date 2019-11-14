@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.adups.distancedays.utils.StatisticsUtil;
+import com.adups.distancedays.statistics.StatisticsUtil;
 import com.adups.distancedays.utils.StatusBarUtils;
 
 import androidx.annotation.Nullable;

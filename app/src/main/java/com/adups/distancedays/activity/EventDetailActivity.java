@@ -9,6 +9,8 @@ import com.adups.distancedays.R;
 import com.adups.distancedays.base.ToolBarActivity;
 import com.adups.distancedays.fragment.ShareDialogFragment;
 import com.adups.distancedays.model.EventModel;
+import com.adups.distancedays.statistics.StatisticsEventConstant;
+import com.adups.distancedays.statistics.StatisticsUtil;
 import com.adups.distancedays.utils.AppConstants;
 import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.DateUtils;
@@ -90,6 +92,7 @@ public class EventDetailActivity extends ToolBarActivity {
         return new Runnable() {
             @Override
             public void run() {
+                StatisticsUtil.onEvent(mContext, StatisticsEventConstant.COUNTDOWN_DETAIL_PAGE_EDIT);
                 Intent intent = new Intent(mContext, AddEventActivity.class);
                 intent.putExtra(BundleConstants.KEY_TYPE, AddEventActivity.TYPE_EDIT);
                 intent.putExtra(BundleConstants.KEY_MODEL, mEventModel);
@@ -134,6 +137,7 @@ public class EventDetailActivity extends ToolBarActivity {
         }
         ShareDialogFragment dialogFragment = ShareDialogFragment.newInstance(bgResId, tvTitle.getText().toString(), tvDay.getText().toString(), tvDueDate.getText().toString());
         dialogFragment.show(getSupportFragmentManager(), ShareDialogFragment.TAG);
+        StatisticsUtil.onEvent(mContext, StatisticsEventConstant.SHARE_BUTTON_CLICK);
     }
 
     /**
@@ -144,11 +148,13 @@ public class EventDetailActivity extends ToolBarActivity {
         if (tvDay == null || mEventModel == null) {
             return;
         }
+        StatisticsUtil.onEvent(mContext, StatisticsEventConstant.CARD_INTERMEDIATE_DATE_CLICK);
         tvDay.setText(DateUtils.getFormatDaysText(mEventModel.getDays(), tvDay.getText().toString()));
     }
 
     @OnClick(R.id.tv_due_date)
     public void onDueDateClick() {
+        StatisticsUtil.onEvent(mContext, StatisticsEventConstant.CARD_BOTTOM_TARGET_DATE_CLICK);
         refreshDueDate(!isLunarCalendar);
     }
 }

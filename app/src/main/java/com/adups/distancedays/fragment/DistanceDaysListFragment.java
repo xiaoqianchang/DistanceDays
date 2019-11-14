@@ -24,6 +24,8 @@ import com.adups.distancedays.db.EntityConverter;
 import com.adups.distancedays.db.dao.EventDao;
 import com.adups.distancedays.db.entity.EventEntity;
 import com.adups.distancedays.model.EventModel;
+import com.adups.distancedays.statistics.StatisticsEventConstant;
+import com.adups.distancedays.statistics.StatisticsUtil;
 import com.adups.distancedays.utils.AppConstants;
 import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.DateUtils;
@@ -92,11 +94,13 @@ public class DistanceDaysListFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == mAdapter.getCount()) {
+                    StatisticsUtil.onEvent(getContext(), StatisticsEventConstant.LIST_ADD_ITEM_CLICK);
                     if (getActivity() instanceof MainActivity) {
-                        ((MainActivity) getActivity()).getMenuAddEventAction().run();
+                        ((MainActivity) getActivity()).handleAddEventAction();
                     }
                     return;
                 }
+                StatisticsUtil.onEvent(getContext(), StatisticsEventConstant.LIST_ITEM_CLICK);
                 Intent intent = new Intent(getContext(), EventDetailActivity.class);
                 Bundle bundle = new Bundle();
                 EventModel model = (EventModel) mAdapter.getItem(position);

@@ -12,6 +12,8 @@ import com.adups.distancedays.base.BaseDialogFragment;
 import com.adups.distancedays.manager.AppShareManager;
 import com.adups.distancedays.model.EventModel;
 import com.adups.distancedays.model.ShareModel;
+import com.adups.distancedays.statistics.StatisticsEventConstant;
+import com.adups.distancedays.statistics.StatisticsUtil;
 import com.adups.distancedays.utils.BundleConstants;
 
 import java.util.ArrayList;
@@ -105,6 +107,7 @@ public class ShareDialogFragment extends BaseDialogFragment {
         mAdapter.setOnItemClickListener(new ShareDialogAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, AppShareManager.ShareToType t, int position) {
+                handleShareStatistics(t);
                 shareTo(mAdapter.getItem(position), buildData(AppShareManager.TYPE_SHARE_IMG));
                 dismissAllowingStateLoss();
             }
@@ -131,6 +134,25 @@ public class ShareDialogFragment extends BaseDialogFragment {
     @OnClick(R.id.tv_dismiss)
     public void onDismissClick() {
         dismissAllowingStateLoss();
+    }
+
+    /**
+     * 分享渠道统计
+     *
+     * @param t
+     */
+    private void handleShareStatistics(AppShareManager.ShareToType t) {
+        switch (t) {
+            case TO_WEIXIN_FRIEND:
+                StatisticsUtil.onEvent(mContext, StatisticsEventConstant.SHARE_POP_WEIXIN);
+                break;
+            case TO_WEIXIN_GROUP:
+                StatisticsUtil.onEvent(mContext, StatisticsEventConstant.SHARE_POP_WECHAT_CIRCLE);
+                break;
+            case TO_QQ:
+                StatisticsUtil.onEvent(mContext, StatisticsEventConstant.SHARE_POP_QQ);
+                break;
+        }
     }
 
     /**

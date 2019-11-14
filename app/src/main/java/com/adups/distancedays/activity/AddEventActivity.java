@@ -30,6 +30,8 @@ import com.adups.distancedays.db.entity.EventEntity;
 import com.adups.distancedays.fragment.LunarPickerDialogFragment;
 import com.adups.distancedays.manager.DefaultEventFactory;
 import com.adups.distancedays.model.EventModel;
+import com.adups.distancedays.statistics.StatisticsEventConstant;
+import com.adups.distancedays.statistics.StatisticsUtil;
 import com.adups.distancedays.utils.BitmapUtils;
 import com.adups.distancedays.utils.BundleConstants;
 import com.adups.distancedays.utils.DateUtils;
@@ -112,6 +114,11 @@ public class AddEventActivity extends ToolBarActivity {
         spinnerRepeat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (mType == TYPE_EDIT) {
+                    StatisticsUtil.onEvent(mContext, StatisticsEventConstant.EDIT_OF_REPEAT);
+                } else {
+                    StatisticsUtil.onEvent(mContext, StatisticsEventConstant.ADD_OF_REPEAT);
+                }
                 mRepeatType = EntityConverter.getRepeatType(position);
                 spinnerRepeat.setPrompt(repeatTypes[position]);
                 ((TextView) spinnerRepeat.getSelectedView()).setTextColor(Color.parseColor("#3283D2"));
@@ -127,6 +134,11 @@ public class AddEventActivity extends ToolBarActivity {
     @OnClick(R.id.tv_target_date)
     public void onTargetDateClick(View view) {
         if (switchCalendar.isChecked()) {
+            if (mType == TYPE_EDIT) {
+                StatisticsUtil.onEvent(mContext, StatisticsEventConstant.EDIT_OF_LUNAR_CALENDAR_CLICK_DATA);
+            } else {
+                StatisticsUtil.onEvent(mContext, StatisticsEventConstant.ADD_OF_LUNAR_CALENDAR_CLICK_DATA);
+            }
             LunarPickerDialogFragment dialog2 = LunarPickerDialogFragment.newInstance(mTargetCalendar);
             dialog2.setOnConfirmClickListener(new LunarPickerDialogFragment.OnConfirmClickListener() {
                 public void onConfirmClick(Calendar selectedCalendar) {
@@ -137,6 +149,11 @@ public class AddEventActivity extends ToolBarActivity {
             dialog2.show(getSupportFragmentManager(), "edit");
 
         } else {
+            if (mType == TYPE_EDIT) {
+                StatisticsUtil.onEvent(mContext, StatisticsEventConstant.EDIT_OF_GREGORIAN_DATE_CLICK);
+            } else {
+                StatisticsUtil.onEvent(mContext, StatisticsEventConstant.ADD_OF_GREGORIAN_DATE_CLICK);
+            }
             DialogFragment datePickerFragment = new DatePickerFragment(this);
             datePickerFragment.show(getSupportFragmentManager(), "datePicker");
             //                Calendar calendar = Calendar.getInstance();
@@ -154,8 +171,22 @@ public class AddEventActivity extends ToolBarActivity {
 
     @OnCheckedChanged(R.id.switch_calendar)
     public void onSwitchCalendarClick() {
+        if (mType == TYPE_EDIT) {
+            StatisticsUtil.onEvent(mContext, StatisticsEventConstant.EDIT_OF_GREGORIAN_CALENDAR_SWITCH);
+        } else {
+            StatisticsUtil.onEvent(mContext, StatisticsEventConstant.ADD_OF_GREGORIAN_CALENDAR_SWITCH);
+        }
         mIsLunarCalendar = switchCalendar.isChecked();
         refreshTargetCalendar();
+    }
+
+    @OnCheckedChanged(R.id.switch_top)
+    public void onSwitchTopClick() {
+        if (mType == TYPE_EDIT) {
+            StatisticsUtil.onEvent(mContext, StatisticsEventConstant.edit_of_top_switch);
+        } else {
+            StatisticsUtil.onEvent(mContext, StatisticsEventConstant.ADD_OF_TOP_SWITCH);
+        }
     }
 
     /**
@@ -163,6 +194,11 @@ public class AddEventActivity extends ToolBarActivity {
      */
     @OnClick(R.id.btn_save)
     public void onSaveClick() {
+        if (mType == TYPE_EDIT) {
+            StatisticsUtil.onEvent(mContext, StatisticsEventConstant.EDIT_OF_SAVE);
+        } else {
+            StatisticsUtil.onEvent(mContext, StatisticsEventConstant.ADD_OF_SAVE);
+        }
         String eventName = edtEventName.getText().toString().trim();
         if (TextUtils.isEmpty(eventName)) {
             ToastUtil.showToast("事件名称不能为空");
