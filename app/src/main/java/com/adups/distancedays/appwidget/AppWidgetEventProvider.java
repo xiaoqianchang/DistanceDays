@@ -1,5 +1,6 @@
 package com.adups.distancedays.appwidget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.adups.distancedays.MainActivity;
 import com.adups.distancedays.R;
 import com.adups.distancedays.db.DBHelper;
 import com.adups.distancedays.db.EntityConverter;
@@ -159,11 +161,10 @@ public class AppWidgetEventProvider extends BaseAppWidgetProvider {
         Log.d(TAG, "onWidgetUpdate : appWidgetId = " + appWidgetId);
         RemoteViews views = getRemoteViews(context);
         if (views != null) {
-//            Intent openIntent = new Intent();
-//            openIntent.setAction(Intent.ACTION_VIEW);
-//            openIntent.setData(Uri.parse("distancedays://open"));
-//            PendingIntent openPendingIntent = PendingIntent.getActivity(context, 0, openIntent, 0);
-//            views.setOnClickPendingIntent(R.id.widget_content, openPendingIntent);
+            Intent openIntent = new Intent(context, MainActivity.class);
+            openIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            PendingIntent openPendingIntent = PendingIntent.getActivity(context, appWidgetId, openIntent, 0);
+            views.setOnClickPendingIntent(R.id.widget_content, openPendingIntent);
 
             setDataToView(context, views);
             // 更新部件
