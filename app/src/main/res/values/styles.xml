@@ -15,6 +15,14 @@
 
     </style>
 
+    <style name="ThemeSplash" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:background">@mipmap/splash_bg</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <!-- Before -->
     <style name="Animation.Activity" parent="@android:style/Animation">
         <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>

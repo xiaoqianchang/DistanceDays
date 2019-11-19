@@ -1,0 +1,41 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "29.0.2"
+
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'AndroidManifest.xml'
+        exclude 'R.txt'
+        exclude 'res/values/values.xml'
+        exclude 'proguard.txt'
+        exclude 'classes.jar'
+    }
+
+}
+repositories{
+    flatDir{dirs 'libs'}
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(path: ':adlibrary')
+    implementation files('libs\\android-gif-drawable-1.2.6.aar')
+    implementation files('libs\\open_ad_sdk.aar')
+}
