@@ -1,6 +1,9 @@
 package com.adups.distancedays.db;
 
+import android.text.TextUtils;
+
 import com.adups.distancedays.db.entity.EventEntity;
+import com.adups.distancedays.manager.DefaultEventFactory;
 import com.adups.distancedays.model.EventModel;
 import com.adups.distancedays.utils.DateUtils;
 import com.adups.distancedays.utils.LunarCalendar;
@@ -34,7 +37,7 @@ public class EntityConverter {
         Calendar todayDate = Calendar.getInstance();
         targetDate.setTimeInMillis(entity.getTargetDate());
 
-        Calendar dueDate2 = getRepeatedDueDateNew(targetDate, model.getRepeatType(), model.isLunarCalendar());
+        Calendar dueDate2 = getRepeatedDueDateNew(targetDate, model);
 
         int days = (int) DateUtils.getDateOffset(dueDate2, todayDate);
         model.setOutOfTargetDate(days < 0);
@@ -61,8 +64,15 @@ public class EntityConverter {
         return entity;
     }
 
-    public static Calendar getRepeatedDueDateNew(Calendar dueDate, int repeatType, boolean isLunar) {
-        return getRepeatedDueDateNew(dueDate, repeatType, 0, 0, isLunar);
+    private static Calendar getRepeatedDueDateNew(Calendar targetDate, EventModel model) {
+        if (model == null) {
+            return Calendar.getInstance();
+        }
+        return getRepeatedDueDateNew(targetDate, model.getEventTitle(), model.getRepeatType(), model.isLunarCalendar());
+    }
+
+    public static Calendar getRepeatedDueDateNew(Calendar dueDate, String eventTitle, int repeatType, boolean isLunar) {
+        return getRepeatedDueDateNew(dueDate, eventTitle, repeatType, 0, 0, isLunar);
     }
 
     /**
@@ -94,12 +104,13 @@ public class EntityConverter {
      * 获取重复类型到期日的 Calendar
      *
      * @param dueDate 到期日 即 目标日
+     * @param eventTitle 事件标题，目前这个参数是用于判断新年类型的
      * @param repeatType 重复类型
      * @param repeatInterval 重复间隔，比如每一年重复、每两年重复等，默认为0
      * @param isLunar 是否为阴历
      * @return
      */
-    public static Calendar getRepeatedDueDateNew(Calendar dueDate, int repeatType, int repeatInterval, int extra, boolean isLunar) {
+    public static Calendar getRepeatedDueDateNew(Calendar dueDate, String eventTitle, int repeatType, int repeatInterval, int extra, boolean isLunar) {
         Calendar todayDate = Calendar.getInstance();
         Calendar result = (Calendar) dueDate.clone();
         if (repeatType == EventModel.TYPE_REPEAT_NONE || repeatInterval < 0) {
@@ -157,8 +168,13 @@ public class EntityConverter {
                 } else if (field == Calendar.WEEK_OF_YEAR) {
                     result.add(Calendar.DAY_OF_YEAR, repeatInterval * 7);
                 } else {
-                    result.set(field, result.get(field) + repeatInterval);
-                    int i3 = result.get(field);
+                    if (field == Calendar.YEAR && TextUtils.equals(eventTitle, DefaultEventFactory.TITLE_NEW_YEAR)) {
+                        LunarCalendar lunarCalendar = new LunarCalendar(Calendar.getInstance());
+                        result = LunarCalendar.lunarToSolarCalendar(lunarCalendar.getYear() + repeatInterval, 1, 1, lunarCalendar.isLeapMonth());
+                    } else {
+                        result.set(field, result.get(field) + repeatInterval);
+                        int i3 = result.get(field);
+                    }
                 }
             } else {
                 break;

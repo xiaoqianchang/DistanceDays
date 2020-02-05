@@ -27,6 +27,8 @@ import java.util.Calendar;
  */
 public class DefaultEventFactory {
 
+    public static final String TITLE_NEW_YEAR = "春节";
+
     // 小部件 provider
     private AppWidgetEventProvider mProvider;
 
@@ -101,7 +103,7 @@ public class DefaultEventFactory {
         Calendar calendar = LunarCalendar.lunarToSolarCalendar(lunarCalendar.getYear() + 1, 1, 1, lunarCalendar.isLeapMonth());
 
         EventEntity entity = new EventEntity();
-        entity.setEventTitle("春节");
+        entity.setEventTitle(TITLE_NEW_YEAR);
         entity.setCreateDate(DateUtils.getCurrentTimeMillis());
         entity.setTargetDate(calendar.getTimeInMillis());
         entity.setIsLunarCalendar(false);
