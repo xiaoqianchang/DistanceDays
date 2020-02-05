@@ -7,9 +7,12 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="@dimen/date_card_small_radius"
-        app:cardElevation="1dp"
-        app:contentPadding="-3dp">
+        app:cardCornerRadius="4dp"
+        app:cardElevation="2dp"
+        app:cardMaxElevation="2dp"
+        app:cardUseCompatPadding="true"
+        app:cardPreventCornerOverlap="false"
+        app:contentPadding="0dp">
 
         <LinearLayout
             android:id="@+id/widget_content"
@@ -43,11 +46,7 @@
                 android:textSize="50sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:scaleType="fitXY" />
+            <include layout="@layout/view_dash_line"/>
 
             <TextView
                 android:id="@+id/due_date"

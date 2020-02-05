@@ -129,7 +129,7 @@ public class LocalTemplateWebView extends WebView {
             }
         }
 
-        setData(stringBuilder.toString());
+        setData(stringBuilder.toString(), addTemplate);
     }
 
     /**
@@ -137,7 +137,7 @@ public class LocalTemplateWebView extends WebView {
      *
      * @param richStr
      */
-    private void setData(String richStr) {
+    private void setData(String richStr, boolean addTemplate) {
         if (Looper.myLooper() == null) {
             return;
         }
@@ -153,6 +153,9 @@ public class LocalTemplateWebView extends WebView {
             settings.setDomStorageEnabled(true);
             settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
             settings.setAppCacheEnabled(false);
+            if (!addTemplate) {
+                settings.setTextSize(WebSettings.TextSize.LARGEST); // 针对html字号太小的设置，目前已为最大
+            }
             int SDK_INT = android.os.Build.VERSION.SDK_INT;
             if (SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 try {

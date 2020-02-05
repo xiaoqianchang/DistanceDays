@@ -202,7 +202,7 @@
 	<dimen name="compat_control_corner_material">2dp</dimen>
 	<dimen name="date_card_big_height">120dp</dimen>
 	<dimen name="date_card_small_margin_top">@dimen/date_card_big_height</dimen>
-	<dimen name="date_card_small_radius">8dp</dimen>
+	<dimen name="date_card_small_radius">4dp</dimen>
 	<dimen name="date_detail_title_text_margin">@dimen/spacing_small</dimen>
 	<dimen name="default_circle_indicator_gap_width">3dp</dimen>
 	<dimen name="default_circle_indicator_radius">3dp</dimen>

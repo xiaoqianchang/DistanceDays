@@ -18,6 +18,6 @@
         android:listSelector="@color/color_transparent"
         android:numColumns="2"
         android:scrollbars="none"
-        android:verticalSpacing="6dp" />
+        android:verticalSpacing="5dp" />
 
 </FrameLayout>
