@@ -5,7 +5,9 @@ import android.content.Context;
 
 import com.adups.distancedays.BuildConfig;
 import com.adups.distancedays.manager.AppShareManager;
+import com.adups.distancedays.utils.AppRunningStatusCallbacks;
 import com.adups.distancedays.utils.CommonUtil;
+import com.common.adlib.base.HandlerManager;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -26,6 +28,8 @@ public class DaysApplication extends Application {
         super.onCreate();
         mAppInstance = getApplicationContext();
         CommonUtil.init(this, BuildConfig.DEBUG);
+        HandlerManager.init(this);
+        registerActivityLifecycleCallbacks(new AppRunningStatusCallbacks());
         AppShareManager.init();
         LeakCanary.install(this);
     }
