@@ -196,3 +196,8 @@ public static java.lang.String TABLENAME;
 }
 #### end ProGuard configurations for event bus ####
 
+#tt ad start
+-keep class com.bytedance.sdk.openadsdk.** { *; }
+-keep public interface com.bytedance.sdk.openadsdk.downloadnew.** {*;}
+-keep class com.pgl.sys.ces.* {*;}
+#tt ad end
