@@ -11,15 +11,18 @@ package com.adups.distancedays.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import com.adups.distancedays.MainActivity;
 import com.adups.distancedays.R;
-import com.adups.distancedays.advert.AdFactory;
 import com.adups.distancedays.base.BaseActivity;
-import com.common.adlib.base.BaseAd;
-import com.common.adlib.bean.RequestBean;
+import com.adups.distancedays.manager.GlobalConfigManager;
+import com.adups.distancedays.model.AppConfigModel;
+import com.litre.openad.ad.LitreSplashAd;
+import com.litre.openad.para.LitreError;
+import com.litre.openad.para.LitreRequest;
+import com.litre.openad.stamp.splash.LitreSplashListener;
 
 import butterknife.BindView;
 
@@ -38,60 +41,71 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        RequestBean requestBean = new RequestBean();
-        requestBean.setCount(1);
-        requestBean.setSdkType("toutiao");
-        requestBean.setAppid("5035088");
-        requestBean.setZoneid("887344001");
-
-        BaseAd baseAd = AdFactory.newAd(SplashActivity.this,requestBean,splashContainer);
-        if(baseAd == null){
-            autoJump();
-            //Toast.makeText(this,"请求广告类型不对， 无" + requestBean.getSdkType(),Toast.LENGTH_SHORT).show();
-            return;
-        }
-        baseAd.requestSplashAd(new BaseAd.SplashAdListener() {
+        GlobalConfigManager.getInstance().fetchAppConfig(new GlobalConfigManager.FetchAppConfigCallback() {
             @Override
-            public void onLoaded() {
-                //Toast.makeText(SplashActivity.this,"onLoaded",Toast.LENGTH_SHORT).show();
+            public void onFetchSuccess(AppConfigModel model) {
+                if (model == null || model.isShowSplashAd()) {
+                    loadAd();
+                } else {
+                    jumpToMain();
+                }
             }
 
             @Override
-            public void onAdShow() {
-                //Toast.makeText(SplashActivity.this,"onAdShow",Toast.LENGTH_SHORT).show();
+            public void onFetchFail() {
+                loadAd();
+            }
+        });
+    }
+
+    private void loadAd() {
+        LitreRequest adRequest = new LitreRequest.Builder()
+                //必须项，必须是activity对象
+                .Contenxt(this)
+                //必须项,加载广告的父布局
+                .adRoot(splashContainer)
+                //必须项,广告宽高尺寸，单位px
+                .size(new int[]{1080, 1920})
+                //必须项,配置的广告位名称
+                .position("peak_splash")
+                .build();
+        LitreSplashAd litreSplashAd = new LitreSplashAd(adRequest);
+        litreSplashAd.setListener(new LitreSplashListener() {
+            @Override
+            public void onLoaded(View view) {
+                //广告加载成功回调,返回的view不可靠，可能为空
             }
 
             @Override
-            public void onAdClick() {
-                //Toast.makeText(SplashActivity.this,"onAdClick",Toast.LENGTH_SHORT).show();
+            public void onError(LitreError error) {
+                // 报错、无网络
+                jumpToMain();
             }
 
             @Override
-            public void onAdClose() {
-                //Toast.makeText(SplashActivity.this,"onAdClose",Toast.LENGTH_SHORT).show();
-                autoJump();
-            }
-
-            @Override
-            public void onAdError(int code, String msg) {
-                //Toast.makeText(SplashActivity.this,"onAdError",Toast.LENGTH_SHORT).show();
-                autoJump();
-            }
-
-            @Override
-            public void onAdSkip() {
-                //Toast.makeText(SplashActivity.this,"onAdSkip",Toast.LENGTH_SHORT).show();
-                autoJump();
+            public void onTimeOut() {
+                jumpToMain();
+                //广告加载超时
             }
 
             @Override
             public void onAdTimeOver() {
-                autoJump();
+                jumpToMain();
+                //开屏广告倒计时时间结束
             }
-        },AD_TIME_OUT);
+
+            @Override
+            public void onAdSkip() {
+                super.onAdSkip();
+                jumpToMain();
+                //用户点击了跳过按钮
+            }
+        });
+        //请求广告
+        litreSplashAd.load();
     }
 
-    private void autoJump() {
+    private void jumpToMain() {
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
         finish();

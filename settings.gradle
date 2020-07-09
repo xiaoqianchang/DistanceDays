@@ -1,2 +1,2 @@
-include ':app', ':greendaogeneratorlib', ':sharelib', ':statusbarlibrary',':adlibrary',':ttLib'
+include ':app', ':greendaogeneratorlib', ':sharelib', ':statusbarlibrary'
 rootProject.name='DistanceDays'

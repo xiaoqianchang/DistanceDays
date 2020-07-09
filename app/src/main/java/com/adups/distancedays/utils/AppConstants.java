@@ -20,6 +20,11 @@ public class AppConstants {
          * 首次启用app
          */
         public static final String FIRST_LAUNCH_APP = "first_launch_app";
+
+        /**
+         * app 全局配置
+         */
+        public static final String APP_CONFIG2 = "app_config2";
     }
 
     public static class RequestCode {

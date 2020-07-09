@@ -20,7 +20,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url "https://jitpack.io" }
         maven { url 'https://dl.bintray.com/umsdk/release' }
+        maven { url "https://dl.bintray.com/litre/Component" }
 
     }
 }
@@ -37,10 +39,15 @@ ext {
             minSdkVersion    : 17,
             targetSdkVersion : 28,
             compileSdkVersion: 28,
-            buildToolsVersion: '29.0.2'
+            buildToolsVersion: '29.0.2',
+            parseVersion     : '1.23.1'
     ]
 
     config = [
             QQ_APP_ID                 : 'tencent101810128'
+    ]
+
+    dependencies = [
+            parse            : 'com.github.parse-community.Parse-SDK-Android:parse:' + android.parseVersion
     ]
 }
