@@ -8,6 +8,11 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        // 额外加的，不然会在控制台输出警告无qqappid
+        manifestPlaceholders = [
+                qqappid            : rootProject.ext.config.QQ_APP_ID
+        ]
     }
 
     buildTypes {
