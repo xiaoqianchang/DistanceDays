@@ -42,7 +42,7 @@ public class SplashActivity extends BaseActivity {
         requestBean.setCount(1);
         requestBean.setSdkType("toutiao");
         requestBean.setAppid("5035088");
-        requestBean.setZoneid("835088081");
+        requestBean.setZoneid("887344001");
 
         BaseAd baseAd = AdFactory.newAd(SplashActivity.this,requestBean,splashContainer);
         if(baseAd == null){
