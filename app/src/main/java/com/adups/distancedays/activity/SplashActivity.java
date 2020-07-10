@@ -11,6 +11,7 @@ package com.adups.distancedays.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -28,11 +29,15 @@ import butterknife.BindView;
 
 public class SplashActivity extends BaseActivity {
 
+    // 启动APP后进入该页面进行预加载1.5S，之后跳转到首页
+    private static final int DELAYMILLIS = 1500;
+
     @BindView(R.id.splash_container)
     FrameLayout splashContainer;
     @BindView(R.id.root_layout)
     RelativeLayout rootLayout;
-    private static final int AD_TIME_OUT = 5000;
+
+    final Handler mHandler = new Handler();
 
     @Override
     protected int getContentViewId() {
@@ -47,7 +52,7 @@ public class SplashActivity extends BaseActivity {
                 if (model == null || model.isShowSplashAd()) {
                     loadAd();
                 } else {
-                    jumpToMain();
+                    jumpToMain(DELAYMILLIS);
                 }
             }
 
@@ -106,9 +111,15 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void jumpToMain() {
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        jumpToMain(0);
+    }
+
+    private void jumpToMain(long delayMillis) {
+        mHandler.postDelayed(() -> {
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }, delayMillis);
     }
 
     public static void startActivity(Activity activity){
