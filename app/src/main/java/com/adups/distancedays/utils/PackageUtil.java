@@ -1,8 +1,10 @@
 package com.adups.distancedays.utils;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 
 /**
  * Package util
@@ -12,6 +14,48 @@ import android.content.pm.PackageManager;
  * @version 1.0
  */
 public class PackageUtil {
+
+    /**
+     * 获取渠道
+     *
+     * @param context 上下文环境
+     * @return 元数据值
+     */
+    public static String getChannel(Context context) {
+        return getMetaData(context, "UMENG_CHANNEL");
+    }
+
+    /**
+     * 获取元数据
+     *
+     * @param context 上下文环境
+     * @param key 元数据key
+     * @return 元数据值
+     */
+    public static String getMetaData(Context context, String key) {
+        if (context == null || TextUtils.isEmpty(key)) {
+            return "";
+        }
+        ApplicationInfo appInfo;
+        try {
+            appInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(),
+                    PackageManager.GET_META_DATA);
+        } catch (Exception e) {
+            return "";
+        }
+
+        if (appInfo != null && appInfo.metaData != null && appInfo.metaData.containsKey(key)) {
+            String metaData = appInfo.metaData.getString(key);
+            if (!TextUtils.isEmpty(metaData)) {
+                return metaData;
+            } else {
+                metaData = appInfo.metaData.getInt(key) + "";
+            }
+            return metaData;
+        } else {
+            return "";
+        }
+    }
 
     private static PackageInfo getPackageInfo(Context pContext) {
         return getPackageInfo(pContext, 0);

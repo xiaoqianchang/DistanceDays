@@ -4,10 +4,12 @@ import android.app.Application;
 import android.content.Context;
 
 import com.adups.distancedays.BuildConfig;
+import com.adups.distancedays.ad.MobileAdsUtil;
 import com.adups.distancedays.manager.AppShareManager;
 import com.adups.distancedays.utils.AppRunningStatusCallbacks;
+import com.adups.distancedays.utils.BaseUtil;
 import com.adups.distancedays.utils.CommonUtil;
-import com.common.adlib.base.HandlerManager;
+import com.adups.distancedays.utils.ParseUtil;
 import com.squareup.leakcanary.LeakCanary;
 
 /**
@@ -28,10 +30,14 @@ public class DaysApplication extends Application {
         super.onCreate();
         mAppInstance = getApplicationContext();
         CommonUtil.init(this, BuildConfig.DEBUG);
-        HandlerManager.init(this);
-        registerActivityLifecycleCallbacks(new AppRunningStatusCallbacks());
-        AppShareManager.init();
-        LeakCanary.install(this);
+
+        if (BaseUtil.isMainProcess(this)) {
+            ParseUtil.init(this);
+            MobileAdsUtil.init();
+            LeakCanary.install(this);
+            AppShareManager.init();
+            registerActivityLifecycleCallbacks(new AppRunningStatusCallbacks());
+        }
     }
 
     public static final Context getMyApplicationContext() {

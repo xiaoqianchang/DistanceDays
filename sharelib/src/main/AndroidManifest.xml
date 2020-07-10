@@ -9,6 +9,14 @@
 
   <application
     android:supportsRtl="true">
+
+    <!-- Android6.0中取消对 Apache HTTP （HttpClient）的支持，Android9.0开始默认已经移除该库。
+    由于qq分享中还在使用该库，所以需添加以下内容，否则出现
+     ClassNotFoundException: Didn't find class "org.apache.http.conn.scheme.SchemeRegistry"-->
+    <uses-library
+        android:name="org.apache.http.legacy"
+        android:required="false"/>
+
     <!--分享 START -->
     <!-- 微信 分享 -->
     <activity
