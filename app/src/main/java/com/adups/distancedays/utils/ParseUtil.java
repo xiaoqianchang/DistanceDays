@@ -19,7 +19,7 @@ public class ParseUtil {
             Parse.initialize(new Parse.Configuration.Builder(application)
                     .applicationId("distanceday")
                     // if desired
-                    .clientKey("c7dc52194bfa978f1d2e98a6668942f3") // read only key
+                    .clientKey("4320dac118e0f361d95f316f8e70d2e6") // read only key
                     .server("http://p.mktask.com/distanceday")
                     .build());
         } catch (Exception e) {
